@@ -4,8 +4,25 @@
 
 {{ template "chart.badgesSection" . }}
 
+### Installing the Chart
+
 > [!IMPORTANT]
 > Please install the Calendare Server first.
+
+To install the chart with the release name my-release:
+
+```shell
+helm install my-ui-release oci://ghcr.io/robslgm/charts/calendare-ui
+```
+
+### Uninstalling the Chart
+To uninstall/delete the my-ui-release deployment:
+
+```shell
+helm delete my-ui-release
+```
+The command removes all the Kubernetes components associated with the chart and deletes the release.
+
 
 ## Accessing the UI
 

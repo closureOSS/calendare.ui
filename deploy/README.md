@@ -4,8 +4,25 @@
 
 ![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.3.0](https://img.shields.io/badge/AppVersion-0.3.0-informational?style=flat-square) 
 
+### Installing the Chart
+
 > [!IMPORTANT]
 > Please install the Calendare Server first.
+
+To install the chart with the release name my-release:
+
+```shell
+helm install my-ui-release oci://ghcr.io/robslgm/charts/calendare-ui
+```
+
+### Uninstalling the Chart
+To uninstall/delete the my-ui-release deployment:
+
+```shell
+helm delete my-ui-release
+```
+The command removes all the Kubernetes components associated with the chart and deletes the release.
+
 
 ## Accessing the UI
 
