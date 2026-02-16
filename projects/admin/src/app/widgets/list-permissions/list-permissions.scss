@@ -1,0 +1,45 @@
+:host {
+  display: inline-block;
+}
+
+.permissions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2em;
+  padding: 0.5em 0;
+  font: var(--mat-sys-body-small);
+  flex-direction: row;
+
+  &.vertical {
+    flex-direction: column;
+  }
+
+  .permission {
+    width: max-content;
+    padding: 0.3em 0.6em;
+    background-color: var(--calendare-color-permission-permit);
+    color: var(--calendare-color-on-permission-permit);
+    border: 1px solid var(--mat-sys-outline-variant);
+    border-bottom-left-radius: 0.6em;
+    border-top-right-radius: 0.6em;
+    letter-spacing: 0.066em;
+    &.all {
+      border-radius: 0;
+      // &:after {
+      //   content: '*';
+      // }
+    }
+    &.none {
+      border-radius: 0;
+      background-color: var(--mat-sys-surface-container-high);
+      color: var(--mat-sys-on-surface);
+    }
+  }
+
+  &.prohibit {
+    .permission:not(.none) {
+      background-color: var(--calendare-color-permission-prohibit);
+      color: var(--calendare-color-on-permission-prohibit);
+    }
+  }
+}

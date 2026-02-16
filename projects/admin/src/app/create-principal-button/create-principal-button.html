@@ -1,0 +1,28 @@
+<ng-container *transloco="let t">
+  @if(mini()) {
+  <button matMiniFab [matMenuTriggerFor]="menu" [disabled]="!permissions() || !permissions()?.isAdmin"><mat-icon
+      svgIcon="add"></mat-icon></button>
+  } @else {
+  <button matFab extended [matMenuTriggerFor]="menu" [disabled]="!permissions() || !permissions()?.isAdmin"><mat-icon
+      svgIcon="add"></mat-icon>{{ t('Principal') }}</button>
+  }
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/principal/new/INDIVIDUAL">
+      <mat-icon svgIcon="person#ptype"></mat-icon>
+      <span>{{ t('Person') }}</span>
+    </button>
+    <button mat-menu-item routerLink="/principal/new/GROUP">
+      <mat-icon svgIcon="group#ptype"></mat-icon>
+      <span>{{ t('Group') }}</span>
+    </button>
+    <button mat-menu-item routerLink="/principal/new/ROOM">
+      <mat-icon svgIcon="meeting_room#ptype"></mat-icon>
+      <span>{{ t('Room') }}</span>
+    </button>
+    <button mat-menu-item routerLink="/principal/new/RESOURCE">
+      <mat-icon svgIcon="speaker#ptype"></mat-icon>
+      <span>{{ t('Resource') }}</span>
+    </button>
+  </mat-menu>
+</ng-container>

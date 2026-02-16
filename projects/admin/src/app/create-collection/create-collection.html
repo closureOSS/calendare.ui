@@ -1,0 +1,45 @@
+<a9-navigate-back-button></a9-navigate-back-button>
+<form [formGroup]="form" (ngSubmit)="submitForm()" *transloco="let t">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ t('Create *collection for *username', {username: username(), collection:
+        t(collectionTypeLabel() ?? 'Collection')}) }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="a9-form">
+
+        @if(!collectionTypeLabel()) {
+        <mat-form-field>
+          <mat-label>{{ t('Type') }}</mat-label>
+          <mat-select formControlName="collectionType">
+            <mat-option value="Addressbook">{{ t('Addressbook') }}</mat-option>
+            <mat-option value="Calendar">{{ t('Calendar') }}</mat-option>
+            <mat-option value="Collection" disabled>{{ t('Collection / Folder') }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        }
+
+        <mat-form-field>
+          <mat-label>{{ t('Path name of collection') }}</mat-label>
+          <input matInput formControlName="uri" type="text" [placeholder]="t('Uri / Path')">
+          <mat-hint>{{ t('Last part of the path name, i.e. /username/something. Can\'t be changed after creation!',
+            {username: username()}) }}</mat-hint>
+          @if (form.get('uri')?.invalid) {
+          <mat-error>{{ t('Lowercase only, a-z or 0-9 or dot or hypen') }}</mat-error>
+          }
+        </mat-form-field>
+
+        @if(formMessage()){
+        <a9-hint-box class="a9-form-msg" mode="error" [slim]="true">{{formMessage()}}</a9-hint-box>
+        }
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <a9-action-bar>
+        <button matButton="filled" type="submit">{{ t('Create') }}</button>
+        <button matIconButton type="reset" (click)="refresh()" [title]="t('Reset')"><mat-icon svgIcon="restart_alt"></mat-icon></button>
+        <!-- <button matButton  type="reset" (click)="back()">{{ t('Cancel') }}</button> -->
+      </a9-action-bar>
+    </mat-card-actions>
+  </mat-card>
+</form>

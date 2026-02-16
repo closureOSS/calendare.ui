@@ -1,0 +1,72 @@
+:host {
+  display: block;
+}
+
+.feature-matrix {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+  width: fit-content;
+  max-width: calc(100vw - 0.5rem);
+  overflow: auto;
+  box-shadow: var(--mat-sys-level1);
+  background-color: var(--mat-sys-surface-container);
+
+  table {
+    border-collapse: collapse;
+  }
+
+  caption {
+    font: var(--mat-sys-title-small);
+  }
+
+  th,
+  td {
+    text-align: center;
+    padding: 0.75em;
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
+    &.client {
+      text-align: left;
+    }
+  }
+
+  thead {
+    .client {
+      font: var(--mat-sys-label-large);
+      vertical-align: bottom;
+    }
+    .feature {
+      font: var(--mat-sys-label-medium);
+      writing-mode: vertical-lr;
+      text-align: right;
+      width: 3rem;
+      rotate: -7.5deg;
+      translate: -1rem;
+      text-decoration: underline;
+      text-decoration-color: var(--mat-sys-outline);
+      text-underline-offset: 0.25em;
+    }
+  }
+  tbody {
+    .client {
+      font: var(--mat-sys-label-large);
+      color: var(--mat-sys-secondary);
+    }
+    .mark {
+      &.checked {
+        color: var(--mat-sys-tertiary);
+      }
+    }
+    :hover {
+      transition: background-color 0.25s ease-in;
+      background-color: var(--mat-sys-surface-container-lowest);
+    }
+  }
+
+  @media (width >= 48rem) {
+    padding: 1rem 1rem 2rem 1rem;
+    width: fit-content;
+    max-width: auto;
+    overflow: auto;
+  }
+}

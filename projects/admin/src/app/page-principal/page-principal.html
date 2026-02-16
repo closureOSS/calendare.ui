@@ -1,0 +1,83 @@
+<a9-navigate-back-button></a9-navigate-back-button>
+<article *transloco="let t">
+
+  <section>
+    @if(principal.value(); as principal) {
+    <cal-view-principal [principal]="principal"></cal-view-principal>
+    @if(hasPermission(principal.permissions, PrivilegeMask.WriteProperties) && !principal.isEmailVerified) {
+    <cal-edit-email-confirm [principal]="principal"
+      (confirmed)="$event ? refresh() : null"></cal-edit-email-confirm>
+    }
+    @if(hasPermission(principal.permissions, PrivilegeMask.ReadCurrentUserPrivilegeSet)) {
+    <aside>
+      <!-- <button matButton (click)="principalResource.reload()">Refresh</button> -->
+      <div class="label">{{ t('Current user privileges') }}</div>
+      <cal-list-permissions [permissions]="principal.permissions"></cal-list-permissions>
+    </aside>
+    }
+    }
+  </section>
+  @if(principal.value(); as principal) {
+
+  @if(hasPermission(principal.permissions, PrivilegeMask.ReadAcl)) {
+  @if(!principal.isRoot) {
+  <section>
+    <cal-view-memberships [username]="username()">
+      <div>{{ t('Memberships *principal', { principal: principal.displayName}) }}</div>
+    </cal-view-memberships>
+  </section>
+  }
+  @if(principal.hasGroups) {
+  <section>
+    <header>
+    </header>
+    <cal-view-member [username]="username()">
+      <div>{{ t('Members') }}</div>
+    </cal-view-member>
+  </section>
+  }
+  }
+  @if(hasPermission(principal.permissions, PrivilegeMask.ReadAcl)) {
+  <section>
+    <cal-view-privileges-to [username]="username()">
+      <div>{{ t('Grants to *principal', { principal: principal.displayName}) }}</div>
+    </cal-view-privileges-to>
+  </section>
+  @if(!principal.isRoot) {
+  <section>
+    <cal-view-privileges-from [username]="username()"
+      [editable]="hasPermission(principal.permissions, PrivilegeMask.WriteAcl)">
+      <div>{{ t('Privileges of *principal at', { principal: principal.displayName}) }}</div>
+    </cal-view-privileges-from>
+  </section>
+  }
+  }
+  @if(hasPermission(principal.permissions, PrivilegeMask.ReadAcl)) {
+  <section>
+    <header>
+      <div class="section-title">{{ t('Credentials') }}</div>
+    </header>
+    <cal-view-credentials [username]="username()" [reload]="reload()"></cal-view-credentials>
+    <a9-floating-action-bar>
+      <cal-create-credential-button [username]="username()"
+        (refresh)="refreshCredentials()"></cal-create-credential-button>
+    </a9-floating-action-bar>
+  </section>
+  }
+  @if(!principal.isRoot) {
+  <section>
+    <header>
+      <div class="section-title">{{ t('Collections') }}</div>
+    </header>
+    <cal-view-collections [username]="username()" [principalType]="principal.principalType"></cal-view-collections>
+    <a9-floating-action-bar>
+      <button matFab extended [disabled]="!hasPermission(principal.permissions, PrivilegeMask.Bind)"
+        [routerLink]="['/collection', 'create', username()]"><mat-icon svgIcon="add_box"></mat-icon>{{ t('Collection')
+        }}</button>
+      <!-- <button matButton (click)="refresh()">Refresh</button> -->
+    </a9-floating-action-bar>
+  </section>
+  }
+
+  }
+</article>

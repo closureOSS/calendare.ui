@@ -1,0 +1,25 @@
+<ng-container *transloco="let t">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ t('Confirm *emailaddress', {emailaddress: principal().email}) }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="a9-form">
+        <mat-form-field>
+          <mat-label>{{ t('Email confirmation code') }}</mat-label>
+          <input matInput [formControl]="confirmationToken" type="text" [placeholder]="t('Email confirmation code')">
+          <mat-hint>{{ t('Enter the confirmation code received by e-mail') }}</mat-hint>
+        </mat-form-field>
+      </div>
+        @if(formMessage()){
+        <a9-hint-box class="a9-form-msg" mode="error" [slim]="true">{{formMessage()}}</a9-hint-box>
+        }
+    </mat-card-content>
+    <mat-card-actions>
+      <a9-action-bar class="separate">
+        <button matButton="filled" type="button" (click)="submitForm()">{{ t('Confirm') }}</button>
+        <button matButton="outlined" type="button" (click)="resend()">{{ t('Send again') }}</button>
+      </a9-action-bar>
+    </mat-card-actions>
+  </mat-card>
+</ng-container>

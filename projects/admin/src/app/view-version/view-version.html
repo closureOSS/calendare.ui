@@ -1,0 +1,57 @@
+<a9-http-resource-viewer [resource]="version" *transloco="let t">
+  @if(version.value(); as env) {
+  <table class="a9-keyvalue-list">
+    <tbody>
+      <tr>
+        <th>{{ t('Admin UI version') }}</th>
+        <td>{{appVersion}}</td>
+      </tr>
+      <tr>
+        <th>{{ t('Server version') }}</th>
+        <td>{{env.version}}</td>
+      </tr>
+      @if(env.dbmsSchema?.length !== 0) {
+      <tr>
+        <th>{{ t('DBMS schema') }}</th>
+        <td>{{env.dbmsSchema | json}}</td>
+      </tr>
+      }
+      @if(env.dbmsDataMigrations?.length !== 0) {
+      <tr>
+        <th>{{ t('DBMS data') }}</th>
+        <td>{{env.dbmsDataMigrations | json}}</td>
+      </tr>
+      }
+      <tr>
+        <th>{{ t('Path base') }}</th>
+        <td>{{env.pathBase}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="feature-matrix">
+    <table>
+      <caption>{{ t('Features by calendar client') }}</caption>
+      <thead>
+        <tr>
+          <th class="client">Client</th>
+          @for (feature of env.features ?? []; track feature) {
+          <th class="feature">{{feature}}</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (calclient of env.featuresEnabled; track calclient.clientType) {
+        <tr>
+          <th class="client">{{calclient.clientType}}</th>
+          @for (cc of buildClientFeature(calclient, env.features??[]); track cc.feature) {
+          <td class="mark" [matTooltip]="cc.feature + (cc.enabled?' en' : ' dis') + 'abled for ' + calclient.clientType"
+            [class.checked]="cc.enabled">@if(cc.enabled){ <mat-icon svgIcon="check"></mat-icon> }</td>
+          }
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  }
+</a9-http-resource-viewer>

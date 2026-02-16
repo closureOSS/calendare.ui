@@ -1,0 +1,15 @@
+<ng-container *transloco="let t">
+<h2 mat-dialog-title>{{data.usernameLabel ?? t('Username')}} {{ t('for') }} {{data.username}}</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>{{ t('Username') }}</mat-label>
+    <input matInput minlength="5" maxlength="64" required [(ngModel)]="username" cdkFocusInitial
+      #usernamefld="ngModel" />
+      <mat-hint>{{ t('Minimum 5 characters') }}</mat-hint>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton (click)="onNoClick()" tabindex="1">{{ t('Cancel') }}</button>
+  <button matButton [disabled]="usernamefld.invalid" [mat-dialog-close]="username()">{{ t('Ok') }}</button>
+</mat-dialog-actions>
+</ng-container>

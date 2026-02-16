@@ -1,0 +1,21 @@
+@use '@angular/material' as mat;
+
+:host {
+  @include mat.button-overrides(
+    (
+      text-icon-offset: -1em,
+      // text-icon-spacing: 0.125em,
+      // text-with-icon-horizontal-padding: 0,
+      text-container-shape: 0,
+      // text-horizontal-padding: 1em,
+      // text-label-text-tracking: 1px,
+      text-label-text-color: var(--mat-sys-secondary),
+      text-state-layer-color: var(--mat-sys-on-secondary),
+      text-container-height: 48px,
+    )
+  );
+  .mat-mdc-button > .mat-icon {
+    line-height: 0;
+  }
+  display: block;
+}

@@ -1,0 +1,32 @@
+<ng-container *transloco="let t">
+  @if(currentUser.picture(); as pict) {
+  <img [matMenuTriggerFor]="usersetting" [alt]="t('User settings menu')" [src]="pict">
+  } @else {
+  <button matIconButton [matMenuTriggerFor]="usersetting"><mat-icon svgIcon="account_circle#menu"></mat-icon></button>
+  }
+
+  <mat-menu #usersetting="matMenu">
+    <ng-template matMenuContent>
+      @if(currentUser.displayname() || currentUser.email()) {
+      <div class="userinfo">
+        <span class="name">{{ currentUser.displayname() }}</span>
+        <span class="email">{{ currentUser.email() }}</span>
+      </div>
+      <mat-divider></mat-divider>
+      }
+      <ng-content></ng-content>
+      <button mat-menu-item [matMenuTriggerFor]="language">
+        <mat-icon svgIcon="language"></mat-icon>
+        <span>{{ t('Language') }}</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon svgIcon="logout"></mat-icon>
+        <span>{{ t('Logout') }}</span>
+      </button>
+    </ng-template>
+  </mat-menu>
+
+  <mat-menu #language="matMenu">
+    <ng-template matMenuContent><a9-language-menu></a9-language-menu></ng-template>
+  </mat-menu>
+</ng-container>

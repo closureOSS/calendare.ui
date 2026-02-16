@@ -1,0 +1,63 @@
+:host {
+  display: inline-block;
+}
+
+.permissions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  padding: 1em;
+  font: var(--mat-sys-label-medium);
+  flex-direction: row;
+  border: 1px solid var(--mat-sys-outline-variant);
+
+  &.vertical {
+    flex-direction: column;
+  }
+
+  .permission {
+    width: max-content;
+    padding: 0.75em 1.25em;
+    border: 1px solid var(--mat-sys-outline-variant);
+    background-color: var(--mat-sys-surface-container-high);
+    color: var(--mat-sys-on-surface);
+    border-radius: 0;
+    transition: 0.2s all ease-in;
+    box-shadow: var(--mat-sys-level2);
+
+    &.combined,
+    &.none {
+      border: 1px solid var(--mat-sys-outline-variant);
+      border-radius: 1em;
+    }
+    &.combined {
+      background-color: var(--mat-sys-surface-container-low);
+    }
+    &.none {
+      background-color: var(--mat-sys-surface-container-low);
+    }
+
+    &.enabled {
+      border-bottom-left-radius: 0.6em;
+      border-top-right-radius: 0.6em;
+      background-color: var(--calendare-color-permission-permit);
+      color: var(--calendare-color-on-permission-permit);
+      box-shadow: var(--mat-sys-level0);
+    }
+
+    &:hover,
+    &:focus {
+      box-shadow: var(--mat-sys-level1);
+      cursor: pointer;
+    }
+  }
+
+  &.prohibit {
+    .permission {
+      &.enabled {
+        background-color: var(--calendare-color-permission-prohibit);
+        color: var(--calendare-color-on-permission-prohibit);
+      }
+    }
+  }
+}

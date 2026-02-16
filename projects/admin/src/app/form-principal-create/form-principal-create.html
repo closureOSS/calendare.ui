@@ -1,0 +1,56 @@
+<form class="calendar-form" [formGroup]="form" *transloco="let t">
+  <mat-form-field>
+    <mat-label>{{ t('Username') }}</mat-label>
+    <input matInput formControlName="username" type="text" [placeholder]="t('Username')">
+    <mat-hint>{{ t('Username (part of the URL). Can\'t be changed after creation!') }}</mat-hint>
+    @if (form.get('username')?.invalid) {
+    <mat-error>
+      {{ t('Lowercase only, must start with a letter, followed by a-z or 0-9 or dot or hypen, minimum 5 characters') }}
+    </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{ t('Full name') }}</mat-label>
+    <input matInput formControlName="displayName" type="text" [placeholder]="t('Full name of principal')">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{ t('Main e-mail address') }}</mat-label>
+    <input matInput formControlName="email" [readonly]="readonlyEmail()" type="text"
+      [placeholder]="t('Main e-mail address')">
+    <mat-hint>{{ t('Primary e-mail address used for scheduling') }}</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{ t('Timezone') }}</mat-label>
+    <input matInput formControlName="timezone" #timezoneinput type="text" [placeholder]="t('Timezone')"
+      [matAutocomplete]="timezonelist" (input)="filterTimezones()" (focus)="filterTimezones()">
+    <mat-autocomplete requireSelection #timezonelist="matAutocomplete">
+      @for(tz of filteredOptions; track tz){ <mat-option [value]="tz">{{tz}}</mat-option> }
+    </mat-autocomplete>
+    <mat-hint>{{ t('Your current timezone, i.e. Asia/Bangkok, Europe/Berlin, ...') }}</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{ t('Color') }}</mat-label>
+    <input matInput formControlName="color" type="color" colorspace="limited-srgb"
+      [placeholder]="t('Color identifier')">
+    <mat-hint>{{ t('Usage depends on client; format #rrggbbaa') }}</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{ t('Description') }}</mat-label>
+    <textarea matInput formControlName="description" [placeholder]="t('Description')"></textarea>
+  </mat-form-field>
+
+  @if(msg()){
+  <a9-hint-box class="a9-form-msg" mode="error" [slim]="true">{{msg()}}</a9-hint-box>
+  }
+  <a9-action-bar>
+    <button matButton="filled" [disabled]="form.invalid" type="button" (click)="submitForm()">{{ t('Create account')
+      }}</button>
+    <!-- <button matIconButton type="reset" (click)="refresh()"><mat-icon svgIcon="refresh"></mat-icon></button> -->
+    <ng-content></ng-content>
+  </a9-action-bar>
+</form>

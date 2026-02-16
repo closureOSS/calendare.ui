@@ -1,0 +1,9 @@
+:host {
+  display: block;
+
+  &.mini {
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+    padding: 0.5em;
+  }
+}

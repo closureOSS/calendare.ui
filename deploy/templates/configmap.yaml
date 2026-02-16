@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "calendare-ui.fullname" . }}-appsettings
+  labels:
+    {{- include "calendare-ui.labels" . | nindent 4 }}
+data:
+  appsettings.json: |
+    {
+      "apiBaseUrl": {{ .Values.calendare.apiBaseUri | quote }},
+      "oidcUri": {{ .Values.calendare.oidcUri | quote }},
+      "oidcClientId": {{ .Values.calendare.oidcClientId | quote }},
+      "oidcScopes": {{ .Values.calendare.oidcScopes | quote }},
+      "oidcSilentCheckSsoFallback": {{ .Values.calendare.oidcSilentCheckSsoFallback | default true }},
+      "oidcMessageReceiveTimeout": {{ .Values.calendare.oidcMessageReceiveTimeout | default 5000 }}
+    }

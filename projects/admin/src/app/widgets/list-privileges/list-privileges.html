@@ -1,0 +1,80 @@
+<ng-container *transloco="let t" >
+@for(privGroup of privilegeGroups(); track privGroup.code) {
+@if(privGroup.code !== 'C') {
+<div class="priv-class">{{privGroup.name}}</div>
+<div class="memberlist">
+  @for(privilege of privGroup.privileges; track privilege.uri) {
+  <span [class]="{'indirect': privilege.isIndirect}" class="member">
+    @if(!editable()) {
+    @if(privilege.principalType) {
+    <a matButton [class]="{'indirect': privilege.isIndirect}"
+      [routerLink]="['/principal', 'show', privilege.username]">
+      <cal-principal-ref [type]="privilege.principalType" [name]="privilege.displayname"></cal-principal-ref>
+    </a>
+    } @else {
+    <a matButton [class]="{'indirect': privilege.isIndirect}"
+      [routerLink]="['/principal', 'privileges', privilege.username]" [queryParams]="{grantorUri: privilege.uri}">
+      {{privilege.uri}} &mdash; {{privilege.displayname}}
+    </a>
+    }
+    } @else {
+    @if(!privilege.isIndirect) {
+    <button matButton="outlined" (click)="emitRevoke(privGroup, privilege)" [class]="{'indirect': privilege.isIndirect}"
+      class="editable">
+      @if(privilege.principalType) {
+      <cal-principal-ref [type]="privilege.principalType" [name]="privilege.displayname"></cal-principal-ref>
+      } @else {
+      {{privilege.uri}} &mdash; {{privilege.displayname}}
+      }
+      <mat-icon svgIcon="delete"></mat-icon>
+    </button>
+    } @else {
+    <button matButton [class]="{'indirect': privilege.isIndirect}">
+      @if(privilege.principalType) {
+      <cal-principal-ref [type]="privilege.principalType" [name]="privilege.displayname"></cal-principal-ref>
+      } @else {
+      {{privilege.uri}} &mdash; {{privilege.displayname}}
+      }
+    </button>
+    }
+    }
+  </span>
+  }
+</div>
+}
+}
+@for(privGroup of privilegeGroups(); track privGroup.code) {
+@if(privGroup.code === 'C') {
+@for(privilege of privGroup.privileges; track privilege.uri) {
+<!-- <div class="custom priv-class">{{ t('Custom') }}</div> -->
+<cal-list-grant-details class="custom" [grants]="privilege.grants"></cal-list-grant-details>
+<div class="memberlist">
+  <span [class]="{'indirect': privilege.isIndirect}" class="member">
+    @if(!editable()) {
+    @if(privilege.principalType) {
+    <a matButton [class]="{'indirect': privilege.isIndirect}"
+      [routerLink]="['/principal', 'show', privilege.username]">
+      <cal-principal-ref [type]="privilege.principalType" [name]="privilege.displayname"></cal-principal-ref>
+    </a>
+    } @else {
+    <a matButton [class]="{'indirect': privilege.isIndirect}"
+      [routerLink]="['/principal', 'privileges', privilege.username]" [queryParams]="{grantorUri: privilege.uri}">
+      {{privilege.uri}} &mdash; {{privilege.displayname}}
+    </a>
+    }
+    } @else {
+    @if(privilege.principalType) {
+    <span class="principal">{{privilege.uri}}</span>
+    } @else {
+    <span class="collection">{{privilege.uri}} &mdash; {{privilege.displayname}}</span>
+    }
+    @if(!privilege.isIndirect){
+    <button matButton="outlined" (click)="emitRevoke(privGroup, privilege)">Refuse</button>
+    }
+    }
+  </span>
+</div>
+}
+}
+}
+</ng-container>

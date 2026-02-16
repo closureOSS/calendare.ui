@@ -1,0 +1,30 @@
+<article *transloco="let t">
+  @if(username(); as username) {
+  @if(principal && principal.hasValue()) {
+  <section>
+    @let p = principal.value();
+    <cal-view-principal [principal]="p"></cal-view-principal>
+    @if(hasPermission(principal.value().permissions, PrivilegeMask.WriteProperties) && !p.isEmailVerified) {
+    <cal-edit-email-confirm [principal]="p" (confirmed)="$event ? refresh() : null"></cal-edit-email-confirm>
+    }
+  </section>
+  @if(hasPermission(principal.value().permissions, PrivilegeMask.ReadAcl)) {
+  @if(!principal.value().isRoot) {
+  <section>
+    <cal-view-memberships [username]="username">
+      <div>{{ t('Memberships *principal', { principal: principal.value().displayName}) }}</div>
+    </cal-view-memberships>
+  </section>
+  }
+  @if(principal.value().hasGroups) {
+  <section>
+    <header>
+    </header>
+    <cal-view-member [username]="username">
+      <div>{{ t('Members') }}</div>
+    </cal-view-member>
+  </section>
+  }
+  }
+  }}
+</article>

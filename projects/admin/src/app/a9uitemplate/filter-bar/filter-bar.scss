@@ -1,0 +1,15 @@
+:host {
+  z-index: calc(var(--a9-chrome-z-index) + 1);
+  position: sticky;
+  contain: content;
+  top: var(--a9-site-toolbar-height);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+
+  background-color: var(--mat-sys-surface-container-low);
+  box-shadow: var(--mat-sys-level1);
+  padding: 1rem;
+}

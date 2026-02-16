@@ -1,0 +1,43 @@
+<a9-navigate-back-button></a9-navigate-back-button>
+<article *transloco="let t">
+
+  <header>
+    <h1 class="principal">
+      <span class="principal-type">
+        <cal-icon-principal-type [type]="principal.value()?.principalType?.label"></cal-icon-principal-type>
+        {{t(principal.value()?.principalType?.name ?? 'Principal')}}
+      </span>
+      {{principal.value()?.username}}
+    </h1>
+  </header>
+
+  <section>
+
+    @if(principal.value(); as principal) {
+    <div class="permission-set">
+      <div class="label">{{ t('Global - Public permissions to everybody') }}</div>
+      <cal-edit-permissions [permissions]="globalPermitSelf()"
+        (permissionsChange)="globalPermitSelf.set($event ?? 0)"></cal-edit-permissions>
+    </div>
+    <div class="permission-set">
+      <div class="label">{{ t('Prohibit for authorized users on inheritance') }}</div>
+      <cal-edit-permissions [permissions]="authorizedProhibit()"
+        (permissionsChange)="authorizedProhibit.set($event ?? 0)" [prohibit]="true"></cal-edit-permissions>
+    </div>
+    <div class="permission-set">
+      <div class="label">{{ t('Prohibit for owner') }} <span class="owner">{{principal.username}}</span></div>
+      <cal-edit-permissions [permissions]="ownerProhibit()" (permissionsChange)="ownerProhibit.set($event ?? 0)"
+        [prohibit]="true"></cal-edit-permissions>
+    </div>
+    <!-- <pre class="debug">{{globalPermitSelf()}} | {{authorizedProhibit()}} | {{ownerProhibit()}} </pre> -->
+    }
+
+    <a9-action-bar class="separate">
+      <!-- <button matButton="filled" [disabled]="form.invalid" type="button" (click)="submitForm()">Save</button> -->
+      <button matButton="filled" [disabled]="!dirty()" (click)="submit()" type="button">{{ t('Save') }}</button>
+      <!-- <button matButton [disabled]="dirty()" [routerLink]="['/principal', 'show', username()]"
+        type="button">{{ t('Exit') }}</button> -->
+      <button matIconButton type="reset" (click)="refresh()" [title]="t('Reset')"><mat-icon svgIcon="restart_alt"></mat-icon></button>
+    </a9-action-bar>
+  </section>
+</article>

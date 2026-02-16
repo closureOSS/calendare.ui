@@ -1,0 +1,92 @@
+# Helm chart for the Calendare Administration UI <!-- omit in toc -->
+
+
+
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.3.0](https://img.shields.io/badge/AppVersion-0.3.0-informational?style=flat-square) 
+
+> [!IMPORTANT]
+> Please install the Calendare Server first.
+
+## Accessing the UI
+
+The Administration UI is served under the `/admin` path. For example, if your server is hosted at `https://calendar.example.com`, the UI will be accessible at:
+
+`https://calendar.example.com/admin`
+
+### Routing Requirements:
+
+To ensure proper session handling and avoid Cross-Origin Resource Sharing (CORS) issues, your Ingress or HTTPRoute must use the same hostname as the backend server.
+
+
+## Calendare Administration UI Configuration
+
+The administration interface relies on OIDC to provide a secure, modern login experience for users managing their accounts, passwords, and service settings.
+
+| Key                                  | Type   | Default | Description                                                |
+| ------------------------------------ | ------ | ------- | ---------------------------------------------------------- |
+| calendare                            | {}     |         | Calendare Administration UI settings                       |
+| calendare.apiUri                     | bool   | `false` | Calendare Server URI, e.g. `https://calendare.example.com` |
+| calendare.oidcUri                    | string | ``      | URI of OIDC provider, e.g. `https://auth.example.com`      |
+| calendare.oidcClientId               | string | ``      | OIDC client id                                             |
+| calendare.oidcScopes                 | string | ``      | OIDC scopes, usually `openid profile email groups`       |
+| calendare.oidcSilentCheckSsoFallback | bool   | `true`  |                                                            |
+| calendare.oidcMessageReceiveTimeout  | number | `5000`  |                                                            |
+
+The OIDC client configuration should use as callback URL `https://calendare.example.com/admin/` and for as logout callback url `https://calendare.example.com/admin/goodbye` (replace `calendare.example.com` with your hostname).
+
+The OIDC scopes may depend on your OIDC provider (some need also `offline_access`). Calendare needs at least `profile` and `email`.
+
+# Full Configuration
+
+## Values
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| affinity | object | `{}` |  |
+| calendare | string | `nil` | See specific UI configuration |
+| fullnameOverride | string | `""` |  |
+| httpRoute | object | {} | Expose the service via gateway-api HTTPRoute Requires Gateway API resources and suitable controller installed within the cluster (see: https://gateway-api.sigs.k8s.io/guides/) |
+| httpRoute.enabled | bool | `false` | use either ingress or HTTPRoute (gateway API) |
+| httpRoute.hostnames | list | `["chart-example.local"]` | Hostnames matching HTTP header. |
+| httpRoute.parentRefs | list | {} | Which Gateways this Route is attached to. |
+| httpRoute.rules | list | [] | List of rules and filters applied. |
+| image.pullPolicy | string | `"IfNotPresent"` | This sets the pull policy for images. |
+| image.repository | string | `"ghcr.io/closureoss/calendare.ui/calendare-ui"` |  |
+| image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. |
+| imagePullSecrets | list | `[]` |  |
+| ingress.annotations | object | `{}` |  |
+| ingress.className | string | `""` |  |
+| ingress.enabled | bool | `false` | use either ingress or HTTPRoute (gateway API) |
+| ingress.hosts[0].host | string | `"chart-example.local"` |  |
+| ingress.hosts[0].paths[0].path | string | `"/admin"` |  |
+| ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
+| ingress.tls | list | `[]` |  |
+| livenessProbe.httpGet.path | string | `"/"` |  |
+| livenessProbe.httpGet.port | string | `"http"` |  |
+| nameOverride | string | `""` |  |
+| nodeSelector | object | `{}` |  |
+| podAnnotations | object | `{}` |  |
+| podLabels | object | `{}` |  |
+| podSecurityContext | object | `{}` |  |
+| readinessProbe.httpGet.path | string | `"/"` |  |
+| readinessProbe.httpGet.port | string | `"http"` |  |
+| replicaCount | int | `1` |  |
+| resources | object | `{}` |  |
+| securityContext | object | `{}` | security context. Rootless operation is supported and recommended. |
+| service.port | int | `8081` |  |
+| service.type | string | `"ClusterIP"` |  |
+| serviceAccount.annotations | object | `{}` |  |
+| serviceAccount.automount | bool | `true` |  |
+| serviceAccount.create | bool | `true` |  |
+| serviceAccount.name | string | `""` |  |
+| tolerations | list | `[]` |  |
+| volumeMounts | list | `[]` |  |
+| volumes | list | `[]` |  |
+
+
+
+
+
+
+----------------------------------------------
+Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)

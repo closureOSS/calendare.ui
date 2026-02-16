@@ -1,0 +1,4 @@
+<button matIconButton (click)="themeSwitcher.toggleThemeMode(nextThemeMode())"
+[title]="tooltip(themeSwitcher.themeMode())">
+  <mat-icon [svgIcon]="svgIconName(themeSwitcher.themeMode(), 'menu')"></mat-icon>
+</button>

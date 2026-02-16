@@ -1,0 +1,16 @@
+<div mat-dialog-title>{{data.title}}</div>
+<mat-dialog-content>
+  <p class="intro">{{data.intro}}</p>
+  @if(data.body){
+  <div class="body">{{data.body}}</div>
+  }
+  <p class="question">{{data.question}}</p>
+</mat-dialog-content>
+<mat-dialog-actions *transloco="let t">
+  @if(data.confirmOnly) {
+  <button matButton [mat-dialog-close]="true" cdkFocusInitial>{{ t('Close') }}</button>
+  } @else {
+  <button matButton [mat-dialog-close]="false" cdkFocusInitial>{{ t('No') }}</button>
+  <button matButton [mat-dialog-close]="true">{{ t('Yes') }}</button>
+  }
+</mat-dialog-actions>

@@ -1,0 +1,41 @@
+<a9-navigate-back-button></a9-navigate-back-button>
+<mat-card *transloco="let t">
+
+  <mat-card-header>
+    <mat-card-title>{{ t('Edit privileges to *grantor', { grantor: grantor()}) }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <a9-http-resource-viewer [resource]="privileges" class="editor">
+      @for(pvg of privileges.value()?.privilegeGroups; track pvg.code) {
+      <div class="memberslist" [class]="{'custom': pvg.code === 'C'}">
+        <div class="priv-class">{{pvg.name}} @if(pvg.code === 'C') {
+          <span class="hint">{{ t('adding/editing by API only') }}</span>
+          }
+        </div>
+        @if(pvg.code !== 'C') {<cal-lookup-principal [label]="t('Add principal')"
+          (principal)="add($event, pvg)"></cal-lookup-principal>}
+        <mat-action-list>
+          @for(gr of pvg.privileges; track gr.uri) {
+          <button mat-list-item (click)="remove(gr, pvg)">
+            <mat-icon matListItemIcon [svgIcon]="!gr.isIndirect ? 'cancel' : 'restore_from_trash'"></mat-icon>
+            <span matListItemTitle>
+              <cal-principal-ref [type]="gr.principalType" [name]="gr.displayname"
+                [strike]="gr.isIndirect??false"></cal-principal-ref>
+            </span>
+          </button>
+          }
+        </mat-action-list>
+      </div>
+      }
+    </a9-http-resource-viewer>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <a9-action-bar class="separate">
+      <button matButton="filled" [disabled]="!dirty()" (click)="submit()" type="button">{{ t('Save') }}</button>
+      <button matIconButton type="reset" (click)="refresh()" [title]="t('Reset')">
+        <mat-icon svgIcon="restart_alt"></mat-icon></button>
+    </a9-action-bar>
+  </mat-card-actions>
+</mat-card>

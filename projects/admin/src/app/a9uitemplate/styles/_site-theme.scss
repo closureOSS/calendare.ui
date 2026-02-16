@@ -1,0 +1,98 @@
+@use '@angular/material' as mat;
+@use '../../../theme-colors' as a9colors;
+
+html {
+  @include mat.theme(
+    (
+      color: (
+        primary: a9colors.$primary-palette,
+        tertiary: a9colors.$tertiary-palette,
+        theme-type: light,
+      ),
+      typography: (
+        brand-family: 'Inter',
+        plain-family: 'Inter',
+        regular-weight: 400,
+        medium-weight: 600,
+        bold-weight: 900,
+      ),
+      density: 0,
+    ),
+    $overrides: (
+      // primary-container: orange,
+      // on-primary: red,
+      // corner-large: 32px,
+      // elevated-container-color: red,
+    )
+  );
+}
+
+.dark-theme {
+  color-scheme: dark;
+  @include mat.theme(
+    (
+      color: (
+        primary: a9colors.$primary-palette,
+        tertiary: a9colors.$tertiary-palette,
+        theme-type: dark,
+      ),
+      typography: Inter,
+      density: 0,
+    )
+  );
+  --mat-sys-level-color: var(--mat-sys-inverse-surface);
+  --mat-sys-level0:
+    0px 0px 0px 0px color-mix(in srgb, var(--mat-sys-level-color) 20%, transparent),
+    0px 0px 0px 0px color-mix(in srgb, var(--mat-sys-level-color) 14%, transparent),
+    0px 0px 0px 0px color-mix(in srgb, var(--mat-sys-level-color) 12%, transparent);
+  --mat-sys-level1:
+    0px 2px 1px -1px color-mix(in srgb, var(--mat-sys-level-color) 20%, transparent),
+    0px 1px 1px 0px color-mix(in srgb, var(--mat-sys-level-color) 14%, transparent),
+    0px 1px 3px 0px color-mix(in srgb, var(--mat-sys-level-color) 12%, transparent);
+  --mat-sys-level2:
+    0px 3px 3px -2px color-mix(in srgb, var(--mat-sys-level-color) 20%, transparent),
+    0px 3px 4px 0px color-mix(in srgb, var(--mat-sys-level-color) 14%, transparent),
+    0px 1px 8px 0px color-mix(in srgb, var(--mat-sys-level-color) 12%, transparent);
+  --mat-sys-level3:
+    0px 3px 5px -1px color-mix(in srgb, var(--mat-sys-level-color) 20%, transparent),
+    0px 6px 10px 0px color-mix(in srgb, var(--mat-sys-level-color) 14%, transparent),
+    0px 1px 18px 0px color-mix(in srgb, var(--mat-sys-level-color) 12%, transparent);
+  --mat-sys-level4:
+    0px 5px 5px -3px color-mix(in srgb, var(--mat-sys-level-color) 20%, transparent),
+    0px 8px 10px 1px color-mix(in srgb, var(--mat-sys-level-color) 14%, transparent),
+    0px 3px 14px 2px color-mix(in srgb, var(--mat-sys-level-color) 12%, transparent);
+  --mat-sys-level5:
+    0px 7px 8px -4px color-mix(in srgb, var(--mat-sys-level-color) 20%, transparent),
+    0px 12px 17px 2px color-mix(in srgb, var(--mat-sys-level-color) 14%, transparent),
+    0px 5px 22px 4px color-mix(in srgb, var(--mat-sys-level-color) 12%, transparent);
+}
+
+body {
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface);
+  // background-color: var(--mat-sys-surface-container-lowest);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+  // Reset the user agent margin.
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', 'Helvetica Neue', sans-serif;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100dvh;
+}

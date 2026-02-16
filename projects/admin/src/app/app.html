@@ -1,0 +1,25 @@
+<dialog class="popup-menu" id="sitepopupmenu" closedby="any" tabindex="-1" #popupMenu (close)="menuClose($event)"
+  (click)="isBackdrop($event)?popupMenu.close():null" (keypress.escape)="popupMenu.close()">
+  <a9-site-menu-popup (click)="popupMenu.close()"></a9-site-menu-popup>
+</dialog>
+
+<div class="a9-site--outer" [class.modal]="pageMode() === PageMode.Modal" *transloco="let t">
+  @if(pageMode() === 'Default') {
+  <a9-site-toolbar [appTitle]="title()" (toggleMenu)="$event ? popupMenu.showModal() : popupMenu.close()">
+    <button mat-menu-item disabled="true">
+      <mat-icon svgIcon="account_circle"></mat-icon>
+      <span>{{ t('My account') }}</span>
+    </button></a9-site-toolbar>
+  }
+  @if(pageMode() === 'Default' && !screenSize.isMobileView()) {
+  <a9-site-menu-inline></a9-site-menu-inline>
+  }
+  <div class="a9-site-content">
+    <router-outlet></router-outlet>
+  </div>
+  @if(pageMode() === 'Default') {
+  <a9-site-footer>
+    <pre><span class="lbl">PageMode</span><span class="val">{{pageMode()}}</span><span class="lbl">PageSize</span><span class="val">{{screenSize.screenSize()}}</span><span class="lbl">Language</span><span class="val">{{transloco.getActiveLang()}}</span><span class="lbl">Version</span><span class="val">{{version}}</span></pre>
+  </a9-site-footer>
+  }
+</div>

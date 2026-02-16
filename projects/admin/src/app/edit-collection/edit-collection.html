@@ -1,0 +1,59 @@
+<a9-navigate-back-button></a9-navigate-back-button>
+<form [formGroup]="form" (ngSubmit)="submitForm()" *transloco="let t">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ t('Edit *collection at *path', {path: collection.value()?.uri, collection:
+        t(collection.value()?.collectionType ?? 'Collection')}) }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="a9-form">
+        <!-- <mat-form-field>
+        <mat-label>Uri</mat-label>
+        <input matInput formControlName="uri" type="text" placeholder="Uri / Path">
+        </mat-form-field> -->
+
+        <mat-form-field>
+          <mat-label>{{ t('Name') }}</mat-label>
+          <input matInput formControlName="displayName" type="text" [placeholder]="t('Name for display purposes')">
+        </mat-form-field>
+
+        @if(collection.value()?.collectionType === 'Calendar') {
+        <mat-form-field>
+          <mat-label>{{ t('Timezone') }}</mat-label>
+          <input matInput formControlName="timezone" #timezoneinput type="text" [placeholder]="t('Timezone')"
+            [matAutocomplete]="timezonelist" (input)="filterTimezones()" (focus)="filterTimezones()">
+          <mat-autocomplete requireSelection #timezonelist="matAutocomplete">
+            @for(tz of filteredOptions; track tz){ <mat-option [value]="tz">{{tz}}</mat-option> }
+          </mat-autocomplete>
+          <mat-hint>{{ t('Reference timezone for floating events') }}</mat-hint>
+        </mat-form-field>
+        <mat-checkbox formControlName="excludeFreeBusy">{{ t('Exclude from Free/Busy for scheduling') }}</mat-checkbox>
+        }
+
+        <mat-form-field>
+          <mat-label>{{ t('Color') }}</mat-label>
+          <input matInput formControlName="color" type="color" colorspace="limited-srgb" [placeholder]="t('Color identifier')">
+          <mat-hint>{{ t('Usage depends on client; format #rrggbbaa') }}</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ t('Description') }}</mat-label>
+          <textarea matInput formControlName="description" [placeholder]="t('Description')"></textarea>
+        </mat-form-field>
+
+        @if(formMessage()){
+        <a9-hint-box class="a9-form-msg" mode="error" [slim]="true">{{formMessage()}}</a9-hint-box>
+        }
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <a9-action-bar>
+        <button matButton="filled" type="submit">{{ t('Save') }}</button>
+        <button matIconButton type="reset" (click)="refresh()" [title]="t('Reset')"><mat-icon svgIcon="restart_alt"></mat-icon></button>
+        <!-- <button matButton type="reset" (click)="back()">{{ t('Cancel') }}</button> -->
+      </a9-action-bar>
+    </mat-card-actions>
+  </mat-card>
+</form>
+
+<!-- <pre class="debug">{{collection()|json}}</pre> -->

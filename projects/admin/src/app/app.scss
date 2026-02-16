@@ -1,0 +1,26 @@
+.a9-site-footer {
+  pre {
+    padding: 0;
+    margin: 0;
+    font: var(--mat-sys-label-medium);
+    .val {
+      &::after {
+        content: ', ';
+      }
+      &:last-child {
+        &::after {
+          content: '';
+        }
+      }
+    }
+    .lbl {
+      display: none;
+      @media (width >= 48rem) {
+        display: inline;
+        &:after {
+          content: ': ';
+        }
+      }
+    }
+  }
+}

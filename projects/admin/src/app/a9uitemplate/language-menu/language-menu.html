@@ -1,0 +1,13 @@
+@let currLanguage = transloco.getActiveLang();
+@for(language of transloco.getAvailableLangs(); track $index) {
+<button mat-menu-item [disabled]="currLanguage===language" (click)="setLanguage(language)">
+  <span>@switch(language) {
+    @case('en') { English }
+    @case('de') { Deutsch }
+    @case('fr') { Français }
+    @case('it') { Italiano }
+    @default { 'Unknown' }
+    }
+  </span>
+</button>
+}

@@ -1,0 +1,29 @@
+:host {
+  display: block;
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+aside {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--mat-sys-surface-container-low);
+  color: var(--mat-sys-on-surface);
+  box-shadow: var(--mat-sys-level0);
+  padding: 0.5rem 1rem;
+  max-width: 48rem;
+}
+
+.label {
+  font: var(--mat-sys-label-medium);
+}
+
+.section-title {
+  font: var(--mat-sys-title-medium);
+  margin: 1rem 0;
+}

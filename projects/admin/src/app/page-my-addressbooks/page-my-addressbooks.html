@@ -1,0 +1,23 @@
+<article *transloco="let t">
+  <header class="a9-site-header">
+    <h1>{{ t('Addressbooks') }}</h1>
+  </header>
+
+  <section>
+    @if(username(); as username) {
+    @if(principal && principal.hasValue()) {
+    @let prin = principal.value();
+    <cal-view-collections [username]="username" [filterType]="CollectionType.Addressbook" [filterTechnical]="true"
+      [principalType]="prin.principalType"></cal-view-collections>
+    @if(!prin.isRoot) {
+    <a9-floating-action-bar>
+      <button matFab [disabled]="!hasPermission(prin.permissions, PrivilegeMask.Bind)"
+        [routerLink]="['/collection', 'create', username, CollectionType.Addressbook]"><mat-icon
+          svgIcon="add_box"></mat-icon></button>
+      <!-- <button matButton (click)="refresh()">Refresh</button> -->
+    </a9-floating-action-bar>
+    }
+    }
+    }
+  </section>
+</article>

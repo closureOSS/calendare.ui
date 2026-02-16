@@ -1,0 +1,29 @@
+<!--
+Idle = 0,
+Error = 1,
+Loading = 2,
+Reloading = 3,
+Resolved = 4,
+Local = 5
+-->
+@switch(status()) {
+@case ('error') {
+<!-- <mat-progress-bar class="load-error" mode="buffer"></mat-progress-bar> -->
+}
+@case ('loading') {
+<div class="loader">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+}
+@case ('reloading') {
+<div class="loader">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+}
+@case('resolved') {
+<!-- <div class="loader">
+  <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
+</div> -->
+}
+@default {}
+}

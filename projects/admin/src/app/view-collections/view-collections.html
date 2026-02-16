@@ -1,0 +1,146 @@
+<a9-http-resource-viewer [resource]="collections" class="collections" *transloco="let t">
+  <a9-hint-box ngProjectAs="status-forbidden" mode="warning">{{ t('No permission to see collections.') }}</a9-hint-box>
+  <div ngProjectAs="status-notfound"></div>
+  @for (collection of filteredCollections(); track collection.id) {
+  <mat-card [style]="{'--col-color': (collection.color ?? 'transparent')}" [class]="{'default': collection.isDefault}">
+    <mat-card-header>
+      <div mat-card-avatar class="card-icon">
+        <mat-icon [svgIcon]="svgCardIcon(collection.collectionType)"></mat-icon>
+      </div>
+      <mat-card-title>{{(collection.displayName ?? "&mdash;")}}</mat-card-title>
+      <mat-card-subtitle>{{collection.uri}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <table class="a9-keyvalue-list">
+        <tr>
+          <th>{{ t('Type') }}</th>
+          <td>{{collection.collectionType}} @if(collection.isTechnical) { <span class="technical">Technical</span>}
+          </td>
+        </tr>
+        @if(collection.description) {
+        <tr>
+          <th>{{ t('Description') }}</th>
+          <td>{{collection.description}}</td>
+        </tr>
+        }
+        @if(collection.scheduleTransparency) {
+        <tr>
+          <th>{{ t('Scheduling') }}</th>
+          <td>{{collection.scheduleTransparency}}</td>
+        </tr>
+        }
+        @if(collection.timezone) {
+        <tr>
+          <th>{{ t('Timezone') }}</th>
+          <td>{{collection.timezone}}</td>
+        </tr>
+        }
+        @if(collection.color) {
+        <tr>
+          <th>{{ t('Color') }}</th>
+          <td><cal-color-swatch [color]="collection.color"></cal-color-swatch></td>
+        </tr>
+        }
+        @if(hasPermission(collection.permissions, PrivilegeMask.ReadAcl)) {
+        <tr>
+          <th class="narrow">{{ t('Global allow') }}</th>
+          <td><cal-list-permissions [permissions]="collection.globalPermitSelf"
+              [filter]="collectionFilterMask"></cal-list-permissions></td>
+        </tr>
+        <tr>
+          <th class="narrow">{{ t('Authorized user prohibited') }}</th>
+          <td><cal-list-permissions [permissions]="collection.authorizedProhibit" [filter]="collectionFilterMask"
+              [prohibit]="true"></cal-list-permissions></td>
+        </tr>
+        <tr>
+          <th class="narrow">{{ t('Owner prohibited') }}</th>
+          <td><cal-list-permissions [permissions]="collection.ownerProhibit" [filter]="collectionFilterMask"
+              [prohibit]="true"></cal-list-permissions></td>
+        </tr>
+        }
+        @if(hasPermission(collection.permissions, PrivilegeMask.ReadCurrentUserPrivilegeSet)) {
+        <tr class="admin">
+          <th>{{ t('Permissions') }}</th>
+          <td><cal-list-permissions [permissions]="collection.permissions"
+              [filter]="userFilterMask"></cal-list-permissions></td>
+        </tr>
+        }
+        <tr class="admin">
+          <th>{{ t('Created') }}</th>
+          <td>{{collection.created | date}}</td>
+        </tr>
+      </table>
+    </mat-card-content>
+    <mat-card-actions>
+      <button matButton [disabled]="!hasPermission(collection.permissions, PrivilegeMask.WriteProperties)"
+        [routerLink]="['/collection', 'edit', username()]" [queryParams]="{ uri: collection.uri}">{{ t('Edit')
+        }}</button>
+      <button matButton [disabled]="!hasPermission(collection.permissions, PrivilegeMask.Share)"
+        [routerLink]="['/principal', 'privileges', username()]" [queryParams]="{ grantorUri: collection.uri}">{{
+        t('Grants') }}</button>
+      <button matButton [disabled]="!hasPermission(collection.permissions, PrivilegeMask.WriteAcl)"
+        [routerLink]="['/collection', 'permissions', username()]" [queryParams]="{ uri: collection.uri}">{{
+        t('Permissions') }}</button>
+      <button matButton [disabled]="!hasPermission(collection.permissions, PrivilegeMask.Unbind)"
+        (click)="deleteCollection(collection)" class="warn">{{ t('Delete') }}</button>
+    </mat-card-actions>
+  </mat-card>
+  }
+  @empty {
+  <a9-hint-box mode="warning">{{ t('No calendar or addressbook was found.') }}</a9-hint-box>
+  }
+</a9-http-resource-viewer>
+
+@if(false) {
+<table class="calendare-table">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Uri</th>
+      <th>Name</th>
+      <th>Timezone</th>
+      <th>Scheduling</th>
+      <th>Description</th>
+      <th>Color</th>
+      <th>Created</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (collection of collections.value(); track collection.id) {
+    <tr class="collection" [class]="{'default': collection.isDefault}">
+      <td class="type">
+        <span class="collection-type" [matMenuTriggerFor]="editMenu" [matMenuTriggerData]="{collection: collection}">
+          <mat-icon [svgIcon]="svgCardIcon(collection.collectionType)"></mat-icon>{{collection.collectionType}}
+        </span>
+      </td>
+      <td class="uri">{{collection.uri}}</td>
+      <td class="name">{{collection.displayName}}</td>
+      <td class="timezone">{{collection.timezone}}</td>
+      <td class="transparency">{{collection.scheduleTransparency}}</td>
+      <td class="desc">{{collection.description}}</td>
+      <td class="color"><cal-color-swatch slim="true" [color]="collection.color ?? null"></cal-color-swatch></td>
+      <td class="created">{{collection.created | date }}</td>
+      <!-- <td class="permissions">{{collection.permissions}}</td> -->
+      <!-- <td class="debug">{{collection|json}}</td> -->
+    </tr>
+    }
+    @empty {
+    <tr>
+      <th colspan="99">No calendar or addressbooks exist.</th>
+    </tr>
+    }
+  </tbody>
+</table>
+<mat-menu #editMenu="matMenu">
+  <ng-template matMenuContent let-collection="collection">
+    <button mat-menu-item [routerLink]="['/collection', 'edit', username()]"
+      [queryParams]="{ uri: collection.uri}">Edit</button>
+    <button mat-menu-item [routerLink]="['/principal', 'privileges', username()]"
+      [queryParams]="{ grantorUri: collection.uri}">Grants</button>
+    <button mat-menu-item [disabled]="collection.isDefault && principalType()?.label !== 'INDIVIDUAL'"
+      (click)="deleteCollection(collection)" class="warn">Calendar</button>
+  </ng-template>
+</mat-menu>
+}
+
+<!-- <pre class="debug">{{collections()|json}}</pre> -->

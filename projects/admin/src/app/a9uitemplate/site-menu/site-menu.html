@@ -1,0 +1,24 @@
+<button class="toggle" matIconButton [matMenuTriggerFor]="siteMenuContent">
+  <mat-icon [svgIcon]="'menu'"></mat-icon>
+</button>
+
+
+<mat-menu #siteMenuContent="matMenu" class="a9-site-menu-content">
+  <ng-template matMenuContent *transloco="let t">
+    @for(route of menu.menuConfig(); track $index) {
+    @if(route.section) {
+    } @else {
+    @if(route.icon; as menuIcon) {
+    <button mat-menu-item [routerLink]="route.path">
+      <mat-icon [svgIcon]="menuIcon"></mat-icon>
+      <span>{{t(route.label)}}</span>
+    </button>
+    } @else {
+    <button mat-menu-item [routerLink]="route.path">
+      <span>{{t(route.label)}}</span>
+    </button>
+    }
+    }
+    }
+  </ng-template>
+</mat-menu>

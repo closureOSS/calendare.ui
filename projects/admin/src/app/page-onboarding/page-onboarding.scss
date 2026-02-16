@@ -1,0 +1,52 @@
+:host {
+  display: block;
+  --a9-login-max-width: 32rem;
+  width: var(--a9-login-max-width);
+  max-width: 100dvw;
+}
+
+article {
+  padding: 0 var(--a9-site-mobile-horizontal-padding);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+h1 {
+  display: flex;
+  align-items: center;
+}
+
+.favicon {
+  height: 40px;
+  width: 40px;
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.config {
+  justify-self: end;
+  grid-area: config;
+  display: flex;
+  flex-direction: row;
+  gap: 0.25rem;
+  position: fixed;
+  top: 1rem;
+  right: 0;
+}
+
+.calendar-form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.formmsg {
+  background-color: var(--mat-sys-error);
+  color: var(--mat-sys-on-error);
+  padding: 1rem;
+  &:empty {
+    display: none;
+  }
+}

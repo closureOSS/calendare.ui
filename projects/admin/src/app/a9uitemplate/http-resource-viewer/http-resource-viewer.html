@@ -1,0 +1,29 @@
+<ng-container *transloco="let t">
+  <a9-http-resource-status [status]="resource().status()"></a9-http-resource-status>
+  <!-- <pre>STATUSCODE={{ resource().statusCode() }}<br/>{{ resource().error() | json }}</pre> -->
+  @if(resource().error()) {
+  @switch(resource().statusCode()) {
+  @case (404) {
+  <ng-content select="status-notfound">
+    <a9-hint-box mode="info">{{ t('No data found.') }}</a9-hint-box>
+  </ng-content>
+  }
+  @case (403) {
+  <ng-content select="status-forbidden">
+    <a9-hint-box mode="warning">{{ t('Missing permission.') }}</a9-hint-box>
+  </ng-content>
+  }
+  @default {
+  <ng-content select="status-error">
+    <a9-hint-box mode="error">{{ t('Data retrieval failed.') }} <span class="statuscode">{{resource().statusCode()
+        }}</span></a9-hint-box>
+  </ng-content>
+  }
+  }
+  }
+  @else {
+  @if(resource().hasValue()) {
+  <ng-content></ng-content>
+  }
+  }
+</ng-container>

@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "calendare-ui.fullname" . }}-sws.toml
+  labels:
+    {{- include "calendare-ui.labels" . | nindent 4 }}
+data:
+  sws.toml: |
+    [general]
+    port = 8081
+    health = true
+    root = "/public"
+    page-fallback = "/public/index.html"
+    log-level = "info"
+    log-remote-address = true
+    log-forwarded-for = true
+
+    [advanced]
+
+    [[advanced.rewrites]]
+    source = "/admin/{**}"
+    destination = "/$1"
+
+    [[advanced.rewrites]]
+    source = "/admin/{**/*}"
+    destination = "/$1"
+
+    [[advanced.rewrites]]
+    source = "/admin"
+    destination = "/"

@@ -1,0 +1,97 @@
+<mat-card *transloco="let t">
+  @if(principal(); as principal) {
+  <mat-card-header>
+    <div mat-card-avatar class="card-icon">
+      <cal-icon-principal-type [type]="principal.principalType?.label"></cal-icon-principal-type>
+    </div>
+    <mat-card-title>{{ t('Principal') }}&nbsp;&ndash;&nbsp;{{principal.displayName}}</mat-card-title>
+    <mat-card-subtitle>{{principal.uri}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <table class="a9-keyvalue-list">
+      <tbody>
+        <tr>
+          <th>{{ t('Username') }}</th>
+          <td>{{principal.username}}</td>
+        </tr>
+        <tr>
+          <th>{{ t('Type') }}</th>
+          <td>{{principal.principalType?.name}}</td>
+        </tr>
+        <tr>
+          <th>{{ t('Full name') }}</th>
+          <td>{{principal.displayName}}</td>
+        </tr>
+        <tr>
+          <th>{{ t('Email') }}</th>
+          <td>{{principal.email}} @if(principal.isEmailVerified){<span class="email verified">Verified</span>} @else
+            {<span class="email">Not verified</span>}
+          </td>
+        </tr>
+        @if(principal.description){
+        <tr>
+          <th>{{ t('Description') }}</th>
+          <td>{{principal.description}}</td>
+        </tr>
+        }
+        <tr>
+          <th>{{ t('Timezone') }}</th>
+          <td>{{principal.timezone}}</td>
+        </tr>
+        <tr>
+          <th>{{ t('Locale') }}</th>
+          <td>{{principal.locale}}</td>
+        </tr>
+        <tr>
+          <th class="narrow">{{ t('Date format style') }}</th>
+          <td>{{principal.dateFormatType}}</td>
+        </tr>
+        @if(principal.color) {
+        <tr>
+          <th>{{ t('Color') }}</th>
+          <td><cal-color-swatch [color]="principal.color"></cal-color-swatch></td>
+        </tr>
+        }
+        @if(!principal.isRoot && hasPermission(principal.permissions, PrivilegeMask.ReadAcl)) {
+        <tr>
+          <th class="narrow">{{ t('Global allow') }}</th>
+          <td><cal-list-permissions [permissions]="principal.globalPermitSelf"></cal-list-permissions></td>
+        </tr>
+        <tr>
+          <th class="narrow">{{ t('Authorized user prohibited') }}</th>
+          <td><cal-list-permissions [permissions]="principal.authorizedProhibit"
+              [prohibit]="true"></cal-list-permissions>
+          </td>
+        </tr>
+        <tr>
+          <th class="narrow">{{ t('Owner prohibited') }}</th>
+          <td><cal-list-permissions [permissions]="principal.ownerProhibit" [prohibit]="true"></cal-list-permissions>
+          </td>
+        </tr>
+        }
+        <tr class="admin">
+          <th>{{ t('Created') }}</th>
+          <td>{{principal.created | date}}</td>
+        </tr>
+        <tr class="admin">
+          <th>{{ t('Last modified') }}</th>
+          <td>{{principal.modified| date}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-card-content>
+  <mat-card-actions>
+    <a9-action-bar>
+      <button matButton
+        [disabled]="!principal.username || !hasPermission(principal.permissions, PrivilegeMask.WriteProperties)"
+        [routerLink]="['/principal', 'edit', principal.username]">{{ t('Edit') }}</button>
+      <button matButton
+        [disabled]="!principal.username || !hasPermission(principal.permissions, PrivilegeMask.WriteAcl)"
+        [routerLink]="['/principal', 'permissions', principal.username]">{{ t('Permissions') }}</button>
+      <button matButton
+        [disabled]="!principal.username || !hasPermission(principal.permissions, PrivilegeMask.Unbind)"
+        (click)="delete()">{{ t('Delete') }}</button>
+    </a9-action-bar>
+  </mat-card-actions>
+  }
+</mat-card>

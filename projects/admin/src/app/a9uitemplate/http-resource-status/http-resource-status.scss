@@ -1,0 +1,26 @@
+:host {
+  display: block;
+
+  &:empty {
+    display: none;
+  }
+
+  grid-column: -1 / 1;
+  position: relative;
+}
+
+.loader {
+  background-color: rgba(white, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.5rem;
+  padding-top: 0.125rem;
+  z-index: 99;
+}
+
+.load-error {
+  background-color: var(--mat-sys-error);
+  color: var(--mat-sys-on-error);
+}

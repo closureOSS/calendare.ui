@@ -1,0 +1,41 @@
+<a9-navigate-back-button></a9-navigate-back-button>
+<mat-card *transloco="let t">
+
+  <mat-card-header>
+    <mat-card-title>{{ t('Edit members of *username', { username: username()}) }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <a9-http-resource-viewer [resource]="memberships" class="editor">
+      @let ms = memberships.value()!;
+      @for(grp of ms.groups; track grp.group.uri) {
+      <div class="memberslist">
+        <div class="priv-class">{{grp.group.displayname}}</div>
+        <cal-lookup-principal [label]="t('Add principal')" (principal)="add($event, grp)"></cal-lookup-principal>
+        <mat-action-list>
+          @for(m of grp.members; track m.username) {
+          <button mat-list-item (click)="remove(m, grp)">
+            <mat-icon matListItemIcon
+              [svgIcon]="m.membershipType !== 'Unassigned' ? 'cancel' : 'restore_from_trash'"></mat-icon>
+            <span matListItemTitle>
+              <cal-principal-ref [type]="m.principalType" [name]="m.displayname"
+                [strike]="m.membershipType === 'Unassigned'"></cal-principal-ref>
+            </span>
+          </button>
+          }
+        </mat-action-list>
+      </div>
+      }
+    </a9-http-resource-viewer>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <a9-action-bar class="separate">
+      <button matButton="filled" [disabled]="!dirty()" (click)="submit()" type="button">{{ t('Save') }}</button>
+      <button matIconButton type="reset" (click)="refresh()" [title]="t('Reset')">
+        <mat-icon svgIcon="restart_alt"></mat-icon>
+      </button>
+    </a9-action-bar>
+  </mat-card-actions>
+  <!-- <pre>{{ members()|json}}</pre> -->
+</mat-card>

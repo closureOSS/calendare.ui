@@ -1,0 +1,84 @@
+@use '@angular/material' as mat;
+
+.a9-site-menu-content {
+  @include mat.menu-overrides(
+    (
+      item-leading-spacing: 48px,
+      item-trailing-spacing: 32px,
+      item-with-icon-trailing-spacing: 32px,
+    )
+  );
+}
+
+.popup-menu {
+  border: none;
+  background: var(--mat-sys-on-primary);
+  // background-color: orange;
+  color: var(--mat-sys-primary);
+  min-width: 16rem;
+  z-index: var(--a9-chrome-z-index);
+  margin-left: 0;
+  margin-top: 0;
+  max-width: 75%;
+  height: 100vh;
+  max-height: 100vh;
+
+  .a9-site-menu-popup {
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  &[open] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &[open]::backdrop {
+    background-color: var(--mat-sys-shadow);
+    opacity: 0.55;
+  }
+}
+
+.a9-site-menu-popup {
+  @include mat.list-overrides(
+    (
+      list-item-label-text-color: var(--mat-sys-primary),
+      list-item-container-color: var(--mat-sys-on-primary),
+      list-item-leading-icon-color: var(--mat-sys-primary),
+      list-item-focus-label-text-color: var(--mat-sys-on-surface),
+      list-item-focus-state-layer-color: var(--mat-sys-surface),
+      list-item-hover-label-text-color: var(--mat-sys-on-surface),
+      list-item-hover-state-layer-color: var(--mat-sys-surface),
+    )
+  );
+}
+
+.a9-site-menu-inline, .a9-site-menu-popup {
+  .mat-mdc-nav-list {
+    // workaround as active-indicator-* doesn't show small indicator but
+    // changes the background-color of the whole menu item.
+    .mat-mdc-list-item.mdc-list-item--activated {
+      transition: border-color 0.25s ease-in;
+      border-left: 0.4rem solid var(--mat-sys-primary);
+      @include mat.list-overrides(
+        (
+          list-item-leading-icon-start-space: 0.4em,
+        )
+      );
+    }
+  }
+  .mdc-list-group__subheader {
+    font: var(--mat-sys-body-large);
+    color: var(--mat-sys-secondary);
+    text-decoration: underline;
+    text-decoration-color: var(--mat-sys-secondary-fixed-dim);
+    text-decoration-thickness: 0.25em; //from-font;
+    text-decoration-skip-ink: all;
+    text-underline-offset: 0.5em;
+  }
+}
+
+html.modal-dialog-open {
+  overflow: hidden; // prevents scrolling in backdrop
+  scrollbar-gutter: stable; // avoids layout shifts
+}

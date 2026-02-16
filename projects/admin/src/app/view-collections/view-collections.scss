@@ -1,0 +1,72 @@
+:host {
+  display: block;
+}
+
+.collections {
+  display: grid;
+  // grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  grid-template-columns: min(100%, 48rem);
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.card-icon {
+  .mat-icon {
+    fill: var(--mat-sys-secondary);
+  }
+}
+
+.locked {
+  color: var(--mat-sys-on-error);
+  background-color: var(--mat-sys-error);
+}
+
+.mdc-card.default {
+  border-left: 0.25em solid var(--mat-sys-primary);
+}
+
+.collection-type {
+  display: inline-flex;
+  align-items: end;
+  gap: 0.25em;
+  .mat-icon {
+    color: var(--mat-sys-secondary);
+    font-variation-settings: "FILL" 1, "wght" 100, "GRAD" 0, "opsz" 24;
+  }
+}
+
+.technical {
+  padding-left: 0.5em;
+  &:before {
+    content: "[";
+    padding-right: 0.125em;
+  }
+  &:after {
+    content: "]";
+    padding-left: 0.125em;
+  }
+  font-weight: 400;
+}
+
+tr.default {
+  td.type {
+    .collection-type {
+      .mat-icon {
+        font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+    }
+  }
+}
+
+.calendare-table {
+  tbody {
+    tr {
+      transition: background-color 0.2s ease-out;
+    }
+    tr:hover,
+    tr:focus {
+      background-color: var(--mat-sys-surface-container-highest);
+      color: var(--mat-sys-on-surface);
+    }
+  }
+}

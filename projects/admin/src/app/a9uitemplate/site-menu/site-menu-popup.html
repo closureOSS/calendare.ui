@@ -1,0 +1,24 @@
+<mat-nav-list *transloco="let t">
+  @for(route of menu.menuConfig(); track $index) {
+  @if(route.section) {
+  <div matSubheader>{{t(route.label)}}</div>
+  } @else {
+  @if(route.icon; as menuIcon) {
+  <mat-list-item [routerLink]="route.path" routerLinkActive #rla="routerLinkActive" [activated]="rla.isActive"
+    ariaCurrentWhenActive="page">
+    <mat-icon matListItemIcon [svgIcon]="menuIcon"></mat-icon>
+    <div matListItemTitle>{{t(route.label)}}</div>
+  </mat-list-item>
+  } @else {
+  <mat-list-item [routerLink]="route.path" routerLinkActive #rla="routerLinkActive" [activated]="rla.isActive"
+    ariaCurrentWhenActive="page">
+    <div matListItemMeta>
+      <mat-icon svgIcon="arrow_right"></mat-icon>
+    </div>
+    <span matListItemIcon></span>
+    <div matListItemTitle>{{t(route.label)}}</div>
+  </mat-list-item>
+  }
+  }
+  }
+</mat-nav-list>

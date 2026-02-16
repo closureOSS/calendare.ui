@@ -1,0 +1,5 @@
+<div class="permissions" [class]="{'vertical': vertical(), 'prohibit': prohibit()}">
+  @for(perm of permissionList(); track perm) {
+  <div class="permission" [class]="{'none': perm === 'None', 'all': perm === 'All'}">{{ perm }}</div>
+  }
+</div>

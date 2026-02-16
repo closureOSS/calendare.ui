@@ -1,0 +1,20 @@
+<article *transloco="let t">
+  <h1><mat-icon svgIcon="favicon" class="favicon"></mat-icon>{{ t('#ShortAppname') }}</h1>
+
+  <mat-card>
+    <mat-card-content>
+      <a9-hint-box mode="info">{{ t('Thanks for using the #FullAppname. You are now logged out.') }}</a9-hint-box>
+    </mat-card-content>
+    <mat-card-actions>
+      <a9-action-bar class="separate">
+        <button matButton="outlined" [routerLink]="['/login']">{{ t('Login') }}</button>
+      </a9-action-bar>
+    </mat-card-actions>
+  </mat-card>
+
+  <aside class="config">
+    <a9-theme-switcher></a9-theme-switcher>
+    <a9-language-switcher></a9-language-switcher>
+  </aside>
+
+</article>

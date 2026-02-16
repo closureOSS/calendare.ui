@@ -1,0 +1,15 @@
+<form [formGroup]="lookupForm">
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
+    <mat-label>{{label()}}</mat-label>
+    <input type="search" matInput formControlName="searchTerm" [matAutocomplete]="list">
+    <mat-autocomplete autoActiveFirstOption #list="matAutocomplete" [displayWith]="displayFn"
+      (optionSelected)="choose($event)">
+      <!-- @if(principals && principals.hasValue()) { -->
+      @for(principal of principalQuery|async; track principal.username) {
+      <mat-option [value]="principal">{{principal.displayName}}</mat-option>
+      }
+      <!-- } -->
+    </mat-autocomplete>
+    <mat-icon matSuffix svgIcon="search"></mat-icon>
+  </mat-form-field>
+</form>

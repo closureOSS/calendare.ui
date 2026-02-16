@@ -1,0 +1,70 @@
+{
+  "name": "calendare",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --serve-path /admin/ --ssl --ssl-key localhost.key --ssl-cert localhost",
+    "build:admin": "ng build admin --configuration production && npm run i18n:optimize",
+    "api:generate": "ng-openapi -c openapi.config.ts",
+    "i18n:extract": "transloco-keys-manager extract --project admin --output projects/admin/public/i18n",
+    "i18n:find": "transloco-keys-manager find --project admin --output projects/admin/public/i18n",
+    "i18n:optimize": "transloco-optimize dist/admin/browser/i18n",
+    "icon:admin": "MaterialSymbolPacker.exe generate --config ./projects/admin/icon.config.json",
+    "watch": "ng build --watch",
+    "test": "ng test",
+    "lint": "ng lint"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ]
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/cdk": "^21.1.4",
+    "@angular/common": "^21.1.4",
+    "@angular/compiler": "^21.1.4",
+    "@angular/core": "^21.1.4",
+    "@angular/forms": "^21.1.4",
+    "@angular/material": "^21.1.4",
+    "@angular/material-date-fns-adapter": "^21.1.4",
+    "@angular/platform-browser": "^21.1.4",
+    "@angular/platform-browser-dynamic": "^21.1.4",
+    "@angular/router": "^21.1.4",
+    "@jsverse/transloco": "^8.1.0",
+    "angular-auth-oidc-client": "^21.0.0",
+    "date-fns": "^4.0.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^21.1.4",
+    "@angular/cli": "^21.1.4",
+    "@angular/compiler-cli": "^21.1.4",
+    "@jsverse/transloco-keys-manager": "^8.0.0",
+    "@jsverse/transloco-optimize": "^8.1.0",
+    "@ng-openapi/http-resource": "^0.0.26",
+    "@types/jasmine": "~5.1.0",
+    "angular-eslint": "21.2.0",
+    "eslint": "^9.28.0",
+    "jasmine-core": "^5.9.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "nerdbank-gitversioning": "^3.8.118",
+    "ng-openapi": "^0.2.1",
+    "prettier": "^3.6.2",
+    "typescript": "~5.9.0",
+    "typescript-eslint": "^8.40.0"
+  }
+}

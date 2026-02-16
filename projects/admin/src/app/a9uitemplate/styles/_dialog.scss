@@ -1,0 +1,13 @@
+@use '@angular/material' as mat;
+
+.a9-dialog-error {
+   @include mat.dialog-overrides(
+    (
+      container-shape: 0,
+      subhead-color: var(--mat-sys-on-error),
+      supporting-text-color: var(--mat-sys-on-error),
+      container-color: var(--mat-sys-error),
+      container-elevation-shadow: var(--mat-sys-level5),
+    )
+  );
+}

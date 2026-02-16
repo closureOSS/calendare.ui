@@ -1,0 +1,25 @@
+<mat-card appearance="raised" *transloco="let t">
+  <mat-card-header>
+    <mat-card-title>
+      <ng-content></ng-content>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <a9-http-resource-viewer [resource]="privileges" class="privileges">
+      <cal-list-privileges [privilegeGroups]="privileges.value()?.privilegeGroups ?? []"
+        [direction]="true"></cal-list-privileges>
+    </a9-http-resource-viewer>
+  </mat-card-content>
+  <mat-card-actions>
+    <a9-action-bar>
+      <button matButton [routerLink]="['/principal', 'privileges', username()]">Edit</button>
+      <button matButton (click)="refresh()">Refresh</button>
+      <button matButton (click)="recalc()">Recalc</button>
+      @if(privileges.value(); as priv) {
+      @if(priv?.hasProxyReadCollection || priv?.hasProxyWriteCollection) {
+      <span class="proxy">{{ t('(Privilege proxies exists)') }}</span>
+      }
+      }
+    </a9-action-bar>
+  </mat-card-actions>
+</mat-card>

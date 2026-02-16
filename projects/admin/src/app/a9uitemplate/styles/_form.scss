@@ -1,0 +1,15 @@
+.a9-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  // margin: 1rem 0;
+  // padding: 1.5rem 0;
+  // background-color: blue;
+}
+
+.mat-mdc-card-content {
+  .a9-form {
+    padding: 1.5rem 0;
+    // background-color: orange;
+  }
+}

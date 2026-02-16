@@ -1,0 +1,32 @@
+img {
+  margin-left: 0.5rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  user-select: none;
+  &:hover,
+  &:focus {
+    // border: 1px solid var(--mat-sys-primary);
+    filter: drop-shadow(0 0 0.25rem var(--mat-sys-primary));
+  }
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  padding: 0.25em 0 0.25rem 1rem;
+  margin-right: 1rem;
+  overflow: hidden;
+
+  .name {
+    text-overflow: ellipsis;
+    font: var(--mat-sys-label-large);
+    color: var(--mat-sys-primary);
+  }
+
+  .email {
+    text-overflow: ellipsis;
+    font: var(--mat-sys-label-small);
+    color: var(--mat-sys-on-surface);
+  }
+}

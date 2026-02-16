@@ -1,0 +1,128 @@
+{
+  "outputPath": "src/app/core/import-svg-material-icons.generated.ts",
+  "iconSet": [
+    {
+      "names": [
+        "login",
+        "logout",
+        "lock",
+        "home",
+        "search",
+        "refresh",
+        "restart_alt",
+        "account_circle",
+        "account_box",
+        "account_tree",
+        "person",
+        "add",
+        "add_box",
+        "add_card",
+        "calendar_add_on",
+        "delete",
+        "auto_delete",
+        "key",
+        "badge",
+        "id_card",
+        "cancel",
+        "restore_from_trash",
+        "edit",
+        "share",
+        "close",
+        "language",
+        "construction",
+        "approval_delegation",
+        "approval_delegation_off",
+        "tune",
+        "person_search",
+        "monitoring",
+        "filter",
+        "filter_list",
+        "calendar_today",
+        "contacts",
+        "identity_platform",
+        "database",
+        "check",
+        "folder_special",
+        "menu",
+        "close",
+        "keyboard_double_arrow_left",
+        "light_mode",
+        "dark_mode",
+        "routine"
+      ],
+      "formats": [
+        {
+          "weight": 300,
+          "size": 24,
+          "suffix": ""
+        }
+      ]
+    },
+    {
+      "names": [
+        "person",
+        "meeting_room",
+        "speaker",
+        "group"
+      ],
+      "formats": [
+        {
+          "weight": 200,
+          "grade": 200,
+          "fill": 1,
+          "size": 24,
+          "suffix": "#ptype"
+        }
+      ]
+    },
+    {
+      "names": [
+        "calendar_today",
+        "contacts",
+        "library_books",
+        "id_card"
+      ],
+      "formats": [
+        {
+          "weight": 200,
+          "fill": 1,
+          "size": 40,
+          "grade": 200,
+          "suffix": "#avatar"
+        }
+      ]
+    },
+    {
+      "names": [
+        "lightbulb",
+        "dangerous",
+        "emergency_home"
+      ],
+      "formats": [
+        {
+          "weight": 100,
+          "size": 48,
+          "grade": 200,
+          "suffix": "#hint"
+        }
+      ]
+    },
+    {
+      "names": [
+        "search",
+        "account_circle",
+        "light_mode",
+        "dark_mode",
+        "routine"
+      ],
+      "formats": [
+        {
+          "weight": 300,
+          "grade": 200,
+          "size": 24,
+          "suffix": "#menu"
+        }
+      ]
+    }
+  ]
+}

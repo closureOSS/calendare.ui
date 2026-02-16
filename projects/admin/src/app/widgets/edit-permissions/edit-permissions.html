@@ -1,0 +1,6 @@
+<div class="permissions" [class]="{'vertical': vertical(), 'prohibit': prohibit()}">
+  @for(perm of permissionList(); track perm.label) {
+  <div class="permission" (click)="toggleFlag(perm)" (keyup.space)="toggleFlag(perm)" tabindex="0"
+    [class]="{'enabled': perm.enabled, 'combined': perm.combined, 'none': perm.flag===0}">{{ perm.label }}</div>
+  }
+</div>

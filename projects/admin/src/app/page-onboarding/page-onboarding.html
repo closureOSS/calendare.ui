@@ -1,0 +1,26 @@
+<article *transloco="let t">
+  <h1><mat-icon svgIcon="favicon" class="favicon"></mat-icon>Calendare</h1>
+
+  <div class="onboarding">
+    <a9-hint-box mode="warning">
+      <div>{{ t('No account for *username found.', { username: currentUser.email()}) }}</div>
+      <div>
+        {{ t('Create an new account below or link to an existing account with username and password.') }}
+        {{ t('Cancel if you used a wrong user.') }}
+      </div>
+    </a9-hint-box>
+
+    @if(allowAutoProvisioning()) {
+    <cal-form-principal-create [defaultData]="defaultData" (data)="onboard($event)" [msg]="formMessage()"
+      readonlyEmail="true">
+      <a matButton="outlined" [routerLink]="['/onboarding/link']">{{ t('Link account') }}</a>
+      <a matButton (click)="abort()">{{ t('Abort login') }}</a>
+    </cal-form-principal-create>
+    }
+  </div>
+
+  <aside class="config">
+    <a9-theme-switcher></a9-theme-switcher>
+    <a9-language-switcher></a9-language-switcher>
+  </aside>
+</article>

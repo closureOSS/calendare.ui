@@ -1,0 +1,13 @@
+@if(grants()) {
+<mat-expansion-panel *transloco="let t">
+  <mat-expansion-panel-header>
+    <mat-panel-title>{{ t('Custom') }}</mat-panel-title>
+    <mat-panel-description>{{ t('Click for details') }}</mat-panel-description>
+  </mat-expansion-panel-header>
+  <ul class="grants">
+    @for(grant of grants(); track grant.id) {
+    <li>{{grant.description}} &ndash; <span class="grant-id">{{grant.id}}</span></li>
+    }
+  </ul>
+</mat-expansion-panel>
+}

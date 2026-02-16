@@ -1,0 +1,24 @@
+:host {
+  display: block;
+  max-width: min(100%, 48rem);
+}
+
+.memberlist {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  // flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+.member {
+  display: flex;
+  align-items: anchor-center;
+  // padding: 0.125em;
+}
+
+.icon-button {
+  display: flex;
+  align-items: center;
+  gap: 0.125em;
+}

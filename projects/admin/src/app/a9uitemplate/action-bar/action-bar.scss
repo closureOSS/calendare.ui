@@ -1,0 +1,13 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+
+  &.separate {
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+    padding: 0.5em;
+  }
+}

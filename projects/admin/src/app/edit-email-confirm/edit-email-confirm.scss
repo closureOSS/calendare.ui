@@ -1,0 +1,13 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: block;
+  max-width: 48rem;
+  @include mat.card-overrides(
+    (
+      elevated-container-elevation: var(--mat-sys-level5),
+    )
+  );
+  border: 1.5rem solid var(--mat-sys-error-container);
+  // border: 1.5rem solid var(--mat-sys-primary-fixed-dim);
+}

@@ -1,0 +1,11 @@
+:host {
+  display: block;
+}
+
+.body {
+  font: var(--mat-sys-title-medium);
+}
+
+.intro, .body {
+  white-space: pre-line;
+}

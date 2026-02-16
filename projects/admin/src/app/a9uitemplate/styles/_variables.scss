@@ -1,0 +1,34 @@
+@property --a9-site-toolbar-height-small {
+  syntax: '<length>';
+  initial-value: 0px;
+  inherits: true;
+}
+
+@property --a9-site-toolbar-height {
+  syntax: '<length>';
+  initial-value: 0px;
+  inherits: true;
+}
+
+@property --a9-site-mobile-horizontal-padding {
+  syntax: '<length>';
+  initial-value: 0px;
+  inherits: true;
+}
+
+@property --a9-chrome-z-index {
+  syntax: '<number>';
+  initial-value: 0;
+  inherits: true;
+}
+
+:root {
+  --a9-chrome-z-index: 9;
+  --a9-site-mobile-horizontal-padding: 0.5rem;
+
+  --a9-site-toolbar-height-small: 56px;
+  --a9-site-toolbar-height: var(--a9-site-toolbar-height-small);
+  @media (width >= 48rem) {
+    --a9-site-toolbar-height: 64px;
+  }
+}

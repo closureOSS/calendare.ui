@@ -1,0 +1,69 @@
+@use '@angular/material' as mat;
+
+body {
+  @include mat.toolbar-overrides(
+    (
+      container-text-color: var(--mat-sys-primary),
+      container-background-color: var(--mat-sys-on-primary),
+    )
+  );
+
+  .mat-toolbar {
+    @include mat.icon-button-overrides(
+      (
+        // container-color: orange,
+        icon-color: var(--mat-sys-primary),
+        disabled-icon-color: var(--mat-sys-on-surface),
+        ripple-color: var(--mat-sys-primary-fixed-dim),
+        // container-elevation-shadow: -4px -4px 5px 0px rgba(0, 0, 0, 0.5),
+      )
+    );
+  }
+
+  @include mat.menu-overrides(
+    (
+      container-shape: 0,
+      container-color: var(--mat-sys-on-primary),
+      // item-icon-size: 20px,
+    )
+  );
+
+  @include mat.button-overrides(
+    (
+      filled-container-shape: 0,
+      outlined-container-shape: 0,
+      protected-container-shape: 0,
+      tonal-container-shape: 0,
+      text-container-shape: 0,
+    )
+  );
+
+  @include mat.card-overrides(
+    (
+      outlined-container-shape: 0,
+      elevated-container-shape: 0,
+      filled-container-shape: 0,
+    )
+  );
+
+  @include mat.list-overrides(
+    (
+      list-item-container-shape: 0,
+      active-indicator-shape: 0,
+      active-indicator-color: transparent,
+    )
+  );
+
+  @include mat.dialog-overrides(
+    (
+      container-shape: 0,
+      container-elevation-shadow: var(--mat-sys-level2),
+    )
+  );
+
+  @include mat.button-toggle-overrides(
+    (
+      shape: 0,
+    )
+  );
+}

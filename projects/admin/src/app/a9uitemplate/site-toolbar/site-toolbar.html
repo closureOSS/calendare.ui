@@ -1,0 +1,17 @@
+<mat-toolbar *transloco="let t">
+  @if(screenSize.isMobileView()) {
+  <button matIconButton (click)="menu()" [aria-label]="t('Site menu icon')"><mat-icon
+      svgIcon="menu"></mat-icon></button>
+  } @else {
+  <mat-icon svgIcon="favicon" class="favicon" aria-hidden="true"></mat-icon>
+  }
+  <span class="app-title">{{appTitle()}}</span>
+  <span class="spacer"></span>
+  <div class="site-menu">
+    <ng-content select=".extension"></ng-content>
+    <a9-theme-switcher [aria-label]="t('Theme switcher menu icon')"></a9-theme-switcher>
+    <a9-user-setting-menu [aria-label]="t('User settings menu icon')">
+      <ng-content select="[mat-menu-item]"></ng-content>
+    </a9-user-setting-menu>
+  </div>
+</mat-toolbar>

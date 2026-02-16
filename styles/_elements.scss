@@ -1,0 +1,27 @@
+.debug {
+  padding: 1rem 2rem;
+  box-shadow:
+    0 0 4px 1px black inset,
+    0 0 1px 4px white inset;
+  font-family: 'Courier New', Courier, monospace;
+  background: rgb(40, 40, 40);
+  /* https://superuser.com/questions/361297/what-colour-is-the-dark-green-on-old-fashioned-green-screen-computer-displays */
+  color: rgb(255, 176, 0);
+}
+
+// a9-hint-box {
+//   a {
+//     text-decoration: underline;
+//     text-decoration-color: var(--mat-sys-secondary);
+//     color: var(--mat-sys-secondary, inherit);
+//     text-decoration-thickness: 0.125em;
+//     text-underline-offset: 0.3em;
+//     text-decoration-skip-ink: all;
+//     display: inline-block;
+//   }
+// }
+
+.email {
+  font-weight: bold;
+  padding: 0.125em;
+}

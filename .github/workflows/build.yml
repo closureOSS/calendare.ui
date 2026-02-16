@@ -1,0 +1,90 @@
+name: 🏭 Build Calendare Administration UI
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - release/**
+  #     - main
+  # pull_request:
+  #   branches:
+  #     - main
+
+env:
+  REGISTRY: ghcr.io
+  CHART_REPO: charts
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: dotnet/nbgv@v0.4.2
+        id: meta
+        with:
+          setAllVars: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: "npm"
+          cache-dependency-path: ui/package-lock.json
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Stamp package.json
+        run: npm version "${{ steps.meta.outputs.NpmPackageVersion }}" --no-git-tag-version --allow-same-version
+
+      - name: Build
+        run: npm run build:admin
+
+      - name: Prepare lower case names
+        id: migr
+        run: |
+          REPOSITORY_LC=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          echo "repository_lc=$REPOSITORY_LC" >> $GITHUB_OUTPUT
+          REPOSITORY_OWNER_LC=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          echo "repository_owner_lc=$REPOSITORY_OWNER_LC" >> $GITHUB_OUTPUT
+
+      - name: Log in to registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push admin UI container image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Containerfile
+          push: true
+          # sbom: true
+          build-args: |
+            BUILD_DATE=${{ steps.meta.outputs.GitCommitDate }}
+            SEMVER2=${{ steps.meta.outputs.SemVer2 }}
+          tags: |
+            ${{ env.REGISTRY }}/${{ steps.migr.outputs.repository_lc }}/calendare-ui:latest
+            ${{ env.REGISTRY }}/${{ steps.migr.outputs.repository_lc }}/calendare-ui:${{ steps.meta.outputs.SemVer2 }}
+            ${{ env.REGISTRY }}/${{ steps.migr.outputs.repository_lc }}/calendare-ui:${{ steps.meta.outputs.MajorMinorVersion }}
+            ${{ env.REGISTRY }}/${{ steps.migr.outputs.repository_lc }}/calendare-ui:${{ steps.meta.outputs.Version }}
+
+      - name: Push helm chart
+        env:
+          VERSION: ${{ steps.meta.outputs.SemVer2 }}
+          REPOSITORY_OWNER_LC: ${{ steps.migr.outputs.repository_owner_lc }}
+        run: |
+          helm package ./deploy --version "$VERSION" --app-version "$VERSION"
+          helm push calendare-ui-${VERSION}.tgz oci://${{ env.REGISTRY }}/${REPOSITORY_OWNER_LC}/${{ env.CHART_REPO }}

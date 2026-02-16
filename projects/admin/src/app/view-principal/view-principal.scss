@@ -1,0 +1,19 @@
+:host {
+  display: block;
+    max-width: 48rem;
+  // max-width: 64rem;
+  // width: fit-content;
+}
+
+.email {
+  background-color: var(--mat-sys-error-container);
+  color: var(--mat-sys-on-error-container);
+  padding: 0.5em 1em;
+  margin-left: 1em;
+  font: var(--mat-sys-label-medium);
+
+  &.verified {
+    background-color: var(--mat-sys-secondary-container);
+    color: var(--mat-sys-on-secondary-container);
+  }
+}

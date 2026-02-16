@@ -1,0 +1,27 @@
+@use "./app/a9uitemplate/styles/index";
+@use "elements";
+@use "calendare_table";
+
+@property --calendare-color-permission-permit {
+  syntax: "<color>";
+  initial-value: hsl(130, 40%, 40%);
+  inherits: true;
+}
+
+@property --calendare-color-on-permission-permit {
+  syntax: "<color>";
+  initial-value: white;
+  inherits: true;
+}
+
+@property --calendare-color-permission-prohibit {
+  syntax: "<color>";
+  initial-value: hsl(10, 40%, 40%);
+  inherits: true;
+}
+
+@property --calendare-color-on-permission-prohibit {
+  syntax: "<color>";
+  initial-value: white;
+  inherits: true;
+}

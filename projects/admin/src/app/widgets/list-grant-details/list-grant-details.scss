@@ -1,0 +1,39 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: block;
+  //  color: var(--mat-sys-on-tertiary-container);
+  // background-color: var(--mat-sys-tertiary-container);
+  @include mat.expansion-overrides(
+    (
+      container-background-color: var(--mat-sys-tertiary-container),
+      container-shape: 0,
+      header-text-font: var(--mat-sys-body-medium-font),
+      header-text-size: var(--mat-sys-body-medium-size),
+      header-text-weight: var(--mat-sys-body-medium-weight),
+      header-text-tracking: var(--mat-sys-body-medium-tracking),
+      header-text-line-height: var(--mat-sys-body-medium-line-height),
+      container-elevation-shadow: none,
+      header-hover-state-layer-color: var(--mat-sys-tertiary-container),
+      header-focus-state-layer-color: var(--mat-sys-tertiary-container),
+      header-disabled-state-text-color: var(--mat-sys-secondary-container),
+    )
+  );
+}
+
+.grants {
+  grid-column: 2;
+  list-style: square;
+  font: var(--mat-sys-label-medium);
+  color: var(--mat-sys-on-tertiary-container);
+
+  li {
+    padding: 0.25em 0;
+  }
+
+  .grant-id {
+    font: var(--mat-sys-body-small);
+    background-color: var(--mat-sys-tertiary-fixed);
+    color: var(--mat-sys-on-tertiary-fixed);
+  }
+}

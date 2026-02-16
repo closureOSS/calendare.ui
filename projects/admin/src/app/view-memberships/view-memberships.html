@@ -1,0 +1,24 @@
+<mat-card class="memberships" appearance="outlined" *transloco="let t">
+  <mat-card-header>
+    <mat-card-title>
+      <ng-content></ng-content>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <a9-http-resource-viewer [resource]="memberships" class="memberlist">
+      @let ms = memberships.value();
+      @if(ms?.memberships) {
+      @for(m of ms?.memberships; track m.uri) {
+      <span class="member">
+        <a matButton [routerLink]="['/principal', 'show', m.username]">
+          <cal-principal-ref [type]="m.principalType" [name]="m.displayname"></cal-principal-ref>
+        </a>
+      </span>
+      }
+      } @else {
+      <a9-hint-box mode="warning">{{ t('No memberships exist.') }}</a9-hint-box>
+      }
+    </a9-http-resource-viewer>
+  </mat-card-content>
+</mat-card>
+<!-- <pre class="debug">{{memberships() | json}}</pre> -->
