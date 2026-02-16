@@ -9,10 +9,10 @@
 > [!IMPORTANT]
 > Please install the Calendare Server first.
 
-To install the chart with the release name my-release:
+To install the chart with the release name my-ui-release:
 
 ```shell
-helm install my-ui-release oci://ghcr.io/robslgm/charts/calendare-ui
+helm upgrade --install my-ui-release oci://ghcr.io/closureoss/charts/calendare-ui -f values.yaml
 ```
 
 ### Uninstalling the Chart
