@@ -28,6 +28,13 @@ export class TestingResource {
     getLatestSyncToken(collection: Signal<string> | string, resourceOptions?: HttpResourceOptions<SyncTokenResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<SyncTokenResponse | undefined>;
     /** Gets the latest sync token for a collection, only for test automation */
     getLatestSyncToken(collection: Signal<string> | string, resourceOptions?: HttpResourceOptions<SyncTokenResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<SyncTokenResponse | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             let params = new HttpParams();
             const collectionValue = typeof collection === 'function' ? collection() : collection;
@@ -38,6 +45,7 @@ export class TestingResource {
                 url: `${this.basePath}/api/sync`,
                 method: "GET",
                 params,
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }

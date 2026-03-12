@@ -28,10 +28,18 @@ export class CalendareResource {
     getVersion(resourceOptions?: HttpResourceOptions<FeatureResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<FeatureResponse | undefined>;
     /** Get version and features by calender client information */
     getVersion(resourceOptions?: HttpResourceOptions<FeatureResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<FeatureResponse | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             return {
                 url: `${this.basePath}/api/version`,
                 method: "GET",
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -41,10 +49,18 @@ export class CalendareResource {
     ping(resourceOptions: HttpResourceOptions<any, unknown> & { defaultValue: NoInfer<any> }, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<any>;
     ping(resourceOptions?: HttpResourceOptions<any, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<any | undefined>;
     ping(resourceOptions?: HttpResourceOptions<any, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<any | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             return {
                 url: `${this.basePath}/api/site/ping`,
                 method: "GET",
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -55,6 +71,13 @@ export class CalendareResource {
     getUserList(types: Signal<Array<string>> | Array<string>, search?: Signal<string | undefined> | string, unrestricted?: Signal<boolean | undefined> | boolean, technical?: Signal<boolean | undefined> | boolean, resourceOptions?: HttpResourceOptions<Array<PrincipalResponse>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<PrincipalResponse> | undefined>;
     /** Returns visible principals */
     getUserList(types: Signal<Array<string>> | Array<string>, search?: Signal<string | undefined> | string, unrestricted?: Signal<boolean | undefined> | boolean, technical?: Signal<boolean | undefined> | boolean, resourceOptions?: HttpResourceOptions<Array<PrincipalResponse>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<PrincipalResponse> | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             let params = new HttpParams();
             const searchValue = typeof search === 'function' ? search() : search;
@@ -77,6 +100,7 @@ export class CalendareResource {
                 url: `${this.basePath}/api/user`,
                 method: "GET",
                 params,
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -87,10 +111,18 @@ export class CalendareResource {
     getUser(username: Signal<string> | string, resourceOptions?: HttpResourceOptions<PrincipalResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<PrincipalResponse | undefined>;
     /** Returns principal */
     getUser(username: Signal<string> | string, resourceOptions?: HttpResourceOptions<PrincipalResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<PrincipalResponse | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             return {
                 url: `${this.basePath}/api/user/${typeof username === 'function' ? username() : username}`,
                 method: "GET",
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -101,10 +133,18 @@ export class CalendareResource {
     getPrincipalOfMyself(resourceOptions?: HttpResourceOptions<PrincipalResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<PrincipalResponse | undefined>;
     /** Returns current user's basic infos */
     getPrincipalOfMyself(resourceOptions?: HttpResourceOptions<PrincipalResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<PrincipalResponse | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             return {
                 url: `${this.basePath}/api/credentials`,
                 method: "GET",
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -115,10 +155,18 @@ export class CalendareResource {
     getCredentialsOfUser(username: Signal<string> | string, resourceOptions?: HttpResourceOptions<Array<CredentialResponse>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<CredentialResponse> | undefined>;
     /** Returns credential entries */
     getCredentialsOfUser(username: Signal<string> | string, resourceOptions?: HttpResourceOptions<Array<CredentialResponse>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<CredentialResponse> | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             return {
                 url: `${this.basePath}/api/credentials/user/${typeof username === 'function' ? username() : username}`,
                 method: "GET",
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -129,10 +177,18 @@ export class CalendareResource {
     getCredentialTypes(resourceOptions?: HttpResourceOptions<Array<UsrCredentialType>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<UsrCredentialType> | undefined>;
     /** Returns credential types */
     getCredentialTypes(resourceOptions?: HttpResourceOptions<Array<UsrCredentialType>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<UsrCredentialType> | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             return {
                 url: `${this.basePath}/api/credentials/types`,
                 method: "GET",
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -143,6 +199,13 @@ export class CalendareResource {
     createRandomSecret(length?: Signal<number | undefined> | number, resourceOptions?: HttpResourceOptions<CredentialSecretResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<CredentialSecretResponse | undefined>;
     /** Returns random secret (as string) */
     createRandomSecret(length?: Signal<number | undefined> | number, resourceOptions?: HttpResourceOptions<CredentialSecretResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<CredentialSecretResponse | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             let params = new HttpParams();
             const lengthValue = typeof length === 'function' ? length() : length;
@@ -153,6 +216,7 @@ export class CalendareResource {
                 url: `${this.basePath}/api/credentials/randomsecret`,
                 method: "GET",
                 params,
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -163,6 +227,13 @@ export class CalendareResource {
     getPermissions(uri: Signal<string> | string, resourceOptions?: HttpResourceOptions<PermissionResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<PermissionResponse | undefined>;
     /** Returns permission set for collection */
     getPermissions(uri: Signal<string> | string, resourceOptions?: HttpResourceOptions<PermissionResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<PermissionResponse | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             let params = new HttpParams();
             const uriValue = typeof uri === 'function' ? uri() : uri;
@@ -173,6 +244,7 @@ export class CalendareResource {
                 url: `${this.basePath}/api/permission`,
                 method: "GET",
                 params,
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -183,10 +255,18 @@ export class CalendareResource {
     getPermissionsSelf(resourceOptions?: HttpResourceOptions<PermissionResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<PermissionResponse | undefined>;
     /** Returns permission set for current user */
     getPermissionsSelf(resourceOptions?: HttpResourceOptions<PermissionResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<PermissionResponse | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             return {
                 url: `${this.basePath}/api/permission/self`,
                 method: "GET",
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -196,6 +276,13 @@ export class CalendareResource {
     getPrivilegesIncoming(grantee: Signal<string | undefined> | string | undefined, empty: Signal<boolean | undefined> | boolean | undefined, transitive: Signal<boolean | undefined> | boolean | undefined, resourceOptions: HttpResourceOptions<PrivilegeResponse, unknown> & { defaultValue: NoInfer<PrivilegeResponse> }, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<PrivilegeResponse>;
     getPrivilegesIncoming(grantee?: Signal<string | undefined> | string, empty?: Signal<boolean | undefined> | boolean, transitive?: Signal<boolean | undefined> | boolean, resourceOptions?: HttpResourceOptions<PrivilegeResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<PrivilegeResponse | undefined>;
     getPrivilegesIncoming(grantee?: Signal<string | undefined> | string, empty?: Signal<boolean | undefined> | boolean, transitive?: Signal<boolean | undefined> | boolean, resourceOptions?: HttpResourceOptions<PrivilegeResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<PrivilegeResponse | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             let params = new HttpParams();
             const granteeValue = typeof grantee === 'function' ? grantee() : grantee;
@@ -214,6 +301,7 @@ export class CalendareResource {
                 url: `${this.basePath}/api/privilege`,
                 method: "GET",
                 params,
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -223,6 +311,13 @@ export class CalendareResource {
     getPrivilegesOutgoing(grantor: Signal<string | undefined> | string | undefined, empty: Signal<boolean | undefined> | boolean | undefined, transitive: Signal<boolean | undefined> | boolean | undefined, resourceOptions: HttpResourceOptions<PrivilegeResponse, unknown> & { defaultValue: NoInfer<PrivilegeResponse> }, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<PrivilegeResponse>;
     getPrivilegesOutgoing(grantor?: Signal<string | undefined> | string, empty?: Signal<boolean | undefined> | boolean, transitive?: Signal<boolean | undefined> | boolean, resourceOptions?: HttpResourceOptions<PrivilegeResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<PrivilegeResponse | undefined>;
     getPrivilegesOutgoing(grantor?: Signal<string | undefined> | string, empty?: Signal<boolean | undefined> | boolean, transitive?: Signal<boolean | undefined> | boolean, resourceOptions?: HttpResourceOptions<PrivilegeResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<PrivilegeResponse | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             let params = new HttpParams();
             const grantorValue = typeof grantor === 'function' ? grantor() : grantor;
@@ -241,6 +336,7 @@ export class CalendareResource {
                 url: `${this.basePath}/api/privilege/grants`,
                 method: "GET",
                 params,
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -250,6 +346,13 @@ export class CalendareResource {
     getMemberships(principal: Signal<string | undefined> | string | undefined, direction: Signal<MembershipDirection | undefined> | MembershipDirection | undefined, resourceOptions: HttpResourceOptions<MembershipResponse, unknown> & { defaultValue: NoInfer<MembershipResponse> }, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<MembershipResponse>;
     getMemberships(principal?: Signal<string | undefined> | string, direction?: Signal<MembershipDirection | undefined> | MembershipDirection, resourceOptions?: HttpResourceOptions<MembershipResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<MembershipResponse | undefined>;
     getMemberships(principal?: Signal<string | undefined> | string, direction?: Signal<MembershipDirection | undefined> | MembershipDirection, resourceOptions?: HttpResourceOptions<MembershipResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<MembershipResponse | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             let params = new HttpParams();
             const principalValue = typeof principal === 'function' ? principal() : principal;
@@ -264,6 +367,7 @@ export class CalendareResource {
                 url: `${this.basePath}/api/membership`,
                 method: "GET",
                 params,
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -273,6 +377,13 @@ export class CalendareResource {
     getGroupMembers(groupName: Signal<string> | string, principal: Signal<string | undefined> | string | undefined, resourceOptions: HttpResourceOptions<Array<GroupMemberRef>, unknown> & { defaultValue: NoInfer<Array<GroupMemberRef>> }, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<GroupMemberRef>>;
     getGroupMembers(groupName: Signal<string> | string, principal?: Signal<string | undefined> | string, resourceOptions?: HttpResourceOptions<Array<GroupMemberRef>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<GroupMemberRef> | undefined>;
     getGroupMembers(groupName: Signal<string> | string, principal?: Signal<string | undefined> | string, resourceOptions?: HttpResourceOptions<Array<GroupMemberRef>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<GroupMemberRef> | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             let params = new HttpParams();
             const principalValue = typeof principal === 'function' ? principal() : principal;
@@ -283,6 +394,7 @@ export class CalendareResource {
                 url: `${this.basePath}/api/membership/group/${typeof groupName === 'function' ? groupName() : groupName}`,
                 method: "GET",
                 params,
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -293,6 +405,13 @@ export class CalendareResource {
     getProxyMembers(relType: Signal<RelationshipTypes> | RelationshipTypes, principal?: Signal<string | undefined> | string, resourceOptions?: HttpResourceOptions<Array<GroupMemberRef>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<GroupMemberRef> | undefined>;
     /** By default the own proxy group members are returned, otherwise from the given principal */
     getProxyMembers(relType: Signal<RelationshipTypes> | RelationshipTypes, principal?: Signal<string | undefined> | string, resourceOptions?: HttpResourceOptions<Array<GroupMemberRef>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<GroupMemberRef> | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             let params = new HttpParams();
             const principalValue = typeof principal === 'function' ? principal() : principal;
@@ -303,6 +422,7 @@ export class CalendareResource {
                 url: `${this.basePath}/api/membership/proxy/${typeof relType === 'function' ? relType() : relType}`,
                 method: "GET",
                 params,
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -313,10 +433,18 @@ export class CalendareResource {
     getCollectionByOwner(username: Signal<string> | string, resourceOptions?: HttpResourceOptions<Array<CollectionResponse>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<CollectionResponse> | undefined>;
     /** Returns principal user collections. */
     getCollectionByOwner(username: Signal<string> | string, resourceOptions?: HttpResourceOptions<Array<CollectionResponse>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<CollectionResponse> | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             return {
                 url: `${this.basePath}/api/collection/${typeof username === 'function' ? username() : username}`,
                 method: "GET",
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -327,6 +455,13 @@ export class CalendareResource {
     getCollectionByUri(uri: Signal<string> | string, resourceOptions?: HttpResourceOptions<CollectionResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<CollectionResponse | undefined>;
     /** Returns collection. */
     getCollectionByUri(uri: Signal<string> | string, resourceOptions?: HttpResourceOptions<CollectionResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<CollectionResponse | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             let params = new HttpParams();
             const uriValue = typeof uri === 'function' ? uri() : uri;
@@ -337,6 +472,7 @@ export class CalendareResource {
                 url: `${this.basePath}/api/collection`,
                 method: "GET",
                 params,
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -347,10 +483,18 @@ export class CalendareResource {
     getObjectById(id: Signal<number> | number, resourceOptions?: HttpResourceOptions<CalendarScheduleItem, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<CalendarScheduleItem | undefined>;
     /** Returns object or not found. */
     getObjectById(id: Signal<number> | number, resourceOptions?: HttpResourceOptions<CalendarScheduleItem, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<CalendarScheduleItem | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             return {
                 url: `${this.basePath}/api/object/id/calendar/${typeof id === 'function' ? id() : id}`,
                 method: "GET",
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -361,10 +505,18 @@ export class CalendareResource {
     getObjectsByUid(uid: Signal<string> | string, resourceOptions?: HttpResourceOptions<Array<CalendarScheduleItem>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<CalendarScheduleItem> | undefined>;
     /** Returns objects. */
     getObjectsByUid(uid: Signal<string> | string, resourceOptions?: HttpResourceOptions<Array<CalendarScheduleItem>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<CalendarScheduleItem> | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             return {
                 url: `${this.basePath}/api/object/uid/calendar/${typeof uid === 'function' ? uid() : uid}`,
                 method: "GET",
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -375,10 +527,18 @@ export class CalendareResource {
     getCalendarByUid(uid: Signal<string> | string, resourceOptions?: HttpResourceOptions<Array<CalendarScheduleItem>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<CalendarScheduleItem> | undefined>;
     /** Returns calendar entries */
     getCalendarByUid(uid: Signal<string> | string, resourceOptions?: HttpResourceOptions<Array<CalendarScheduleItem>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<CalendarScheduleItem> | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             return {
                 url: `${this.basePath}/api/calendar/uid/${typeof uid === 'function' ? uid() : uid}`,
                 method: "GET",
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -389,6 +549,13 @@ export class CalendareResource {
     getCalendar(path?: Signal<string | undefined> | string, resourceOptions?: HttpResourceOptions<Array<CalendarScheduleItem>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<CalendarScheduleItem> | undefined>;
     /** Returns calendar entries */
     getCalendar(path?: Signal<string | undefined> | string, resourceOptions?: HttpResourceOptions<Array<CalendarScheduleItem>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<CalendarScheduleItem> | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             let params = new HttpParams();
             const pathValue = typeof path === 'function' ? path() : path;
@@ -399,6 +566,7 @@ export class CalendareResource {
                 url: `${this.basePath}/api/calendar/uri`,
                 method: "GET",
                 params,
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -409,6 +577,13 @@ export class CalendareResource {
     getAddressbook(collection?: Signal<string | undefined> | string, resourceOptions?: HttpResourceOptions<Array<AddressbookItem>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<AddressbookItem> | undefined>;
     /** Returns addressbook entries */
     getAddressbook(collection?: Signal<string | undefined> | string, resourceOptions?: HttpResourceOptions<Array<AddressbookItem>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<AddressbookItem> | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             let params = new HttpParams();
             const collectionValue = typeof collection === 'function' ? collection() : collection;
@@ -419,6 +594,7 @@ export class CalendareResource {
                 url: `${this.basePath}/api/addressbook/uri`,
                 method: "GET",
                 params,
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -429,10 +605,18 @@ export class CalendareResource {
     getMailboxByUid(uid: Signal<string> | string, resourceOptions?: HttpResourceOptions<Array<MailboxItem>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<MailboxItem> | undefined>;
     /** Returns mailbox items. */
     getMailboxByUid(uid: Signal<string> | string, resourceOptions?: HttpResourceOptions<Array<MailboxItem>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<MailboxItem> | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             return {
                 url: `${this.basePath}/api/mailbox/uid/${typeof uid === 'function' ? uid() : uid}`,
                 method: "GET",
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }
@@ -443,6 +627,13 @@ export class CalendareResource {
     getMailboxBySender(sender: Signal<string> | string, resourceOptions?: HttpResourceOptions<Array<MailboxItem>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<MailboxItem> | undefined>;
     /** Returns mailbox items. */
     getMailboxBySender(sender: Signal<string> | string, resourceOptions?: HttpResourceOptions<Array<MailboxItem>, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<Array<MailboxItem> | undefined> {
+
+        let headers: HttpHeaders;
+        if (requestOptions?.headers instanceof HttpHeaders) {
+            headers = requestOptions.headers;
+        } else {
+            headers = new HttpHeaders(requestOptions?.headers as Record<string, string>);
+        }
         return httpResource(() => {
             let params = new HttpParams();
             const senderValue = typeof sender === 'function' ? sender() : sender;
@@ -453,6 +644,7 @@ export class CalendareResource {
                 url: `${this.basePath}/api/mailbox`,
                 method: "GET",
                 params,
+                headers,
                 context: this.createContextWithClientId(requestOptions?.context),
                 ...requestOptions
             }

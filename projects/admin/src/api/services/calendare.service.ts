@@ -32,8 +32,16 @@ export class CalendareService {
     getVersion(observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/version`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -48,8 +56,16 @@ export class CalendareService {
     ping(observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/site/ping`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -65,8 +81,16 @@ export class CalendareService {
     deleteWholeSite(observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/site`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -82,8 +106,16 @@ export class CalendareService {
     deleteTrxJournal(observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/site/trxjournal`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -113,8 +145,16 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, technical, 'technical');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
@@ -130,8 +170,20 @@ export class CalendareService {
     createUser(userRegisterRequest: UserRegisterRequest, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/user`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+        // Set Content-Type for JSON requests if not already set
+        if (!headers.has('Content-Type')) {
+            headers = headers.set('Content-Type', 'application/json');
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -147,8 +199,16 @@ export class CalendareService {
     getUser(username: string, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/user/${username}`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -164,8 +224,20 @@ export class CalendareService {
     updateUser(username: string, userAmendRequest: UserAmendRequest, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/user/${username}`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+        // Set Content-Type for JSON requests if not already set
+        if (!headers.has('Content-Type')) {
+            headers = headers.set('Content-Type', 'application/json');
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -181,8 +253,16 @@ export class CalendareService {
     deleteUser(username: string, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/user/${username}`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -198,8 +278,20 @@ export class CalendareService {
     confirmUserEmail(username: string, userConfirmEmailRequest: UserConfirmEmailRequest, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/user/${username}/email/confirm`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+        // Set Content-Type for JSON requests if not already set
+        if (!headers.has('Content-Type')) {
+            headers = headers.set('Content-Type', 'application/json');
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -215,8 +307,16 @@ export class CalendareService {
     sendEmailConfirmationCode(username: string, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/user/${username}/email/generate`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -232,8 +332,16 @@ export class CalendareService {
     getPrincipalOfMyself(observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/credentials`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -249,8 +357,16 @@ export class CalendareService {
     getCredentialsOfUser(username: string, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/credentials/user/${username}`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -265,8 +381,20 @@ export class CalendareService {
     createCredential(username: string, userCredentialRequest: UserCredentialRequest, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/credentials/user/${username}`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+        // Set Content-Type for JSON requests if not already set
+        if (!headers.has('Content-Type')) {
+            headers = headers.set('Content-Type', 'application/json');
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -282,8 +410,16 @@ export class CalendareService {
     getCredentialTypes(observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/credentials/types`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -304,8 +440,16 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, length, 'length');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
@@ -322,8 +466,16 @@ export class CalendareService {
     unlockCredential(username: string, credentialId: number, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/credentials/user/${username}/${credentialId}/lock`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -339,8 +491,16 @@ export class CalendareService {
     lockCredential(username: string, credentialId: number, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/credentials/user/${username}/${credentialId}/lock`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -356,8 +516,20 @@ export class CalendareService {
     setCredentialPassword(username: string, credentialId: number, userCredentialRequest: UserCredentialRequest, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/credentials/user/${username}/${credentialId}/reset`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+        // Set Content-Type for JSON requests if not already set
+        if (!headers.has('Content-Type')) {
+            headers = headers.set('Content-Type', 'application/json');
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -372,8 +544,16 @@ export class CalendareService {
     deleteCredential(username: string, credentialId: number, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/credentials/user/${username}/${credentialId}`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -388,8 +568,16 @@ export class CalendareService {
     autoLinkCurrentUser(observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/credentials/autolink`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -405,8 +593,20 @@ export class CalendareService {
     linkCurrentUser(sub: string, userCredentialRequest: UserCredentialRequest, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/credentials/link/${sub}`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+        // Set Content-Type for JSON requests if not already set
+        if (!headers.has('Content-Type')) {
+            headers = headers.set('Content-Type', 'application/json');
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -421,8 +621,20 @@ export class CalendareService {
     autoProvisionCurrentUser(userRegisterRequest: UserRegisterRequest, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/credentials/autoprovision`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+        // Set Content-Type for JSON requests if not already set
+        if (!headers.has('Content-Type')) {
+            headers = headers.set('Content-Type', 'application/json');
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -443,8 +655,16 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, uri, 'uri');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
@@ -461,8 +681,20 @@ export class CalendareService {
     setPermissions(permissionRequest: PermissionRequest, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/permission`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+        // Set Content-Type for JSON requests if not already set
+        if (!headers.has('Content-Type')) {
+            headers = headers.set('Content-Type', 'application/json');
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -478,8 +710,16 @@ export class CalendareService {
     getPermissionsSelf(observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/permission/self`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -505,8 +745,16 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, transitive, 'transitive');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
@@ -523,8 +771,20 @@ export class CalendareService {
     createPrivileges(privilegeRequest: PrivilegeRequest, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/privilege`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+        // Set Content-Type for JSON requests if not already set
+        if (!headers.has('Content-Type')) {
+            headers = headers.set('Content-Type', 'application/json');
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -550,8 +810,16 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, transitive, 'transitive');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
@@ -578,8 +846,16 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, reltype, 'reltype');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
@@ -603,8 +879,16 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, grantor, 'grantor');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
@@ -628,8 +912,16 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, direction, 'direction');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
@@ -650,8 +942,20 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, principal, 'principal');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+        // Set Content-Type for JSON requests if not already set
+        if (!headers.has('Content-Type')) {
+            headers = headers.set('Content-Type', 'application/json');
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
@@ -672,8 +976,16 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, principal, 'principal');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
@@ -689,8 +1001,16 @@ export class CalendareService {
     addGroupmembership(groupName: string, memberName: string, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/membership/group/${groupName}/${memberName}`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -705,8 +1025,16 @@ export class CalendareService {
     deleteGroupmembership(groupName: string, memberName: string, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/membership/group/${groupName}/${memberName}`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -727,8 +1055,16 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, principal, 'principal');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
@@ -750,8 +1086,16 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, principal, 'principal');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
@@ -772,8 +1116,16 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, principal, 'principal');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
@@ -794,8 +1146,16 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, principal, 'principal');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
@@ -812,8 +1172,16 @@ export class CalendareService {
     getCollectionByOwner(username: string, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/collection/${username}`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -834,8 +1202,16 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, uri, 'uri');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
@@ -852,8 +1228,20 @@ export class CalendareService {
     createCollection(collectionCreateRequest: CollectionCreateRequest, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/collection`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+        // Set Content-Type for JSON requests if not already set
+        if (!headers.has('Content-Type')) {
+            headers = headers.set('Content-Type', 'application/json');
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -874,8 +1262,20 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, uri, 'uri');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+        // Set Content-Type for JSON requests if not already set
+        if (!headers.has('Content-Type')) {
+            headers = headers.set('Content-Type', 'application/json');
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
@@ -897,8 +1297,16 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, uri, 'uri');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
@@ -915,8 +1323,16 @@ export class CalendareService {
     getObjectById(id: number, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/object/id/calendar/${id}`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -932,8 +1348,16 @@ export class CalendareService {
     getObjectsByUid(uid: string, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/object/uid/calendar/${uid}`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -949,8 +1373,16 @@ export class CalendareService {
     getCalendarByUid(uid: string, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/calendar/uid/${uid}`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -971,8 +1403,16 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, path, 'path');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
@@ -994,8 +1434,16 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, collection, 'collection');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
@@ -1012,8 +1460,16 @@ export class CalendareService {
     getMailboxByUid(uid: string, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/mailbox/uid/${uid}`;
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
@@ -1034,8 +1490,16 @@ export class CalendareService {
             params = HttpParamsBuilder.addToHttpParams(params, sender, 'sender');
         }
 
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
         const requestOptions: any = {
             observe: observe as any,
+            headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
