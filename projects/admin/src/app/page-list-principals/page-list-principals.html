@@ -93,10 +93,8 @@
       }
     </a9-http-resource-viewer>
 
-    @if(permissions.hasValue()) {
     <a9-floating-action-bar>
-      <cal-create-principal-button [permissions]="permissions.value()"></cal-create-principal-button>
+      <cal-create-principal-button [permissions]="adminPermissions.value()"></cal-create-principal-button>
     </a9-floating-action-bar>
-    }
   </section>
 </article>

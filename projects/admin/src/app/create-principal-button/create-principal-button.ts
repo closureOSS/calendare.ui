@@ -28,7 +28,6 @@ export class CreatePrincipalButton {
 
   public mini = input(false, { transform: booleanAttribute });
 
-
   public canCreatePrincipal(permissions: PermissionResponse | undefined) {
     if (!permissions || !permissions.administration) return false;
     return (permissions.administration & PrivilegeMask.Bind) !== PrivilegeMask.None;

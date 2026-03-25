@@ -4,6 +4,10 @@
   </header>
 
   <section>
+    @if(canOperateSystem(adminPermissions.value())) {
     <cal-edit-trx-journal></cal-edit-trx-journal>
+    } @else {
+      <a9-hint-box mode="info">{{ t('Not yet implemented.') }}</a9-hint-box>
+    }
   </section>
 </article>
