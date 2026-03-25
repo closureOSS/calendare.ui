@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { CalendareService } from '../../api/services';
+import { OperationService } from '../../api/services';
 import { firstValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TranslocoDirective } from '@jsverse/transloco';
@@ -18,7 +18,7 @@ import { TranslocoDirective } from '@jsverse/transloco';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditTrxJournal {
-  private readonly client = inject(CalendareService);
+  private readonly client = inject(OperationService);
 
   public async deleteJournal() {
     try {

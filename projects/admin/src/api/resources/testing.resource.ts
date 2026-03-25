@@ -26,7 +26,7 @@ export class TestingResource {
 
     getLatestSyncToken(collection: Signal<string> | string, resourceOptions: HttpResourceOptions<SyncTokenResponse, unknown> & { defaultValue: NoInfer<SyncTokenResponse> }, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<SyncTokenResponse>;
     getLatestSyncToken(collection: Signal<string> | string, resourceOptions?: HttpResourceOptions<SyncTokenResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<SyncTokenResponse | undefined>;
-    /** Gets the latest sync token for a collection, only for test automation */
+    /** Gets the latest sync token for a collection; can only be used in TEST mode */
     getLatestSyncToken(collection: Signal<string> | string, resourceOptions?: HttpResourceOptions<SyncTokenResponse, unknown>, requestOptions?: Omit<HttpResourceRequest, "method" | "url" | "params">): HttpResourceRef<SyncTokenResponse | undefined> {
 
         let headers: HttpHeaders;

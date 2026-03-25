@@ -241,8 +241,8 @@ export interface PermissionResponse {
     globalPermitSelf?: PrivilegeMask;
     authorizedProhibit?: PrivilegeMask;
     ownerProhibit?: PrivilegeMask;
+    administration?: PrivilegeMask;
     isRoot?: boolean | null;
-    isAdmin?: boolean | null;
 }
 
 export interface PrincipalResponse {

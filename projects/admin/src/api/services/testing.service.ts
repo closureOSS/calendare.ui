@@ -25,10 +25,35 @@ export class TestingService {
         return context.set(this.clientContextToken, 'CalendareApi');
     }
 
+    deleteWholeSite(observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
+    deleteWholeSite(observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<any>>;
+    deleteWholeSite(observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<any>>;
+    /** Removes all data of the site; can only be used in TEST mode */
+    deleteWholeSite(observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
+        const url = `${this.basePath}/api/site`;
+
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
+        const requestOptions: any = {
+            observe: observe as any,
+            headers,
+            reportProgress: options?.reportProgress,
+            withCredentials: options?.withCredentials,
+            context: this.createContextWithClientId(options?.context)
+        };
+
+        return this.httpClient.delete(url, requestOptions);
+    }
+
     getLatestSyncToken(collection: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<SyncTokenResponse>;
     getLatestSyncToken(collection: string, observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<SyncTokenResponse>>;
     getLatestSyncToken(collection: string, observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<SyncTokenResponse>>;
-    /** Gets the latest sync token for a collection, only for test automation */
+    /** Gets the latest sync token for a collection; can only be used in TEST mode */
     getLatestSyncToken(collection: string, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/sync`;
 
