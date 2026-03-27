@@ -66,11 +66,10 @@ export class PageListPrincipals {
     PrivilegeMaskConstant.ScheduleSendReply | PrivilegeMaskConstant.ScheduleSendFreebusy;
 
   public readonly principals = this.calendareResource.getUserList(this.filterByType, this.searchTerm, false, true, undefined);
-  public readonly permissions = this.calendareResource.getPermissionsSelf(undefined);
+  public readonly adminPermissions = this.calendareResource.getPermissionsSelf(undefined);
 
   refresh() {
-    this.permissions.reload();
+    this.adminPermissions.reload();
     this.principals.reload();
   }
-
 }

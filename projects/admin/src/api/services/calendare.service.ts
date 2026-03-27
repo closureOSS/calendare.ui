@@ -74,56 +74,6 @@ export class CalendareService {
         return this.httpClient.get(url, requestOptions);
     }
 
-    deleteWholeSite(observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
-    deleteWholeSite(observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<any>>;
-    deleteWholeSite(observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<any>>;
-    /** Removes all data of the site; can only be used in TEST mode */
-    deleteWholeSite(observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
-        const url = `${this.basePath}/api/site`;
-
-        let headers: HttpHeaders;
-        if (options?.headers instanceof HttpHeaders) {
-            headers = options.headers;
-        } else {
-            headers = new HttpHeaders(options?.headers);
-        }
-
-        const requestOptions: any = {
-            observe: observe as any,
-            headers,
-            reportProgress: options?.reportProgress,
-            withCredentials: options?.withCredentials,
-            context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.delete(url, requestOptions);
-    }
-
-    deleteTrxJournal(observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
-    deleteTrxJournal(observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<any>>;
-    deleteTrxJournal(observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<any>>;
-    /** Deletes transaction journal */
-    deleteTrxJournal(observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
-        const url = `${this.basePath}/api/site/trxjournal`;
-
-        let headers: HttpHeaders;
-        if (options?.headers instanceof HttpHeaders) {
-            headers = options.headers;
-        } else {
-            headers = new HttpHeaders(options?.headers);
-        }
-
-        const requestOptions: any = {
-            observe: observe as any,
-            headers,
-            reportProgress: options?.reportProgress,
-            withCredentials: options?.withCredentials,
-            context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.delete(url, requestOptions);
-    }
-
     getUserList(types: Array<string>, search?: string, unrestricted?: boolean, technical?: boolean, observe?: 'body', options?: RequestOptions<'json'>): Observable<Array<PrincipalResponse>>;
     getUserList(types: Array<string>, search?: string, unrestricted?: boolean, technical?: boolean, observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<Array<PrincipalResponse>>>;
     getUserList(types: Array<string>, search?: string, unrestricted?: boolean, technical?: boolean, observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<Array<PrincipalResponse>>>;

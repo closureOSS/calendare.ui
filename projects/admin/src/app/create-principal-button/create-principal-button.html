@@ -1,9 +1,9 @@
 <ng-container *transloco="let t">
   @if(mini()) {
-  <button matMiniFab [matMenuTriggerFor]="menu" [disabled]="!permissions() || !permissions()?.isAdmin"><mat-icon
+  <button matMiniFab [matMenuTriggerFor]="menu" [disabled]="!canCreatePrincipal(permissions())"><mat-icon
       svgIcon="add"></mat-icon></button>
   } @else {
-  <button matFab extended [matMenuTriggerFor]="menu" [disabled]="!permissions() || !permissions()?.isAdmin"><mat-icon
+  <button matFab extended [matMenuTriggerFor]="menu" [disabled]="!canCreatePrincipal(permissions())"><mat-icon
       svgIcon="add"></mat-icon>{{ t('Principal') }}</button>
   }
 

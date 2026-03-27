@@ -2,3 +2,12 @@ section {
   display: flow;
   gap: 2rem;
 }
+
+section:empty {
+  display: none;
+}
+
+
+.nyi {
+
+}

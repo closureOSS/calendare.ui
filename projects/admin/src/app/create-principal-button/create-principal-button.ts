@@ -5,6 +5,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { PermissionResponse } from '../../api';
 import { RouterLink } from '@angular/router';
+import { PrivilegeMask } from '../core/privilege-mask';
 
 @Component({
   selector: 'cal-create-principal-button',
@@ -27,4 +28,8 @@ export class CreatePrincipalButton {
 
   public mini = input(false, { transform: booleanAttribute });
 
+  public canCreatePrincipal(permissions: PermissionResponse | undefined) {
+    if (!permissions || !permissions.administration) return false;
+    return (permissions.administration & PrivilegeMask.Bind) !== PrivilegeMask.None;
+  }
 }
