@@ -46,8 +46,8 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
-    "@angular/build": "^21.2.4",
-    "@angular/cli": "^21.2.4",
+    "@angular/build": "^21.2.5",
+    "@angular/cli": "^21.2.5",
     "@angular/compiler-cli": "^21.2.6",
     "@jsverse/transloco-keys-manager": "^8.0.0",
     "@jsverse/transloco-optimize": "^8.1.0",
