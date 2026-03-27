@@ -9,7 +9,7 @@
       @let ms = members.value();
       @for(grp of ms?.groups; track grp.group) {
       @if(grp.members && grp.members.length > 0 && grp.group && grp.group.membershipType) {
-      <div class="priv-class">{{grp.group.membershipType.replace('Proxy','')}}</div>
+      <div class="priv-class">{{ grp.group.displayname }}</div>
       <div class="memberlist">
         @for(m of grp.members; track m.uri) {
         <span class="member">
