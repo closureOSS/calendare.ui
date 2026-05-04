@@ -105,10 +105,10 @@ jobs:
             BUILD_DATE=${{ steps.meta.outputs.git_commit_date }}
             SEMVER=${{ steps.meta.outputs.clean_version }}
           tags: |
-            ${{ env.REGISTRY }}/${{ steps.migr.outputs.repository_lc }}/${{ steps.package.outputs.name }}:latest
-            ${{ env.REGISTRY }}/${{ steps.migr.outputs.repository_lc }}/${{ steps.package.outputs.name }}:${{ steps.meta.outputs.clean_version }}
-            ${{ env.REGISTRY }}/${{ steps.migr.outputs.repository_lc }}/${{ steps.package.outputs.name }}:${{ steps.meta.outputs.MajorMinorPatch }}
-            ${{ env.REGISTRY }}/${{ steps.migr.outputs.repository_lc }}/${{ steps.package.outputs.name }}:${{ steps.meta.outputs.MajorMinor }}
+            ${{ env.REGISTRY }}/${{ steps.repoinfo.outputs.repository_lc }}/${{ steps.package.outputs.name }}:latest
+            ${{ env.REGISTRY }}/${{ steps.repoinfo.outputs.repository_lc }}/${{ steps.package.outputs.name }}:${{ steps.meta.outputs.clean_version }}
+            ${{ env.REGISTRY }}/${{ steps.repoinfo.outputs.repository_lc }}/${{ steps.package.outputs.name }}:${{ steps.meta.outputs.MajorMinorPatch }}
+            ${{ env.REGISTRY }}/${{ steps.repoinfo.outputs.repository_lc }}/${{ steps.package.outputs.name }}:${{ steps.meta.outputs.MajorMinor }}
 
       - name: Get chart name
         id: chartname
