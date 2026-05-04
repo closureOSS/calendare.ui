@@ -1,14 +1,10 @@
 name: 🏭 Build Calendare Administration UI
 
 on:
-  workflow_dispatch:
-  # push:
-  #   branches:
-  #     - release/**
-  #     - main
-  # pull_request:
-  #   branches:
-  #     - main
+  push:
+    tags:
+      - "v[0-9]*.[0-9]*.[0-9]*"     # Pattern for standard: v1.2.3
+      - "v[0-9]*.[0-9]*.[0-9]*-*"   # Pattern for pre-release: v1.2.3-alpha.1
 
 env:
   REGISTRY: ghcr.io
@@ -18,7 +14,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:
@@ -26,10 +22,42 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: dotnet/nbgv@v0.4.2
+      - name: Extract repo names
+        id: repoinfo
+        shell: bash
+        run: |
+          REPOSITORY_LC=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          echo "repository_lc=$REPOSITORY_LC" >> $GITHUB_OUTPUT
+          REPOSITORY_OWNER_LC=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          echo "repository_owner_lc=$REPOSITORY_OWNER_LC" >> $GITHUB_OUTPUT
+
+      - name: Extract meta information
         id: meta
-        with:
-          setAllVars: true
+        shell: bash
+        run: |
+          set -x
+          # Use parameter expansion to strip 'v' prefix from the tag name
+          CLEAN_VERSION=${GITHUB_REF_NAME#v}
+          echo "clean_version=${CLEAN_VERSION}" >> $GITHUB_OUTPUT
+          if [[ $CLEAN_VERSION == *"-"* ]]; then
+            echo "is_prerelease=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_prerelease=false" >> $GITHUB_OUTPUT
+          fi
+          MAJOR=$(echo $CLEAN_VERSION | cut -d. -f1)
+          MINOR=$(echo $CLEAN_VERSION | cut -d. -f2)
+          PATCH=$(echo $CLEAN_VERSION | cut -d. -f3 | cut -d- -f1)
+          PRERELEASE=$(echo $CLEAN_VERSION | grep -oP '(?<=-).*' || echo "")
+          echo "MajorMinor=$MAJOR.$MINOR" >> $GITHUB_OUTPUT
+          echo "MajorMinorPatch=$MAJOR.$MINOR.$PATCH" >> $GITHUB_OUTPUT
+          echo "Major=$MAJOR" >> $GITHUB_OUTPUT
+          echo "Minor=$MINOR" >> $GITHUB_OUTPUT
+          echo "Patch=$PATCH" >> $GITHUB_OUTPUT
+          echo "Prerelease=$PRERELEASE" >> $GITHUB_OUTPUT
+          GIT_COMMIT_DATE=$(git show --no-patch --format=%cI)
+          echo "git_commit_date=$GIT_COMMIT_DATE" >> $GITHUB_OUTPUT
+          IS_ON_BRANCH=$(git branch -r --contains ${{ github.ref }} | grep -E '^[*[:space:]]+origin/(main|release/)' || true)
+          echo "is_on_branch=$IS_ON_BRANCH" >> $GITHUB_OUTPUT
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -42,18 +70,19 @@ jobs:
         run: npm ci
 
       - name: Stamp package.json
-        run: npm version "${{ steps.meta.outputs.NpmPackageVersion }}" --no-git-tag-version --allow-same-version
+        env:
+          SEMVER: ${{ steps.meta.outputs.clean_version }}
+        run: npm version "${SEMVER}" --no-git-tag-version --allow-same-version
 
       - name: Build
         run: npm run build:admin
 
-      - name: Prepare lower case names
-        id: migr
+      - name: Extract npm package.json information
+        id: package
+        shell: bash
         run: |
-          REPOSITORY_LC=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
-          echo "repository_lc=$REPOSITORY_LC" >> $GITHUB_OUTPUT
-          REPOSITORY_OWNER_LC=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-          echo "repository_owner_lc=$REPOSITORY_OWNER_LC" >> $GITHUB_OUTPUT
+          set -x
+          echo "name=$(cat package.json | jq '.name' -r)" >> $GITHUB_OUTPUT
 
       - name: Log in to registry
         uses: docker/login-action@v4
@@ -73,18 +102,35 @@ jobs:
           push: true
           # sbom: true
           build-args: |
-            BUILD_DATE=${{ steps.meta.outputs.GitCommitDate }}
-            SEMVER2=${{ steps.meta.outputs.SemVer2 }}
+            BUILD_DATE=${{ steps.meta.outputs.git_commit_date }}
+            SEMVER=${{ steps.meta.outputs.clean_version }}
           tags: |
-            ${{ env.REGISTRY }}/${{ steps.migr.outputs.repository_lc }}/calendare-ui:latest
-            ${{ env.REGISTRY }}/${{ steps.migr.outputs.repository_lc }}/calendare-ui:${{ steps.meta.outputs.SemVer2 }}
-            ${{ env.REGISTRY }}/${{ steps.migr.outputs.repository_lc }}/calendare-ui:${{ steps.meta.outputs.MajorMinorVersion }}
-            ${{ env.REGISTRY }}/${{ steps.migr.outputs.repository_lc }}/calendare-ui:${{ steps.meta.outputs.Version }}
+            ${{ env.REGISTRY }}/${{ steps.migr.outputs.repository_lc }}/${{ steps.package.outputs.name }}:latest
+            ${{ env.REGISTRY }}/${{ steps.migr.outputs.repository_lc }}/${{ steps.package.outputs.name }}:${{ steps.meta.outputs.clean_version }}
+            ${{ env.REGISTRY }}/${{ steps.migr.outputs.repository_lc }}/${{ steps.package.outputs.name }}:${{ steps.meta.outputs.MajorMinorPatch }}
+            ${{ env.REGISTRY }}/${{ steps.migr.outputs.repository_lc }}/${{ steps.package.outputs.name }}:${{ steps.meta.outputs.MajorMinor }}
+
+      - name: Get chart name
+        id: chartname
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -r .name deploy/Chart.yaml
 
       - name: Push helm chart
         env:
-          VERSION: ${{ steps.meta.outputs.SemVer2 }}
-          REPOSITORY_OWNER_LC: ${{ steps.migr.outputs.repository_owner_lc }}
+          SEMVER: ${{ steps.meta.outputs.clean_version }}
+          CHART_NAME: ${{ steps.chartname.outputs.result }}
+          REPOSITORY_OWNER_LC: ${{ steps.repoinfo.outputs.repository_owner_lc }}
         run: |
-          helm package ./deploy --version "$VERSION" --app-version "$VERSION"
-          helm push calendare-ui-${VERSION}.tgz oci://${{ env.REGISTRY }}/${REPOSITORY_OWNER_LC}/${{ env.CHART_REPO }}
+          helm package ./deploy --version "$SEMVER" --app-version "$SEMVER"
+          helm push ${CHART_NAME}-${SEMVER}.tgz oci://${{ env.REGISTRY }}/${REPOSITORY_OWNER_LC}/${{ env.CHART_REPO }}
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v3
+        if: github.ref_type == 'tag'
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: "${{ github.ref_name }}"
+          generate_release_notes: true
+          draft: false
+          prerelease: ${{ steps.gitversion.outputs.PreReleaseTag != '' }}
