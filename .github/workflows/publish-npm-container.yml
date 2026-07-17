@@ -75,7 +75,7 @@ jobs:
         run: npm version "${SEMVER}" --no-git-tag-version --allow-same-version
 
       - name: Build
-        run: npm run build:admin
+        run: npm run build
 
       - name: Extract npm package.json information
         id: package
