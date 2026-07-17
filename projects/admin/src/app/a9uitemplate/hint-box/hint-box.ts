@@ -1,10 +1,12 @@
 import { booleanAttribute, Component, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'a9-hint-box',
   imports: [
     MatIconModule,
+    MatProgressSpinnerModule,
   ],
   host: {
     'class': 'a9-hint-box'
@@ -15,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class HintBox {
   mode = input<'info' | 'warning' | 'error'>('info');
   slim = input<boolean>(false, { transform: booleanAttribute });
+  spinner = input<boolean>(false, { transform: booleanAttribute })
 
   public svgIcon(): string {
     switch (this.mode()) {

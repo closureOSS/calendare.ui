@@ -3,18 +3,18 @@
 
   <mat-card>
     <mat-card-content>
-      <mat-spinner></mat-spinner>
+      <a9-hint-box mode="info" spinner="true">{{ t('Welcome to the #FullAppname.') }}</a9-hint-box>
     </mat-card-content>
-    <!-- <mat-card-actions>
+    <mat-card-actions>
       <a9-action-bar class="separate">
-        <button matButton="filled">{{ t('Login') }}</button>
+        <button matButton="outlined" disabled>{{ t('Login') }}</button>
       </a9-action-bar>
-    </mat-card-actions> -->
+    </mat-card-actions>
   </mat-card>
 
   <aside class="config">
-    <!-- <a9-theme-switcher></a9-theme-switcher> -->
-    <!-- <a9-language-switcher></a9-language-switcher> -->
+    <a9-theme-switcher></a9-theme-switcher>
+    <a9-language-switcher></a9-language-switcher>
   </aside>
 
 </article>

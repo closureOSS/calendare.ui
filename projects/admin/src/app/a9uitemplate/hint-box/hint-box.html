@@ -1,5 +1,9 @@
 <aside [class]="mode()" [class.slim]="slim()">
+  @if(!spinner()) {
   <mat-icon [svgIcon]="svgIcon()"></mat-icon>
+  } @else {
+  <mat-spinner></mat-spinner>
+  }
   <div class="content">
     <ng-content></ng-content>
   </div>

@@ -12,7 +12,6 @@ import { TranslocoDirective } from '@jsverse/transloco';
   ],
   templateUrl: './page-not-found.html',
   styleUrl: './page-not-found.scss',
-
 })
 export class PageNotFound {
   private router = inject(Router);
