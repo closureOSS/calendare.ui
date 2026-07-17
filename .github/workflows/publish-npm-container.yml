@@ -133,4 +133,4 @@ jobs:
           name: "${{ github.ref_name }}"
           generate_release_notes: true
           draft: false
-          prerelease: ${{ steps.gitversion.outputs.PreReleaseTag != '' }}
+          prerelease: ${{ steps.gitversion.outputs.Prerelease != '' }}
