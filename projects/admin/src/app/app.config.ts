@@ -53,7 +53,7 @@ export function appConfig(config: RuntimeConfig): ApplicationConfig {
           // historyCleanupOff: true,
           // ignoreNonceAfterRefresh: true,
           ngswBypass: true,
-          // postLoginRoute: '/start',
+          postLoginRoute: '/starting',
           // forbiddenRoute: '/goodbye',
           // unauthorizedRoute: '/goodbye',
         },

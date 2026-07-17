@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { OidcSecurityService, PublicEventsService, EventTypes, LoginResponse } from 'angular-auth-oidc-client';
-import { catchError, delay, filter, map, share, switchMap, tap } from 'rxjs';
+import { catchError, filter, map, share, switchMap, tap } from 'rxjs';
 import { CalendareService } from '../../api/services';
 import { CurrentUserInfoJwt } from './current-user-info';
 import { PrincipalResponse } from '../../api/models';
@@ -28,12 +28,13 @@ export class AppAuthState {
   private userDataChanged$ = this.oidcEvents.pipe(
     filter(e => e.type === EventTypes.UserDataChanged),
     map(e => e.value),
+    takeUntilDestroyed()
   )
 
   public oidcAuthCheck = this.oidcSecurityService
     .checkAuth()
     .pipe(
-      tap((loginResponse: LoginResponse) => console.log('1 %o', loginResponse)),
+      // tap((loginResponse: LoginResponse) => console.log('1 %o', loginResponse)),
       filter((loginResponse: LoginResponse) => loginResponse.isAuthenticated),
       // tap((loginResponse: LoginResponse) => console.log('2 %o', loginResponse)),
       tap((loginResponse: LoginResponse) => {
@@ -70,12 +71,12 @@ export class AppAuthState {
   public start() {
     this.oidcEvents.subscribe();
     this.oidcAuthCheck.subscribe();
-    this.userDataChanged$.subscribe(userdata => console.log('Userdate changed to %o', userdata));
+    this.userDataChanged$.subscribe(userdata => console.log('User information changed to %o', userdata));
   }
 
   private redirectOnSuccess() {
     const restoredUrl = localStorage.getItem('calendare_redirect_uri');
-   console.log('Redirecting to %s (localStorage=%o)', restoredUrl ?? '/start', restoredUrl);
+    console.log('Redirecting to %s (localStorage=%o)', restoredUrl ?? '/start', restoredUrl);
     if (restoredUrl) {
       localStorage.removeItem('calendare_redirect_uri');
       return this.router.navigateByUrl(restoredUrl);

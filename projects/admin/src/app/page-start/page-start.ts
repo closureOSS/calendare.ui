@@ -17,4 +17,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   templateUrl: './page-start.html',
   styleUrl: './page-start.scss',
 })
-export class PageStart { }
+export class PageStart {
+  constructor() {
+    console.log('OIDC flow callback ...');
+  }
+}

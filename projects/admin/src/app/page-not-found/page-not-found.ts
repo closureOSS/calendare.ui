@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TranslocoDirective } from '@jsverse/transloco';
 
 @Component({
@@ -15,5 +15,8 @@ import { TranslocoDirective } from '@jsverse/transloco';
 
 })
 export class PageNotFound {
-
+  private router = inject(Router);
+  constructor() {
+    console.error('Page not found: %s', this.router.url);
+  }
 }
