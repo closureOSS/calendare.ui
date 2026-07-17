@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,7 +22,7 @@ import { AsyncPipe } from '@angular/common';
   ],
   templateUrl: './lookup-principal.html',
   styleUrl: './lookup-principal.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class LookupPrincipal {
   public label = input<string>('Lookup principal');

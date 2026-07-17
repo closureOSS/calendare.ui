@@ -1,13 +1,12 @@
+:host {
+  display: block;
+}
+
 section {
-  display: flow;
-  gap: 2rem;
+  display: grid;
+  gap: 1rem;
 }
 
 section:empty {
   display: none;
-}
-
-
-.nyi {
-
 }

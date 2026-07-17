@@ -1,13 +1,11 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { ErrorDialogProvider } from '../a9uitemplate/dialog-error/error-dialog-provider';
 
 export type HttpErrorHandlerAction = (statusCode: number, dialog: ErrorDialogProvider, router: Router) => boolean;
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class HttpErrorHandler {
   private errorDialog = inject(ErrorDialogProvider);
   private readonly router = inject(Router);

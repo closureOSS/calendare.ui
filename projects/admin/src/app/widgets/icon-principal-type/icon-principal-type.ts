@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   templateUrl: './icon-principal-type.html',
   styleUrl: './icon-principal-type.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class IconPrincipalType {
   readonly type = input.required<string | null | undefined>();

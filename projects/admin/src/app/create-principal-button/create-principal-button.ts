@@ -1,4 +1,4 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { booleanAttribute, Component, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -21,7 +21,7 @@ import { PrivilegeMask } from '../core/privilege-mask';
   },
   templateUrl: './create-principal-button.html',
   styleUrl: './create-principal-button.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class CreatePrincipalButton {
   public permissions = input.required<PermissionResponse | undefined>();

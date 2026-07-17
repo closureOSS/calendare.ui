@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, ResourceStatus } from '@angular/core';
+import { Component, input, ResourceStatus } from '@angular/core';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @Component({
@@ -8,7 +8,6 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
   ],
   templateUrl: './http-resource-status.html',
   styleUrl: './http-resource-status.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HttpResourceStatus {
   status = input.required<ResourceStatus>();

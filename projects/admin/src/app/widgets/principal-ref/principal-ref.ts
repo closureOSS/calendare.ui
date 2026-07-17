@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { booleanAttribute, Component, input } from '@angular/core';
 import { IconPrincipalType } from '../icon-principal-type/icon-principal-type';
 
 @Component({
@@ -8,10 +8,10 @@ import { IconPrincipalType } from '../icon-principal-type/icon-principal-type';
   ],
   templateUrl: './principal-ref.html',
   styleUrl: './principal-ref.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class PrincipalRef {
   readonly type = input.required<string | null | undefined>();
   readonly name = input.required<string | null | undefined>();
-  readonly strike = input<boolean>(false);
+  readonly strike = input<boolean>(false, { transform: booleanAttribute });
 }

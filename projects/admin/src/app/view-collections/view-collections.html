@@ -5,7 +5,7 @@
   <mat-card [style]="{'--col-color': (collection.color ?? 'transparent')}" [class]="{'default': collection.isDefault}">
     <mat-card-header>
       <div mat-card-avatar class="card-icon">
-        <mat-icon [svgIcon]="svgCardIcon(collection.collectionType)"></mat-icon>
+        <mat-icon [svgIcon]="svgCardIcon(collection.collectionType, collection.collectionSubType)"></mat-icon>
       </div>
       <mat-card-title>{{(collection.displayName ?? "&mdash;")}}</mat-card-title>
       <mat-card-subtitle>{{collection.uri}}</mat-card-subtitle>
@@ -110,7 +110,7 @@
     <tr class="collection" [class]="{'default': collection.isDefault}">
       <td class="type">
         <span class="collection-type" [matMenuTriggerFor]="editMenu" [matMenuTriggerData]="{collection: collection}">
-          <mat-icon [svgIcon]="svgCardIcon(collection.collectionType)"></mat-icon>{{collection.collectionType}}
+          <mat-icon [svgIcon]="svgCardIcon(collection.collectionType, collection.collectionSubType)"></mat-icon>{{collection.collectionType}}
         </span>
       </td>
       <td class="uri">{{collection.uri}}</td>

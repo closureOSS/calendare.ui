@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { booleanAttribute, Component, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,12 +19,12 @@ import { ListGrantDetails } from '../list-grant-details/list-grant-details';
   ],
   templateUrl: './list-privileges.html',
   styleUrl: './list-privileges.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class ListPrivileges {
   privilegeGroups = input.required<PrivilegeGroupResponse[]>();
-  editable = input<boolean>(false);
-  direction = input<boolean>(false);
+  editable = input<boolean>(false, { transform: booleanAttribute });
+  direction = input<boolean>(false, { transform: booleanAttribute });
   doRevoke = output<PrivilegeGroupResponse>();
 
   public safeUri(path: string | null | undefined): string[] {

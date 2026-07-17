@@ -1,4 +1,4 @@
 export interface LoginCredentialsFormData {
-  username: string | null;
-  password: string | null;
+  username: string;
+  password: string;
 }

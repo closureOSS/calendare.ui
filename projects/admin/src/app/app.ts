@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
@@ -38,7 +38,7 @@ import { MatMenuModule } from '@angular/material/menu';
   },
   templateUrl: './app.html',
   styleUrl: './app.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class App {
   PageMode = PageMode;

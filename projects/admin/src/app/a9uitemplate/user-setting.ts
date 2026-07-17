@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { ThemeMode } from './theme-switcher/theme-switch-provider';
 import { TranslocoService } from '@jsverse/transloco';
 
@@ -7,9 +7,7 @@ export class UserSetting {
   public language = 'en';
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class UserSettingProvider {
   public readonly STORAGE_KEY = 'a9ui#usersetting';
 

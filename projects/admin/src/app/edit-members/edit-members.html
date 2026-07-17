@@ -6,7 +6,7 @@
   </mat-card-header>
 
   <mat-card-content>
-    <a9-http-resource-viewer [resource]="memberships" class="editor">
+    <a9-http-resource-viewer [resource]="memberships" defaultErrorHandler="true" class="editor">
       @let ms = memberships.value()!;
       @for(grp of ms.groups; track grp.group.uri) {
       <div class="memberslist">
@@ -27,6 +27,10 @@
       </div>
       }
     </a9-http-resource-viewer>
+    @if(formMessage()) {
+    <a9-hint-box class="a9-form-msg" mode="error" [slim]="true"><a9-http-error-on-save
+        [error]="formMessage()"></a9-http-error-on-save></a9-hint-box>
+    }
   </mat-card-content>
 
   <mat-card-actions>

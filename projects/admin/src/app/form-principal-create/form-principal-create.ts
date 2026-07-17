@@ -1,79 +1,80 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, effect, ElementRef, inject, input, model, output, viewChild } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { booleanAttribute, Component, ElementRef, inject, input, linkedSignal, model, output, viewChild } from '@angular/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { FormPrincipalCreateData } from './form-principal-create.data';
+import { PrincipalCreateFormData } from './principal-create-form.interface';
 import { ActionBar } from '../a9uitemplate/action-bar/action-bar';
-import { TranslocoDirective } from '@jsverse/transloco';
+import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 import { HintBox } from '../a9uitemplate/hint-box/hint-box';
+import { email, form, FormField, FormRoot, maxLength, minLength, pattern, readonly, required } from '@angular/forms/signals';
+import { FormSignalError } from '../a9uitemplate/form-signal-error';
+import { usernameConfig } from '../widgets/form-username-config';
 
 @Component({
   selector: 'cal-form-principal-create',
   imports: [
     MatButtonModule,
     MatIconModule,
-    ReactiveFormsModule,
+    FormField,
+    FormRoot,
     MatFormFieldModule,
+    FormSignalError,
     MatCheckboxModule,
     MatInputModule,
     MatAutocompleteModule,
     HintBox,
     ActionBar,
     TranslocoDirective,
-],
+  ],
   templateUrl: './form-principal-create.html',
   styleUrl: './form-principal-create.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class FormPrincipalCreate {
   public readonly readonlyEmail = input(false, { transform: booleanAttribute });
-  public readonly defaultData = input<Partial<FormPrincipalCreateData> | null>();
+  public readonly defaultData = input<Partial<PrincipalCreateFormData> | null>();
+  transloco = inject(TranslocoService);
+
   public msg = model<string | null>(null);
-  public data = output<FormPrincipalCreateData>();
+  public data = output<PrincipalCreateFormData>();
 
-  public form: FormGroup;
-
-
-  constructor() {
-    const formBuilder = inject(FormBuilder);
-    this.form = this.createForm(formBuilder)
-    effect(() => {
-      if (this.defaultData()) {
-        this.form = this.createForm(formBuilder);
-      }
-    })
-  }
-
-  private createForm(formBuilder: FormBuilder) {
-    const form = formBuilder.group<FormPrincipalCreateData>({
-      username: this.defaultData()?.username ?? null,
-      email: this.defaultData()?.email ?? null,
-      displayName: this.defaultData()?.displayName ?? null,
-      description: this.defaultData()?.description ?? null,
-      timezone: this.defaultData()?.timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone,
-      color: this.defaultData()?.color ?? null,
-    });
-    form.get('username')?.addValidators([Validators.required, Validators.minLength(5), Validators.maxLength(48),
-    Validators.pattern('[a-z][0-9|a-z|.|-]*')
-    ]);
-    form.get('email')?.addValidators([Validators.required]);
-    form.get('timezone')?.addValidators([Validators.required]);
-    return form;
-  }
-
-
-  public submitForm() {
-    if (!this.form || !this.form.valid) {
-      this.msg.set('Data is invalid, please correct input first');
-      return;
+  protected readonly formModel = linkedSignal({
+    source: this.defaultData,
+    computation: (data) => {
+      return {
+        username: data?.username ?? '',
+        email: data?.email ?? '',
+        displayName: data?.displayName ?? '',
+        description: data?.description ?? '',
+        timezone: data?.timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone,
+        color: data?.color ?? '',
+      } as PrincipalCreateFormData;
     }
-    console.log(this.form.value as FormPrincipalCreateData);
-    this.data.emit(this.form.value as FormPrincipalCreateData);
-  }
+  });
+
+  readonly editForm = form(this.formModel, (schemaPath) => {
+    required(schemaPath.email, { message: this.transloco.translate('Email is required') });
+    email(schemaPath.email, { message: this.transloco.translate('Email is not valid') });
+    readonly(schemaPath.email, { when: () => this.readonlyEmail() });
+    required(schemaPath.timezone, { message: this.transloco.translate('Timezone is required') });
+    usernameConfig(schemaPath.username, this.transloco);
+  }, {
+    submission: {
+      action: async (field) => {
+        //console.log(this.editForm().valid(), this.formModel());
+        this.data.emit(this.formModel());
+        field().reset();
+        return;
+      },
+      onInvalid: (field) => {
+        const firstError = field().errorSummary()[0];
+        firstError?.fieldTree().focusBoundControl();
+      },
+    }
+  });
 
   public filteredOptions: string[] = [];
   public timezoneInput = viewChild.required<ElementRef>('timezoneinput');

@@ -1,0 +1,9 @@
+.status,
+.trace,
+.url {
+  font: var(--mat-sys-label-small);
+
+  &+& {
+    padding-left: 0.5em;
+  }
+}

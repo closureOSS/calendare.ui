@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
@@ -48,7 +48,7 @@ import { HintBox } from '../a9uitemplate/hint-box/hint-box';
   ],
   templateUrl: './page-list-principals.html',
   styleUrl: './page-list-principals.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class PageListPrincipals {
   private readonly calendareResource = inject(CalendareResource);

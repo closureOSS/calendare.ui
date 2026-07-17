@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { ThemeMode, ThemeSwitchProvider } from './theme-switch-provider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,7 +12,6 @@ import { TranslocoService } from '@jsverse/transloco';
   ],
   templateUrl: './theme-switcher.html',
   styleUrl: './theme-switcher.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThemeSwitcher {
   ThemeMode = ThemeMode;

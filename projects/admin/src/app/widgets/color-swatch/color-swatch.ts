@@ -1,4 +1,4 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { booleanAttribute, Component, input } from '@angular/core';
 
 @Component({
   selector: 'cal-color-swatch',
@@ -9,7 +9,7 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@an
   },
   templateUrl: './color-swatch.html',
   styleUrl: './color-swatch.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class ColorSwatch {
   color = input.required<string | null>();

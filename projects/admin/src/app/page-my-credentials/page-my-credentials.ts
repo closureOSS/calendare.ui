@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { ViewCredentials } from '../view-credentials/view-credentials';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { CurrentUserInfoJwt } from '../core/current-user-info';
@@ -15,7 +15,6 @@ import { CreateCredentialButton } from "../create-credential-button/create-crede
   ],
   templateUrl: './page-my-credentials.html',
   styleUrl: './page-my-credentials.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PageMyCredentials {
   private readonly currentUserInfo = inject(CurrentUserInfoJwt);
@@ -24,8 +23,8 @@ export class PageMyCredentials {
     return account ? account.username : null;
   });
 
-  public reload = signal<number>(0);
-  public refresh() {
-    this.reload.update(value => value + 1);
-  }
+  public email = computed(() => {
+    const account = this.currentUserInfo.account();
+    return account ? account.email : null;
+  });
 }

@@ -27,6 +27,8 @@ export enum CalendarClientType {
     MacOSCalendar = "MacOSCalendar",
     EMClient = "EMClient",
     DAVx5 = "DAVx5",
+    MicrosoftWebDAV = "MicrosoftWebDAV",
+    MacOSWebDAV = "MacOSWebDAV",
     Default = "Default"
 }
 
@@ -69,7 +71,8 @@ export enum CalendareFeatures {
     AutoScheduling = "AutoScheduling",
     WebdavPush = "WebdavPush",
     VCard4 = "VCard4",
-    SyncCollectionSuppressTokenGone = "SyncCollectionSuppressTokenGone"
+    SyncCollectionSuppressTokenGone = "SyncCollectionSuppressTokenGone",
+    LegacyWebDAV = "LegacyWebDAV"
 }
 
 export interface CollectionAmendRequest {
@@ -134,17 +137,35 @@ export enum CollectionType {
     Addressbook = "Addressbook"
 }
 
-export interface CredentialResponse {
-    id?: number;
+export interface CredentialCreateResponse {
     subject?: string | null;
-    usrId?: number;
     username?: string | null;
     email?: string | null;
     emailOk?: Date | null;
     credentialType?: UsrCredentialType;
-    credentialTypeId?: number;
+    description?: string | null;
+    issuer?: string | null;
     lastUsed?: Date | null;
     locked?: Date | null;
+    validFrom?: Date | null;
+    validTo?: Date | null;
+    created?: Date;
+    modified?: Date;
+    secret?: string | null;
+}
+
+export interface CredentialResponse {
+    subject?: string | null;
+    username?: string | null;
+    email?: string | null;
+    emailOk?: Date | null;
+    credentialType?: UsrCredentialType;
+    description?: string | null;
+    issuer?: string | null;
+    lastUsed?: Date | null;
+    locked?: Date | null;
+    validFrom?: Date | null;
+    validTo?: Date | null;
     created?: Date;
     modified?: Date;
 }
@@ -380,10 +401,33 @@ export interface UserConfirmEmailRequest {
     confirmationToken: string | null;
 }
 
-export interface UserCredentialRequest {
+export interface UserCredentialCreateRequest {
+    template: UserCredentialCreateTemplate;
+    username?: string | null;
+    password?: string | null;
+    issuer?: string | null;
+    description?: string | null;
+    validFrom?: Date | null;
+    validTo?: Date | null;
+}
+
+export enum UserCredentialCreateTemplate {
+    ApplicationKey = "ApplicationKey",
+    Email = "Email",
+    Username = "Username",
+    JwtBearer = "JwtBearer",
+    Generic = "Generic"
+}
+
+export interface UserCredentialLoginRequest {
     credentialType?: string | null;
     template?: string | null;
     username?: string | null;
+    password?: string | null;
+    description?: string | null;
+}
+
+export interface UserCredentialResetRequest {
     password?: string | null;
 }
 

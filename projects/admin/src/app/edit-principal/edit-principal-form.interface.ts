@@ -1,18 +1,12 @@
 export interface EditPrincipalFormData {
-  displayName: string | null;
-  fullname: string | null;  // check usage
-  timezone?: string | null;
-  email: string | null;
-  description: string | null;
-  color?: string | null;
-  /*
-  readonly
-  */
-  // uri: string;
-  username: string | null;
+  displayName: string;
+  timezone: string | null;
+  email: string;
+  description: string;
+  color: string;
   /*
     future use
   */
-  locale: string | null;
-  dateFormatType: string | null;
+  locale: string;
+  dateFormatType: string;
 }

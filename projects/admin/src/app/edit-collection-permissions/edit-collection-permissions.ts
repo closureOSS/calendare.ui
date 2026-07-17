@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, linkedSignal } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Component, computed, inject, input, linkedSignal } from '@angular/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -8,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { EditPermissions } from '../widgets/edit-permissions/edit-permissions';
 import { PrivilegeMaskConstant } from '../core/privilege-mask';
-import { PermissionRequest, PrivilegeMask } from '../../api/models';
+import { CollectionSubType, PermissionRequest, PrivilegeMask } from '../../api/models';
 import { CalendareService } from '../../api/services';
 import { CalendareResource } from '../../api/resources';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -24,7 +23,6 @@ import { ConfirmDialogProvider } from '../a9uitemplate/dialog-confirm/confirm-di
   imports: [
     MatButtonModule,
     MatIconModule,
-    ReactiveFormsModule,
     MatFormFieldModule,
     MatCheckboxModule,
     MatInputModule,
@@ -36,7 +34,7 @@ import { ConfirmDialogProvider } from '../a9uitemplate/dialog-confirm/confirm-di
   ],
   templateUrl: './edit-collection-permissions.html',
   styleUrl: './edit-collection-permissions.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class EditCollectionPermissions {
   public username = input.required<string>();
@@ -90,6 +88,10 @@ export class EditCollectionPermissions {
 
       default:
       case 'Collection':
+        if (collection.collectionSubType === CollectionSubType.Default) {
+          filter |= PrivilegeMaskConstant.Bind | PrivilegeMaskConstant.Unbind |
+            PrivilegeMaskConstant.ScheduleDeliver | PrivilegeMaskConstant.ScheduleSend | PrivilegeMaskConstant.ReadFreeBusy;
+        }
         break;
     }
     // console.log(collection);

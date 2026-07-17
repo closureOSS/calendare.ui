@@ -1,11 +1,9 @@
-import { ChangeDetectionStrategy, Component, effect, ElementRef, inject, input, signal, viewChild } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, inject, input, linkedSignal, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { Router } from '@angular/router';
 import { EditPrincipalFormData } from './edit-principal-form.interface';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { IconPrincipalType } from '../widgets/icon-principal-type/icon-principal-type';
@@ -16,129 +14,99 @@ import { firstValueFrom } from 'rxjs';
 import { ActionBar } from '../a9uitemplate/action-bar/action-bar';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 import { HintBox } from '../a9uitemplate/hint-box/hint-box';
-import { NavigateBackButton } from '../a9uitemplate/navigate-back-button/navigate-back-button';
 import { LocationStrategy } from '@angular/common';
 import { MatCardHeader, MatCardContent, MatCardActions, MatCardModule } from "@angular/material/card";
 import { ConfirmDialogProvider } from '../a9uitemplate/dialog-confirm/confirm-dialog-provider';
+import { PrincipalResponse, UserAmendRequest } from '../../api';
+import { emptyToNullString, nullToEmptyString } from '../../api/utils/form-helpers';
+import { email, form, FormField, FormRoot, required } from '@angular/forms/signals';
+import { FormSignalError } from '../a9uitemplate/form-signal-error';
 
 @Component({
   selector: 'cal-edit-principal',
   imports: [
     MatButtonModule,
     MatIconModule,
-    ReactiveFormsModule,
+    FormField,
+    FormRoot,
     MatFormFieldModule,
     MatCheckboxModule,
     MatInputModule,
     MatAutocompleteModule,
     MatCardModule,
     HintBox,
-    NavigateBackButton,
     IconPrincipalType,
     ActionBar,
-    TranslocoDirective,
     MatCardHeader,
     MatCardContent,
-    MatCardActions
+    MatCardActions,
+    FormSignalError,
+    TranslocoDirective,
   ],
   templateUrl: './edit-principal.html',
   styleUrl: './edit-principal.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class EditPrincipal {
   public username = input.required<string>();
 
-  private readonly client = inject(CalendareService);
+  transloco = inject(TranslocoService);
   private readonly calendareResource = inject(CalendareResource);
-
-
-  private readonly formBuilder = inject(FormBuilder);
-  public form: FormGroup;
-  private readonly router = inject(Router);
-  public formMessage = signal<string | null>(null);
-
-
-  // principalResource = resource({
-  //   params: () => ({ username: this.username() }),
-  //   loader: ({ params }) => {
-  //     return this.client.api.user.byUsername(params.username).get();
-  //   }
-  // });
-  // public principal = computed(() => this.principalResource.hasValue() ? this.principalResource.value() : null);
   public readonly principal = this.calendareResource.getUser(this.username);
+  protected readonly formModel = linkedSignal({
+    source: this.principal.value,
+    computation: (domainModel) => this.toFormModel(domainModel)
+  });
 
-
-  constructor() {
-    this.form = this.formBuilder.group<EditPrincipalFormData>({
-      // uri: '',
-      username: '',
-      fullname: '',
-      displayName: '',
-      color: '',
-      email: '',
-      locale: '',
-      dateFormatType: '',
-      description: '',
-      timezone: null,
-    });
-    this.form.get('timezone')?.addValidators([Validators.required]);
-    this.form.get('email')?.addValidators([Validators.required, Validators.email]);
-    this.form.get('uri')?.disable();
-
-    effect(() => {
-      const principal = this.principal.value();
-      if (principal) {
-        this.form.reset(principal, { emitEvent: false });
-        // if (collection.isDefaultCollection) {
-        //   this.form.get('uri')?.disable();
-        // }
+  private readonly client = inject(CalendareService);
+  readonly editForm = form(this.formModel, (schemaPath) => {
+    required(schemaPath.timezone, { message: this.transloco.translate('Timezone is required') });
+    required(schemaPath.email, { message: this.transloco.translate('Email is required') });
+    email(schemaPath.email, { message: this.transloco.translate('Please enter a valid email address') });
+  },
+    {
+      submission: {
+        action: async (field) => {
+          // console.log(this.editForm().valid(), this.formModel(), this.ToDomainModel(this.formModel()));
+          try {
+            await firstValueFrom(this.client.updateUser(this.username(), this.toDomainModel(this.formModel())));
+            field().reset();
+            this.back();
+            return;
+          }
+          catch (e) {
+            const pd = e as HttpErrorResponse;
+            if (pd) {
+              console.error('Error %d: %o', pd.status, pd);
+              return { kind: 'serverError', message: pd.message ?? this.transloco.translate('Saving changes failed') };
+            } else {
+              console.error('Unknown error while amending collection: %o', e);
+              return { kind: 'serverError', message: this.transloco.translate('Saving changes failed (reason unknown)') };
+            }
+          }
+        },
+        onInvalid: (field) => {
+          const firstError = field().errorSummary()[0];
+          firstError?.fieldTree().focusBoundControl();
+        },
       }
-    });
-  }
+    }
+  );
 
   private readonly location = inject(LocationStrategy);
   back() {
     this.location.back();
   }
 
-  protected dirty(): boolean {
-    return this.form.dirty;
-  }
   private readonly confirm = inject(ConfirmDialogProvider);
   public async confirmCancel(): Promise<boolean> {
-    if (!this.dirty()) return true;
+    if (!this.editForm().dirty()) return true;
     return await this.confirm.ask();
   }
 
-  public refresh() {
-    this.principal.reload();
-  }
-
-  transloco = inject(TranslocoService);
-  public async submitForm() {
-    if (!this.form.valid) {
-      this.formMessage.set(this.transloco.translate('Data is invalid, please correct input first'));
-      return;
-    }
-    console.log('Form valid %s -> %o', this.form.valid, this.form.value as EditPrincipalFormData);
-    try {
-      await firstValueFrom(this.client.updateUser(this.username(), { ...this.form.value }));
-      this.form.markAsPristine();
-      this.back();
-      // this.router.navigate(['/principal', 'show', this.username()]);
-    }
-    catch (e) {
-      const pd = e as HttpErrorResponse;
-      if (pd) {
-        console.error('Error %d: %o', pd.status, pd);
-        this.formMessage.set(pd.message ?? this.transloco.translate('Saving changes failed'));
-      } else {
-        console.error('Unknown error while amending collection: %o', e);
-        this.formMessage.set(this.transloco.translate('Saving changes failed (reason unknown)'));
-      }
-    }
-  }
-
+  // public refresh() {
+  //   this.principal.reload();
+  // }
 
   public filteredOptions: string[] = [];
   public timezoneInput = viewChild.required<ElementRef>('timezoneinput');
@@ -147,4 +115,26 @@ export class EditPrincipal {
     this.filteredOptions = filterValue ? Intl.supportedValuesOf('timeZone').filter(o => o?.toLowerCase().includes(filterValue)) : Intl.supportedValuesOf('timeZone');
   }
 
+  protected toFormModel(data: PrincipalResponse | null | undefined): EditPrincipalFormData {
+    return {
+      displayName: nullToEmptyString(data?.displayName),
+      timezone: nullToEmptyString(data?.timezone),
+      email: nullToEmptyString(data?.email),
+      description: nullToEmptyString(data?.description),
+      color: nullToEmptyString(data?.color),
+      locale: nullToEmptyString(data?.locale),
+      dateFormatType: nullToEmptyString(data?.dateFormatType),
+    } as EditPrincipalFormData;
+  }
+  protected toDomainModel(data: EditPrincipalFormData): UserAmendRequest {
+    return {
+      displayName: emptyToNullString(data.displayName),
+      timezone: emptyToNullString(data?.timezone),
+      email: emptyToNullString(data?.email),
+      description: data.description,
+      color: emptyToNullString(data?.color),
+      locale: emptyToNullString(data?.locale),
+      dateFormatType: emptyToNullString(data.dateFormatType),
+    } as UserAmendRequest;
+  }
 }

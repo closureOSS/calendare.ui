@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { booleanAttribute, Component, computed, inject, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,11 +25,11 @@ import { HttpResourceViewer } from '../a9uitemplate/http-resource-viewer/http-re
   ],
   templateUrl: './view-privileges-from.html',
   styleUrl: './view-privileges-from.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class ViewPrivilegesFrom {
   public username = input.required<string>();
-  public editable = input<boolean>(false);
+  public editable = input<boolean>(false, { transform: booleanAttribute });
   private readonly calendareResource = inject(CalendareResource);
   private readonly client = inject(CalendareService);
 

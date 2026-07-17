@@ -12,7 +12,7 @@ import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { BASE_PATH_CALENDAREAPI, CLIENT_CONTEXT_TOKEN_CALENDAREAPI } from "../tokens";
 import { HttpParamsBuilder } from "../utils/http-params-builder";
-import { RequestOptions, FeatureResponse, PrincipalResponse, UserRegisterRequest, UserAmendRequest, UserConfirmEmailRequest, CredentialResponse, UserCredentialRequest, UsrCredentialType, CredentialSecretResponse, PermissionResponse, PermissionRequest, PrivilegeResponse, PrivilegeRequest, MembershipDirection, MembershipResponse, MembershipRequest, GroupMemberRef, RelationshipTypes, CollectionResponse, CollectionCreateRequest, CollectionAmendRequest, CalendarScheduleItem, AddressbookItem, MailboxItem } from "../models";
+import { RequestOptions, FeatureResponse, PrincipalResponse, UserRegisterRequest, UserAmendRequest, UserConfirmEmailRequest, CredentialResponse, UserCredentialCreateRequest, CredentialCreateResponse, UsrCredentialType, CredentialSecretResponse, UserCredentialResetRequest, UserCredentialLoginRequest, PermissionResponse, PermissionRequest, PrivilegeResponse, PrivilegeRequest, MembershipDirection, MembershipResponse, MembershipRequest, GroupMemberRef, RelationshipTypes, CollectionResponse, CollectionCreateRequest, CollectionAmendRequest, CalendarScheduleItem, AddressbookItem, MailboxItem } from "../models";
 
 @Injectable({ providedIn: "root" })
 export class CalendareService {
@@ -39,15 +39,13 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     ping(observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
@@ -63,15 +61,13 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     getUserList(types: Array<string>, search?: string, unrestricted?: boolean, technical?: boolean, observe?: 'body', options?: RequestOptions<'json'>): Observable<Array<PrincipalResponse>>;
@@ -102,16 +98,14 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     createUser(userRegisterRequest: UserRegisterRequest, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
@@ -131,15 +125,14 @@ export class CalendareService {
             headers = headers.set('Content-Type', 'application/json');
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('post', url, {
+            body: userRegisterRequest,
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.post(url, userRegisterRequest, requestOptions);
+        });
     }
 
     getUser(username: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<PrincipalResponse>;
@@ -156,15 +149,13 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     updateUser(username: string, userAmendRequest: UserAmendRequest, observe?: 'body', options?: RequestOptions<'json'>): Observable<PrincipalResponse>;
@@ -185,15 +176,14 @@ export class CalendareService {
             headers = headers.set('Content-Type', 'application/json');
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('put', url, {
+            body: userAmendRequest,
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.put(url, userAmendRequest, requestOptions);
+        });
     }
 
     deleteUser(username: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
@@ -210,15 +200,13 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('delete', url, {
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.delete(url, requestOptions);
+        });
     }
 
     confirmUserEmail(username: string, userConfirmEmailRequest: UserConfirmEmailRequest, observe?: 'body', options?: RequestOptions<'json'>): Observable<PrincipalResponse>;
@@ -239,15 +227,14 @@ export class CalendareService {
             headers = headers.set('Content-Type', 'application/json');
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('patch', url, {
+            body: userConfirmEmailRequest,
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.patch(url, userConfirmEmailRequest, requestOptions);
+        });
     }
 
     sendEmailConfirmationCode(username: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<PrincipalResponse>;
@@ -264,15 +251,14 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('patch', url, {
+            body: null,
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.patch(url, null, requestOptions);
+        });
     }
 
     getPrincipalOfMyself(observe?: 'body', options?: RequestOptions<'json'>): Observable<PrincipalResponse>;
@@ -289,15 +275,13 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     getCredentialsOfUser(username: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<Array<CredentialResponse>>;
@@ -314,21 +298,19 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
-    createCredential(username: string, userCredentialRequest: UserCredentialRequest, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
-    createCredential(username: string, userCredentialRequest: UserCredentialRequest, observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<any>>;
-    createCredential(username: string, userCredentialRequest: UserCredentialRequest, observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<any>>;
-    createCredential(username: string, userCredentialRequest: UserCredentialRequest, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
+    createCredential(username: string, userCredentialCreateRequest: UserCredentialCreateRequest, observe?: 'body', options?: RequestOptions<'json'>): Observable<CredentialCreateResponse>;
+    createCredential(username: string, userCredentialCreateRequest: UserCredentialCreateRequest, observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<CredentialCreateResponse>>;
+    createCredential(username: string, userCredentialCreateRequest: UserCredentialCreateRequest, observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<CredentialCreateResponse>>;
+    createCredential(username: string, userCredentialCreateRequest: UserCredentialCreateRequest, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/credentials/user/${username}`;
 
         let headers: HttpHeaders;
@@ -342,15 +324,71 @@ export class CalendareService {
             headers = headers.set('Content-Type', 'application/json');
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('post', url, {
+            body: userCredentialCreateRequest,
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
+        });
+    }
 
-        return this.httpClient.post(url, userCredentialRequest, requestOptions);
+    getCredentialOfUser(username: string, credentialSubject: string, credentialType?: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<CredentialResponse>;
+    getCredentialOfUser(username: string, credentialSubject: string, credentialType?: string, observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<CredentialResponse>>;
+    getCredentialOfUser(username: string, credentialSubject: string, credentialType?: string, observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<CredentialResponse>>;
+    /** Returns credential */
+    getCredentialOfUser(username: string, credentialSubject: string, credentialType?: string, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
+        const url = `${this.basePath}/api/credentials/user/${username}/${credentialSubject}`;
+
+        let params = new HttpParams();
+        if (credentialType != null) {
+            params = HttpParamsBuilder.addToHttpParams(params, credentialType, 'credentialType');
+        }
+
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
+        return this.httpClient.request('get', url, {
+            observe,
+            headers,
+            params,
+            reportProgress: options?.reportProgress,
+            withCredentials: options?.withCredentials,
+            context: this.createContextWithClientId(options?.context)
+        });
+    }
+
+    deleteCredential(username: string, credentialSubject: string, credentialType?: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
+    deleteCredential(username: string, credentialSubject: string, credentialType?: string, observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<any>>;
+    deleteCredential(username: string, credentialSubject: string, credentialType?: string, observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<any>>;
+    deleteCredential(username: string, credentialSubject: string, credentialType?: string, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
+        const url = `${this.basePath}/api/credentials/user/${username}/${credentialSubject}`;
+
+        let params = new HttpParams();
+        if (credentialType != null) {
+            params = HttpParamsBuilder.addToHttpParams(params, credentialType, 'credentialType');
+        }
+
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
+        return this.httpClient.request('delete', url, {
+            observe,
+            headers,
+            params,
+            reportProgress: options?.reportProgress,
+            withCredentials: options?.withCredentials,
+            context: this.createContextWithClientId(options?.context)
+        });
     }
 
     getCredentialTypes(observe?: 'body', options?: RequestOptions<'json'>): Observable<Array<UsrCredentialType>>;
@@ -367,15 +405,13 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     createRandomSecret(length?: number, observe?: 'body', options?: RequestOptions<'json'>): Observable<CredentialSecretResponse>;
@@ -397,24 +433,27 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
-    unlockCredential(username: string, credentialId: number, observe?: 'body', options?: RequestOptions<'json'>): Observable<CredentialResponse>;
-    unlockCredential(username: string, credentialId: number, observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<CredentialResponse>>;
-    unlockCredential(username: string, credentialId: number, observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<CredentialResponse>>;
+    lockCredential(username: string, credentialSubject: string, credentialType?: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<CredentialResponse>;
+    lockCredential(username: string, credentialSubject: string, credentialType?: string, observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<CredentialResponse>>;
+    lockCredential(username: string, credentialSubject: string, credentialType?: string, observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<CredentialResponse>>;
     /** Returns credential entry */
-    unlockCredential(username: string, credentialId: number, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
-        const url = `${this.basePath}/api/credentials/user/${username}/${credentialId}/lock`;
+    lockCredential(username: string, credentialSubject: string, credentialType?: string, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
+        const url = `${this.basePath}/api/credentials/user/${username}/${credentialSubject}/lock`;
+
+        let params = new HttpParams();
+        if (credentialType != null) {
+            params = HttpParamsBuilder.addToHttpParams(params, credentialType, 'credentialType');
+        }
 
         let headers: HttpHeaders;
         if (options?.headers instanceof HttpHeaders) {
@@ -423,23 +462,28 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('patch', url, {
+            body: null,
+            observe,
             headers,
+            params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.patch(url, null, requestOptions);
+        });
     }
 
-    lockCredential(username: string, credentialId: number, observe?: 'body', options?: RequestOptions<'json'>): Observable<CredentialResponse>;
-    lockCredential(username: string, credentialId: number, observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<CredentialResponse>>;
-    lockCredential(username: string, credentialId: number, observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<CredentialResponse>>;
+    unlockCredential(username: string, credentialSubject: string, credentialType?: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<CredentialResponse>;
+    unlockCredential(username: string, credentialSubject: string, credentialType?: string, observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<CredentialResponse>>;
+    unlockCredential(username: string, credentialSubject: string, credentialType?: string, observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<CredentialResponse>>;
     /** Returns credential entry */
-    lockCredential(username: string, credentialId: number, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
-        const url = `${this.basePath}/api/credentials/user/${username}/${credentialId}/lock`;
+    unlockCredential(username: string, credentialSubject: string, credentialType?: string, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
+        const url = `${this.basePath}/api/credentials/user/${username}/${credentialSubject}/lock`;
+
+        let params = new HttpParams();
+        if (credentialType != null) {
+            params = HttpParamsBuilder.addToHttpParams(params, credentialType, 'credentialType');
+        }
 
         let headers: HttpHeaders;
         if (options?.headers instanceof HttpHeaders) {
@@ -448,23 +492,27 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('delete', url, {
+            observe,
             headers,
+            params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.delete(url, requestOptions);
+        });
     }
 
-    setCredentialPassword(username: string, credentialId: number, userCredentialRequest: UserCredentialRequest, observe?: 'body', options?: RequestOptions<'json'>): Observable<CredentialResponse>;
-    setCredentialPassword(username: string, credentialId: number, userCredentialRequest: UserCredentialRequest, observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<CredentialResponse>>;
-    setCredentialPassword(username: string, credentialId: number, userCredentialRequest: UserCredentialRequest, observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<CredentialResponse>>;
-    /** Returns credential entry */
-    setCredentialPassword(username: string, credentialId: number, userCredentialRequest: UserCredentialRequest, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
-        const url = `${this.basePath}/api/credentials/user/${username}/${credentialId}/reset`;
+    setCredentialPassword(username: string, credentialSubject: string, userCredentialResetRequest?: UserCredentialResetRequest, credentialType?: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<CredentialCreateResponse>;
+    setCredentialPassword(username: string, credentialSubject: string, userCredentialResetRequest?: UserCredentialResetRequest, credentialType?: string, observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<CredentialCreateResponse>>;
+    setCredentialPassword(username: string, credentialSubject: string, userCredentialResetRequest?: UserCredentialResetRequest, credentialType?: string, observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<CredentialCreateResponse>>;
+    /** Returns credential entry with secret */
+    setCredentialPassword(username: string, credentialSubject: string, userCredentialResetRequest?: UserCredentialResetRequest, credentialType?: string, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
+        const url = `${this.basePath}/api/credentials/user/${username}/${credentialSubject}/reset`;
+
+        let params = new HttpParams();
+        if (credentialType != null) {
+            params = HttpParamsBuilder.addToHttpParams(params, credentialType, 'credentialType');
+        }
 
         let headers: HttpHeaders;
         if (options?.headers instanceof HttpHeaders) {
@@ -477,39 +525,15 @@ export class CalendareService {
             headers = headers.set('Content-Type', 'application/json');
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('patch', url, {
+            body: userCredentialResetRequest,
+            observe,
             headers,
+            params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.patch(url, userCredentialRequest, requestOptions);
-    }
-
-    deleteCredential(username: string, credentialId: number, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
-    deleteCredential(username: string, credentialId: number, observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<any>>;
-    deleteCredential(username: string, credentialId: number, observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<any>>;
-    deleteCredential(username: string, credentialId: number, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
-        const url = `${this.basePath}/api/credentials/user/${username}/${credentialId}`;
-
-        let headers: HttpHeaders;
-        if (options?.headers instanceof HttpHeaders) {
-            headers = options.headers;
-        } else {
-            headers = new HttpHeaders(options?.headers);
-        }
-
-        const requestOptions: any = {
-            observe: observe as any,
-            headers,
-            reportProgress: options?.reportProgress,
-            withCredentials: options?.withCredentials,
-            context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.delete(url, requestOptions);
+        });
     }
 
     autoLinkCurrentUser(observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
@@ -525,22 +549,21 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('patch', url, {
+            body: null,
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.patch(url, null, requestOptions);
+        });
     }
 
-    linkCurrentUser(sub: string, userCredentialRequest: UserCredentialRequest, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
-    linkCurrentUser(sub: string, userCredentialRequest: UserCredentialRequest, observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<any>>;
-    linkCurrentUser(sub: string, userCredentialRequest: UserCredentialRequest, observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<any>>;
+    linkCurrentUser(sub: string, userCredentialLoginRequest: UserCredentialLoginRequest, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
+    linkCurrentUser(sub: string, userCredentialLoginRequest: UserCredentialLoginRequest, observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<any>>;
+    linkCurrentUser(sub: string, userCredentialLoginRequest: UserCredentialLoginRequest, observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<any>>;
     /** Link user identified by a JWT bearer token to an existing principal, defined by username/password or accesskey/secret pair */
-    linkCurrentUser(sub: string, userCredentialRequest: UserCredentialRequest, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
+    linkCurrentUser(sub: string, userCredentialLoginRequest: UserCredentialLoginRequest, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/credentials/link/${sub}`;
 
         let headers: HttpHeaders;
@@ -554,15 +577,14 @@ export class CalendareService {
             headers = headers.set('Content-Type', 'application/json');
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('patch', url, {
+            body: userCredentialLoginRequest,
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.patch(url, userCredentialRequest, requestOptions);
+        });
     }
 
     autoProvisionCurrentUser(userRegisterRequest: UserRegisterRequest, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
@@ -582,15 +604,14 @@ export class CalendareService {
             headers = headers.set('Content-Type', 'application/json');
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('post', url, {
+            body: userRegisterRequest,
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.post(url, userRegisterRequest, requestOptions);
+        });
     }
 
     getPermissions(uri: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<PermissionResponse>;
@@ -612,16 +633,14 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     setPermissions(permissionRequest: PermissionRequest, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
@@ -642,15 +661,14 @@ export class CalendareService {
             headers = headers.set('Content-Type', 'application/json');
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('patch', url, {
+            body: permissionRequest,
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.patch(url, permissionRequest, requestOptions);
+        });
     }
 
     getPermissionsSelf(observe?: 'body', options?: RequestOptions<'json'>): Observable<PermissionResponse>;
@@ -667,15 +685,13 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     getPrivilegesIncoming(grantee?: string, empty?: boolean, transitive?: boolean, observe?: 'body', options?: RequestOptions<'json'>): Observable<PrivilegeResponse>;
@@ -702,16 +718,14 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     createPrivileges(privilegeRequest: PrivilegeRequest, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
@@ -732,15 +746,14 @@ export class CalendareService {
             headers = headers.set('Content-Type', 'application/json');
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('post', url, {
+            body: privilegeRequest,
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.post(url, privilegeRequest, requestOptions);
+        });
     }
 
     getPrivilegesOutgoing(grantor?: string, empty?: boolean, transitive?: boolean, observe?: 'body', options?: RequestOptions<'json'>): Observable<PrivilegeResponse>;
@@ -767,16 +780,14 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     addPrivilege(grantee: string, grantor?: string, reltype?: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
@@ -803,16 +814,15 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('put', url, {
+            body: null,
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.put(url, null, requestOptions);
+        });
     }
 
     deletePrivileges(grantee: string, grantor?: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
@@ -836,16 +846,14 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('delete', url, {
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.delete(url, requestOptions);
+        });
     }
 
     getMemberships(principal?: string, direction?: MembershipDirection, observe?: 'body', options?: RequestOptions<'json'>): Observable<MembershipResponse>;
@@ -869,16 +877,14 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     createMemberships(membershipRequest: MembershipRequest, principal?: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
@@ -903,16 +909,15 @@ export class CalendareService {
             headers = headers.set('Content-Type', 'application/json');
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('post', url, {
+            body: membershipRequest,
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.post(url, membershipRequest, requestOptions);
+        });
     }
 
     getGroupMembers(groupName: string, principal?: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<Array<GroupMemberRef>>;
@@ -933,16 +938,14 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     addGroupmembership(groupName: string, memberName: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
@@ -958,15 +961,14 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('put', url, {
+            body: null,
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.put(url, null, requestOptions);
+        });
     }
 
     deleteGroupmembership(groupName: string, memberName: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
@@ -982,15 +984,13 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('delete', url, {
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.delete(url, requestOptions);
+        });
     }
 
     recalcGroupmembership(principal?: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
@@ -1012,16 +1012,15 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('patch', url, {
+            body: null,
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.patch(url, null, requestOptions);
+        });
     }
 
     getProxyMembers(relType: RelationshipTypes, principal?: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<Array<GroupMemberRef>>;
@@ -1043,16 +1042,14 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     addProxyMembership(relType: RelationshipTypes, memberName: string, principal?: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
@@ -1073,16 +1070,15 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('put', url, {
+            body: null,
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.put(url, null, requestOptions);
+        });
     }
 
     deleteProxyMembership(relType: RelationshipTypes, memberName: string, principal?: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
@@ -1103,16 +1099,14 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('delete', url, {
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.delete(url, requestOptions);
+        });
     }
 
     getCollectionByOwner(username: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<Array<CollectionResponse>>;
@@ -1129,15 +1123,13 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     getCollectionByUri(uri: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<CollectionResponse>;
@@ -1159,16 +1151,14 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     createCollection(collectionCreateRequest: CollectionCreateRequest, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
@@ -1189,15 +1179,14 @@ export class CalendareService {
             headers = headers.set('Content-Type', 'application/json');
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('post', url, {
+            body: collectionCreateRequest,
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.post(url, collectionCreateRequest, requestOptions);
+        });
     }
 
     amendCollectionByUri(collectionAmendRequest: CollectionAmendRequest, uri: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
@@ -1223,16 +1212,15 @@ export class CalendareService {
             headers = headers.set('Content-Type', 'application/json');
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('put', url, {
+            body: collectionAmendRequest,
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.put(url, collectionAmendRequest, requestOptions);
+        });
     }
 
     deleteCollectionByUri(uri: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<any>;
@@ -1254,16 +1242,14 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('delete', url, {
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.delete(url, requestOptions);
+        });
     }
 
     getObjectById(id: number, observe?: 'body', options?: RequestOptions<'json'>): Observable<CalendarScheduleItem>;
@@ -1280,15 +1266,13 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     getObjectsByUid(uid: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<Array<CalendarScheduleItem>>;
@@ -1305,15 +1289,13 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     getCalendarByUid(uid: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<Array<CalendarScheduleItem>>;
@@ -1330,15 +1312,13 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     getCalendar(path?: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<Array<CalendarScheduleItem>>;
@@ -1360,16 +1340,14 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     getAddressbook(collection?: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<Array<AddressbookItem>>;
@@ -1391,16 +1369,14 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     getMailboxByUid(uid: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<Array<MailboxItem>>;
@@ -1417,15 +1393,13 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 
     getMailboxBySender(sender: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<Array<MailboxItem>>;
@@ -1447,15 +1421,13 @@ export class CalendareService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 }

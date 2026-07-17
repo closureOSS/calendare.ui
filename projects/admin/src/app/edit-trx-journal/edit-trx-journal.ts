@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { OperationService } from '../../api/services';
@@ -15,7 +15,7 @@ import { TranslocoDirective } from '@jsverse/transloco';
   ],
   templateUrl: './edit-trx-journal.html',
   styleUrl: './edit-trx-journal.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class EditTrxJournal {
   private readonly client = inject(OperationService);

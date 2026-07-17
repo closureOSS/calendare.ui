@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { booleanAttribute, Component, computed, input } from '@angular/core';
 import { PrivilegeMaskConstant } from '../../core/privilege-mask';
 import { PrivilegeMask } from '../../../api/models';
 
@@ -8,14 +8,14 @@ import { PrivilegeMask } from '../../../api/models';
   ],
   templateUrl: './list-permissions.html',
   styleUrl: './list-permissions.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class ListPermissions {
   readonly PrivilegeMask = PrivilegeMaskConstant;
   permissions = input.required<PrivilegeMask | null | undefined>();
   filter = input<PrivilegeMask>();
-  vertical = input<boolean>(false);
-  prohibit = input<boolean>(false);
+  vertical = input<boolean>(false, { transform: booleanAttribute });
+  prohibit = input<boolean>(false, { transform: booleanAttribute });
 
   permissionList = computed(() => {
     let mask = this.permissions();

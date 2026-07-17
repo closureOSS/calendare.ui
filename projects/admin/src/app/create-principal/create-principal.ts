@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { FormPrincipalCreate } from '../form-principal-create/form-principal-create';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { FormPrincipalCreateData } from '../form-principal-create/form-principal-create.data';
+import { PrincipalCreateFormData } from '../form-principal-create/principal-create-form.interface';
 import { CalendareService } from '../../api/services';
 import { firstValueFrom } from 'rxjs';
 import { ErrorDialogProvider } from '../a9uitemplate/dialog-error/error-dialog-provider';
@@ -18,7 +18,7 @@ import { NavigateBackButton } from '../a9uitemplate/navigate-back-button/navigat
   ],
   templateUrl: './create-principal.html',
   styleUrl: './create-principal.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class CreatePrincipal {
   principalTypeLabel = input.required<string>();
@@ -29,7 +29,7 @@ export class CreatePrincipal {
   private readonly client = inject(CalendareService);
   private readonly transloco = inject(TranslocoService);
 
-  public async create(data: FormPrincipalCreateData) {
+  public async create(data: PrincipalCreateFormData) {
     console.log('Create principal %s -> %o', this.principalTypeLabel(), data);
     try {
       await firstValueFrom(this.client.createUser({ ...data, type: this.principalTypeLabel() }));

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { PrincipalRef } from '../widgets/principal-ref/principal-ref';
@@ -22,7 +22,7 @@ import { HttpResourceViewer } from '../a9uitemplate/http-resource-viewer/http-re
 ],
   templateUrl: './view-memberships.html',
   styleUrl: './view-memberships.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class ViewMemberships {
   public username = input.required<string>();

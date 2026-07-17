@@ -39,15 +39,13 @@ export class TestingService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('delete', url, {
+            observe,
             headers,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.delete(url, requestOptions);
+        });
     }
 
     getLatestSyncToken(collection: string, observe?: 'body', options?: RequestOptions<'json'>): Observable<SyncTokenResponse>;
@@ -69,15 +67,13 @@ export class TestingService {
             headers = new HttpHeaders(options?.headers);
         }
 
-        const requestOptions: any = {
-            observe: observe as any,
+        return this.httpClient.request('get', url, {
+            observe,
             headers,
             params,
             reportProgress: options?.reportProgress,
             withCredentials: options?.withCredentials,
             context: this.createContextWithClientId(options?.context)
-        };
-
-        return this.httpClient.get(url, requestOptions);
+        });
     }
 }

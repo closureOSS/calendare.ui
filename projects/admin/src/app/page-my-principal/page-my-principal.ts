@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoDirective } from '@jsverse/transloco';
@@ -25,7 +25,7 @@ import { EditEmailConfirm } from '../edit-email-confirm/edit-email-confirm';
   ],
   templateUrl: './page-my-principal.html',
   styleUrl: './page-my-principal.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class PageMyPrincipal {
   private readonly currentUserInfo = inject(CurrentUserInfoJwt);

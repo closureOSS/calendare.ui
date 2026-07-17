@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
@@ -23,7 +23,7 @@ import { FloatingActionBar } from '../a9uitemplate/floating-action-bar/floating-
   ],
   templateUrl: './page-my-addressbooks.html',
   styleUrl: './page-my-addressbooks.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class PageMyAddressbooks {
   private readonly currentUserInfo = inject(CurrentUserInfoJwt);

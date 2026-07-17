@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -25,7 +25,7 @@ import { ActionBar } from "../a9uitemplate/action-bar/action-bar";
 ],
   templateUrl: './page-login.html',
   styleUrl: './page-login.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class PageLogin {
   private readonly oidcSecurityService = inject(OidcSecurityService);

@@ -1,22 +1,23 @@
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { OidcSecurityService, PublicEventsService, EventTypes, LoginResponse } from 'angular-auth-oidc-client';
-import { catchError, filter, map, share, switchMap, tap } from 'rxjs';
+import { catchError, delay, filter, map, share, switchMap, tap } from 'rxjs';
 import { CalendareService } from '../../api/services';
 import { CurrentUserInfoJwt } from './current-user-info';
 import { PrincipalResponse } from '../../api/models';
 import { Router } from '@angular/router';
+import { ErrorDialogProvider } from '../a9uitemplate/dialog-error/error-dialog-provider';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class AppAuthState {
   private readonly oidcSecurityService = inject(OidcSecurityService);
   private readonly eventService = inject(PublicEventsService);
   public readonly currentUser = inject(CurrentUserInfoJwt);
   private readonly client = inject(CalendareService);
   private readonly router = inject(Router);
+  private errorDialog = inject(ErrorDialogProvider);
+
 
   private oidcEvents = this.eventService.registerForEvents().pipe(
     share(),
@@ -32,7 +33,7 @@ export class AppAuthState {
   public oidcAuthCheck = this.oidcSecurityService
     .checkAuth()
     .pipe(
-      // tap((loginResponse: LoginResponse) => console.log('1 %o', loginResponse)),
+      tap((loginResponse: LoginResponse) => console.log('1 %o', loginResponse)),
       filter((loginResponse: LoginResponse) => loginResponse.isAuthenticated),
       // tap((loginResponse: LoginResponse) => console.log('2 %o', loginResponse)),
       tap((loginResponse: LoginResponse) => {
@@ -46,12 +47,20 @@ export class AppAuthState {
       }),
       switchMap(() => this.redirectOnSuccess()),
       catchError((err, ex) => {
-        console.error(err);
         if (err as HttpErrorResponse) {
           if (err.status === HttpStatusCode.Forbidden) {
             console.warn('No calendare user found for authorized user');
             return this.router.navigate(['/onboarding', 'link']);
           }
+          else {
+            console.error(err);
+            if (err.status === 0) {
+              this.errorDialog.show({ body: 'Connection to server failed. Retry later.' });
+            }
+            throw err;
+          }
+        } else {
+          console.error(err);
         }
         return ex;
       }),
@@ -66,7 +75,7 @@ export class AppAuthState {
 
   private redirectOnSuccess() {
     const restoredUrl = localStorage.getItem('calendare_redirect_uri');
-    // console.log('Redirecting to %s (localStorage=%o)', restoredUrl ?? '/start', restoredUrl);
+   console.log('Redirecting to %s (localStorage=%o)', restoredUrl ?? '/start', restoredUrl);
     if (restoredUrl) {
       localStorage.removeItem('calendare_redirect_uri');
       return this.router.navigateByUrl(restoredUrl);

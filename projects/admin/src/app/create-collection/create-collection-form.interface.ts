@@ -1,4 +1,6 @@
+import { CollectionType } from "../../api";
+
 export interface CreateCollectionFormData {
   uri: string;
-  collectionType: string;
+  collectionType: CollectionType | null;
 }

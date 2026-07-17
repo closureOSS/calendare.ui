@@ -39,6 +39,7 @@
         "filter_list",
         "calendar_today",
         "contacts",
+        "folder",
         "identity_platform",
         "database",
         "check",
@@ -80,6 +81,7 @@
         "calendar_today",
         "contacts",
         "library_books",
+        "folder",
         "id_card"
       ],
       "formats": [

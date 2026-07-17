@@ -1,10 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { Router, RouterLink } from '@angular/router';
 import { LoginUsernamePassword } from '../widgets/login-username-password/login-username-password';
 import { LoginCredentialsFormData } from '../widgets/login-username-password/login-credentials-form-data';
@@ -15,7 +11,6 @@ import { HintBox } from '../a9uitemplate/hint-box/hint-box';
 import { CurrentUserInfoJwt } from '../core/current-user-info';
 import { CurrentUserRepository } from '../core/current-user-repository';
 import { ErrorDialogProvider } from '../a9uitemplate/dialog-error/error-dialog-provider';
-import { ReactiveFormsModule } from '@angular/forms';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 import { LanguageSwitcher } from '../a9uitemplate/language-switcher/language-switcher';
 import { ThemeSwitcher } from '../a9uitemplate/theme-switcher/theme-switcher';
@@ -26,11 +21,6 @@ import { ThemeSwitcher } from '../a9uitemplate/theme-switcher/theme-switcher';
     RouterLink,
     MatButtonModule,
     MatIconModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatCheckboxModule,
-    MatInputModule,
-    MatAutocompleteModule,
     HintBox,
     LoginUsernamePassword,
     LanguageSwitcher,
@@ -39,7 +29,7 @@ import { ThemeSwitcher } from '../a9uitemplate/theme-switcher/theme-switcher';
   ],
   templateUrl: './page-onboarding-link.html',
   styleUrl: './page-onboarding-link.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class PageOnboardingLink {
   private errorDialog = inject(ErrorDialogProvider);

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { booleanAttribute, Component, inject, input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
 import { hasPermission } from '../core/has-permissions';
 import { PrivilegeMaskConstant } from '../core/privilege-mask';
 import { ListPermissions } from '../widgets/list-permissions/list-permissions';
-import { CollectionResponse, CollectionType, PrincipalType, PrivilegeMask } from '../../api/models';
+import { CollectionResponse, CollectionSubType, CollectionType, PrincipalType, PrivilegeMask } from '../../api/models';
 import { CalendareResource } from '../../api/resources';
 import { CalendareService } from '../../api/services';
 import { firstValueFrom } from 'rxjs';
@@ -38,13 +38,13 @@ import { HttpResourceViewer } from '../a9uitemplate/http-resource-viewer/http-re
   ],
   templateUrl: './view-collections.html',
   styleUrl: './view-collections.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class ViewCollections {
   public username = input.required<string>();
   public principalType = input<PrincipalType | null>();
   public filterType = input<CollectionType | null>(null);
-  public filterTechnical = input<boolean>(true);
+  public filterTechnical = input<boolean>(true, { transform: booleanAttribute });
   readonly dialog = inject(MatDialog);
   private readonly confirmDialog = inject(ConfirmDialogProvider);
   readonly PrivilegeMask = PrivilegeMaskConstant;
@@ -90,11 +90,19 @@ export class ViewCollections {
     return hasPermission(permissions, required);
   }
 
-  public svgCardIcon(collectionType: CollectionType | undefined): string {
+  public svgCardIcon(collectionType: CollectionType | undefined, collectionSubType: CollectionSubType | undefined): string {
     switch (collectionType) {
       case CollectionType.Calendar: return 'calendar_today#avatar';
       case CollectionType.Addressbook: return 'contacts#avatar';
-      case CollectionType.Collection: return 'library_books#avatar';
+      case CollectionType.Collection: {
+        switch (collectionSubType) {
+          case CollectionSubType.Default:
+            return 'folder#avatar';
+
+          default:
+            return 'library_books#avatar';
+        }
+      }
     }
     return '';
   }

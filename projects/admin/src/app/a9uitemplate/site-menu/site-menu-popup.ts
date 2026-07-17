@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -21,7 +21,6 @@ import { TranslocoDirective } from '@jsverse/transloco';
   },
   templateUrl: './site-menu-popup.html',
   styleUrl: './site-menu-popup.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SiteMenuPopup {
   protected readonly menu = inject(SiteMenuProvider);

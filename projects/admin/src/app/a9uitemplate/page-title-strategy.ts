@@ -1,4 +1,4 @@
-import { inject, Injectable, InjectionToken } from '@angular/core';
+import { inject, InjectionToken, Service } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, TitleStrategy } from '@angular/router';
 import { MenuConfig } from '../a9uitemplate/site-menu/site-menu-provider';
@@ -6,9 +6,7 @@ import { TranslocoService } from '@jsverse/transloco';
 
 export const APP_SITE_TITLE = new InjectionToken<string>('application title');
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class PageTitleStrategy extends TitleStrategy {
   private readonly title = inject(Title);
   private readonly transloco = inject(TranslocoService);

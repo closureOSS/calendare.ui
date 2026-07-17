@@ -3,7 +3,7 @@
     <!-- <h1>{{ t('Principals') }}</h1> -->
     <mat-form-field appearance="outline" subscriptSizing="dynamic" class="filter-text">
       <mat-label>{{ t('Filter') }}</mat-label>
-      <input type="search" matInput [formControl]="searchFld">
+      <input type="search" matInput [formControl]="searchFld" />
       <mat-icon matSuffix svgIcon="filter_list"></mat-icon>
     </mat-form-field>
     <mat-button-toggle-group multiple class="filter-type" (change)="filterByType.set($event.value)">
@@ -30,71 +30,95 @@
   <section>
     <a9-http-resource-viewer [resource]="principals">
       @let principalsList = principals.value()!;
-      @if(principalsList?.length === 0) {
-      <a9-hint-box mode="info">{{ t('Press search to show principals.') }}</a9-hint-box>
-      }
-      @else {
-      @if(!responsiveness.isMobileView()) {
-      <table mat-table [dataSource]="principalsList">
-        <ng-container matColumnDef="username">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ t('Username') }}</th>
-          <td mat-cell *matCellDef="let principal"><a
-              [routerLink]="['/principal', 'show', principal.username]">{{principal.username}}</a></td>
-        </ng-container>
-
-        <ng-container matColumnDef="displayName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ t('Name') }}</th>
-          <td mat-cell *matCellDef="let principal">{{principal.displayName}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ t('Email') }}</th>
-          <td mat-cell *matCellDef="let principal">{{principal.email}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="principalType">
-          <th mat-header-cell *matHeaderCellDef>{{ t('Type') }}</th>
-          <td mat-cell *matCellDef="let principal">
-            <div class="principal-type">
-              <cal-icon-principal-type [type]="principal.principalType?.label"></cal-icon-principal-type>
-              <span class="show-xl">{{principal.principalType?.name}}</span>
-            </div>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="timezone">
-          <th mat-header-cell *matHeaderCellDef class="show-xl">{{ t('Timezone') }}</th>
-          <td mat-cell *matCellDef="let principal" class="show-xl">{{principal.timezone}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="locale">
-          <th mat-header-cell *matHeaderCellDef class="show-xl">{{ t('Locale') }}</th>
-          <td mat-cell *matCellDef="let principal" class="show-xl">{{principal.locale}}</td>
-        </ng-container>
-
-        <tr mat-header-row
-          *matHeaderRowDef="['username', 'displayName', 'email', 'principalType', 'timezone', 'locale']"></tr>
-        <tr mat-row
-          *matRowDef="let row; columns: ['username', 'displayName', 'email', 'principalType', 'timezone', 'locale'];">
-        </tr>
-      </table>
+      @if (principalsList?.length === 0) {
+        <a9-hint-box mode="info">{{ t('Press search to show principals.') }}</a9-hint-box>
       } @else {
-      <mat-nav-list>
-        @for (principal of principalsList; track principal.username) {
-        <mat-list-item lines="3">
-          <a matListItemTitle [routerLink]="['/principal', 'show', principal.username]">{{principal.username}}</a>
-          <span matListItemLine>{{ principal.displayName }}</span>
-          <span matListItemLine>{{ principal.email }}</span>
-          <cal-icon-principal-type matListItemIcon [type]="principal.principalType?.label"></cal-icon-principal-type>
-        </mat-list-item>
+        @if (!responsiveness.isMobileView()) {
+          <table mat-table [dataSource]="principalsList">
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ t('Username') }}</th>
+              <td mat-cell *matCellDef="let principal">
+                <a [routerLink]="['/principal', 'show', principal.username]">{{
+                  principal.username
+                }}</a>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="displayName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ t('Name') }}</th>
+              <td mat-cell *matCellDef="let principal">{{ principal.displayName }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ t('Email') }}</th>
+              <td mat-cell *matCellDef="let principal">{{ principal.email }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="principalType">
+              <th mat-header-cell *matHeaderCellDef>{{ t('Type') }}</th>
+              <td mat-cell *matCellDef="let principal">
+                <div class="principal-type">
+                  <cal-icon-principal-type
+                    [type]="$safeNavigationMigration(principal.principalType?.label)"
+                  ></cal-icon-principal-type>
+                  <span class="show-xl">{{ principal.principalType?.name }}</span>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="timezone">
+              <th mat-header-cell *matHeaderCellDef class="show-xl">{{ t('Timezone') }}</th>
+              <td mat-cell *matCellDef="let principal" class="show-xl">{{ principal.timezone }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="locale">
+              <th mat-header-cell *matHeaderCellDef class="show-xl">{{ t('Locale') }}</th>
+              <td mat-cell *matCellDef="let principal" class="show-xl">{{ principal.locale }}</td>
+            </ng-container>
+
+            <tr
+              mat-header-row
+              *matHeaderRowDef="[
+                'username',
+                'displayName',
+                'email',
+                'principalType',
+                'timezone',
+                'locale',
+              ]"
+            ></tr>
+            <tr
+              mat-row
+              *matRowDef="
+                let row;
+                columns: ['username', 'displayName', 'email', 'principalType', 'timezone', 'locale']
+              "
+            ></tr>
+          </table>
+        } @else {
+          <mat-nav-list>
+            @for (principal of principalsList; track principal.username) {
+              <mat-list-item lines="3">
+                <a matListItemTitle [routerLink]="['/principal', 'show', principal.username]">{{
+                  principal.username
+                }}</a>
+                <span matListItemLine>{{ principal.displayName }}</span>
+                <span matListItemLine>{{ principal.email }}</span>
+                <cal-icon-principal-type
+                  matListItemIcon
+                  [type]="$safeNavigationMigration(principal.principalType?.label)"
+                ></cal-icon-principal-type>
+              </mat-list-item>
+            }
+          </mat-nav-list>
         }
-      </mat-nav-list>
-      }
       }
     </a9-http-resource-viewer>
 
     <a9-floating-action-bar>
-      <cal-create-principal-button [permissions]="adminPermissions.value()"></cal-create-principal-button>
+      <cal-create-principal-button
+        [permissions]="adminPermissions.value()"
+      ></cal-create-principal-button>
     </a9-floating-action-bar>
   </section>
 </article>

@@ -5,13 +5,9 @@ import { DialogConfirmContent } from './dialog-confirm-content';
 import { TranslocoDirective } from '@jsverse/transloco';
 
 @Component({
-  imports: [
-    MatButtonModule,
-    MatDialogModule,
-    TranslocoDirective,
-  ],
+  imports: [MatButtonModule, MatDialogModule, TranslocoDirective],
   templateUrl: './dialog-confirm.html',
-  styleUrls: ['./dialog-confirm.scss']
+  styleUrls: ['./dialog-confirm.scss'],
 })
 export class DialogConfirm {
   data = inject<DialogConfirmContent>(MAT_DIALOG_DATA);

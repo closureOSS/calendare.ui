@@ -8,6 +8,10 @@ import { marker as _ } from "@jsverse/transloco-keys-manager/marker";
 export const routes: Routes = [
   { path: 'start', pathMatch: 'full', redirectTo: '/my/credentials' },
   {
+    path: 'starting',
+    loadComponent: () => import('./page-start/page-start').then(c => c.PageStart),
+  },
+  {
     path: 'my',
     title: _('My profile'),
     data: {
@@ -51,6 +55,15 @@ export const routes: Routes = [
         },
         canActivate: [isAuthenticated],
         loadComponent: () => import('./page-my-addressbooks/page-my-addressbooks').then(c => c.PageMyAddressbooks),
+      },
+      {
+        path: 'collections',
+        data: {
+          pageMode: PageMode.Default,
+          menu: { label: _('Collections'), icon: 'folder' }
+        },
+        canActivate: [isAuthenticated],
+        loadComponent: () => import('./page-my-collections/page-my-collections').then(c => c.PageMyCollections),
       },
     ]
   },
@@ -175,6 +188,31 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'credential',
+    data: {
+      pageMode: PageMode.Default,
+    },
+    // canMatch: [canMatchAuthenticated],
+    canActivateChild: [isAuthenticatedChild],
+    children: [
+      {
+        path: 'create/:username/appkey',
+        loadComponent: () => import('./create-credential/create-credential').then(c => c.CreateCredential),
+        canDeactivate: [(component) => component.confirmCancel()],
+      },
+      {
+        path: 'create/:username/pwd',
+        loadComponent: () => import('./create-credential-pwd/create-credential-pwd').then(c => c.CreateCredentialPwd),
+        canDeactivate: [(component) => component.confirmCancel()],
+      },
+      {
+        path: 'reset/:username/:accesskey',
+        loadComponent: () => import('./reset-credential-pwd/reset-credential-pwd').then(c => c.ResetCredentialPwd),
+        canDeactivate: [(component) => component.confirmCancel()],
+      },
+    ]
+  },
+  {
     path: 'login',
     title: _('Welcome'),
     data: { pageMode: PageMode.Modal },
@@ -200,7 +238,7 @@ export const routes: Routes = [
     // canMatch: [canMatchAuthenticated],
     canActivate: [isPreAuthenticated, isUnlinkedAccount]
   },
-  { path: '', pathMatch: 'full', redirectTo: '/login' },
+  // { path: '', pathMatch: 'full', redirectTo: '/login' },
   { path: '**', component: PageNotFound, canActivate: [isPreAuthenticated],/* canMatch: [canMatchAuthenticated]*/ },
   { path: '**', component: PageLogin },
 ];

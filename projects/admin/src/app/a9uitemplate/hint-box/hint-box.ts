@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { booleanAttribute, Component, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -11,11 +11,10 @@ import { MatIconModule } from '@angular/material/icon';
   },
   templateUrl: './hint-box.html',
   styleUrl: './hint-box.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HintBox {
   mode = input<'info' | 'warning' | 'error'>('info');
-  slim = input<boolean>(false);
+  slim = input<boolean>(false, { transform: booleanAttribute });
 
   public svgIcon(): string {
     switch (this.mode()) {

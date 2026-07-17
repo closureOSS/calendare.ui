@@ -1,4 +1,4 @@
-import { DOCUMENT, effect, inject, Injectable, Renderer2, signal } from '@angular/core';
+import { afterRenderEffect, DOCUMENT, inject, Injectable, Renderer2, signal } from '@angular/core';
 import { Routes } from '@angular/router';
 
 export class MenuConfig {
@@ -21,8 +21,6 @@ export class SiteMenuProvider {
   #menuConfig = signal<MenuConfig[]>([]);
   public menuConfig = this.#menuConfig.asReadonly();
 
-  #document = inject(DOCUMENT);
-  #renderer = inject(Renderer2);
 
   public close() {
     this.#isMenuOpen.set(false);
@@ -55,13 +53,18 @@ export class SiteMenuProvider {
     return menuItems;
   }
 
+  #document = inject(DOCUMENT);
+  #renderer = inject(Renderer2);
+
   constructor() {
-    effect(() => {
-      const target = this.#document.getElementsByTagName('html')[0];
-      if (this.#isMenuOpen() === true) {
-        this.#renderer.addClass(target, SiteMenuProvider.Class_PopupMenuOpen);
-      } else {
-        this.#renderer.removeClass(target, SiteMenuProvider.Class_PopupMenuOpen);
+    afterRenderEffect({
+      write: () => {
+        const target = this.#document.documentElement;
+        if (this.#isMenuOpen() === true) {
+          this.#renderer.addClass(target, SiteMenuProvider.Class_PopupMenuOpen);
+        } else {
+          this.#renderer.removeClass(target, SiteMenuProvider.Class_PopupMenuOpen);
+        }
       }
     });
   }

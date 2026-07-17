@@ -5,8 +5,7 @@
     @if(principal.value(); as principal) {
     <cal-view-principal [principal]="principal"></cal-view-principal>
     @if(hasPermission(principal.permissions, PrivilegeMask.WriteProperties) && !principal.isEmailVerified) {
-    <cal-edit-email-confirm [principal]="principal"
-      (confirmed)="$event ? refresh() : null"></cal-edit-email-confirm>
+    <cal-edit-email-confirm [principal]="principal" (confirmed)="$event ? refresh() : null"></cal-edit-email-confirm>
     }
     @if(hasPermission(principal.permissions, PrivilegeMask.ReadCurrentUserPrivilegeSet)) {
     <aside>
@@ -57,10 +56,10 @@
     <header>
       <div class="section-title">{{ t('Credentials') }}</div>
     </header>
-    <cal-view-credentials [username]="username()" [reload]="reload()"></cal-view-credentials>
+    <cal-view-credentials [username]="username()"></cal-view-credentials>
     <a9-floating-action-bar>
-      <cal-create-credential-button [username]="username()"
-        (refresh)="refreshCredentials()"></cal-create-credential-button>
+      <cal-create-credential-button [username]="username()" [email]="principal.email"
+        [disabled]="!hasPermission(principal.permissions, PrivilegeMask.WriteAcl)"></cal-create-credential-button>
     </a9-floating-action-bar>
   </section>
   }

@@ -2,7 +2,7 @@ import { ApplicationConfig, inject, isDevMode, provideAppInitializer, provideBro
 import { provideRouter, TitleStrategy, withComponentInputBinding, withRouterConfig, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { RuntimeConfig } from './core/runtime-config';
 import { provideAuth, LogLevel, authInterceptor } from 'angular-auth-oidc-client';
 import { provideCalendareApiClient } from '../api';
@@ -16,7 +16,8 @@ import { marker as _ } from "@jsverse/transloco-keys-manager/marker";
 import { SvgIcons } from './core/svg-icons';
 import { AppAuthState } from './core/app-auth-state';
 import { UserSettingProvider } from './a9uitemplate/user-setting';
-
+import { provideSignalFormsConfig } from '@angular/forms/signals';
+import { NG_STATUS_CLASSES } from '@angular/forms/signals/compat';
 
 export function appConfig(config: RuntimeConfig): ApplicationConfig {
   console.log('Bootstrapping with %o', config);
@@ -38,7 +39,7 @@ export function appConfig(config: RuntimeConfig): ApplicationConfig {
       provideAuth({
         config: {
           authority: config.oidcUri,
-          redirectUrl: window.location.origin + '/admin/',
+          redirectUrl: window.location.origin + '/admin/starting',
           postLogoutRedirectUri: window.location.origin + '/admin/goodbye',
           clientId: config.oidcClientId,
           scope: config.oidcScopes,
@@ -52,17 +53,18 @@ export function appConfig(config: RuntimeConfig): ApplicationConfig {
           // historyCleanupOff: true,
           // ignoreNonceAfterRefresh: true,
           ngswBypass: true,
-          postLoginRoute: '/start',
+          // postLoginRoute: '/start',
           // forbiddenRoute: '/goodbye',
           // unauthorizedRoute: '/goodbye',
         },
       }),
       // provideHttpClient(withInterceptors([includeBearerTokenInterceptor])),
-      provideHttpClient(withFetch(), withInterceptors([
-        authInterceptor(),
-        // loggingInterceptor,
-        // unauthorizedInterceptor
-      ])),
+      provideHttpClient(
+        withInterceptors([
+          authInterceptor(),
+          // loggingInterceptor,
+          // unauthorizedInterceptor
+        ])),
       provideCalendareApiClient({ basePath: config.apiBaseUrl }),
       provideTransloco({
         config: {
@@ -86,6 +88,9 @@ export function appConfig(config: RuntimeConfig): ApplicationConfig {
       provideAppInitializer(() => {
         const userSettings = inject(UserSettingProvider);
         userSettings.initialize();
+      }),
+      provideSignalFormsConfig({
+        classes: NG_STATUS_CLASSES
       }),
     ]
   };

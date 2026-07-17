@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input, model } from '@angular/core';
+import { booleanAttribute, Component, computed, input, model } from '@angular/core';
 import { PrivilegeMaskConstant } from '../../core/privilege-mask';
 import { PrivilegeMask } from '../../../api/models';
 
@@ -7,14 +7,14 @@ import { PrivilegeMask } from '../../../api/models';
   imports: [],
   templateUrl: './edit-permissions.html',
   styleUrl: './edit-permissions.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class EditPermissions {
   readonly PrivilegeMask = PrivilegeMask;
   permissions = model.required<PrivilegeMask | null | undefined>();
   filter = input<PrivilegeMask>();
-  vertical = input<boolean>(false);
-  prohibit = input<boolean>(false);
+  vertical = input<boolean>(false, { transform: booleanAttribute });
+  prohibit = input<boolean>(false, { transform: booleanAttribute });
 
   permissionList = computed(() => {
     let mask = this.permissions() ?? PrivilegeMaskConstant.None;

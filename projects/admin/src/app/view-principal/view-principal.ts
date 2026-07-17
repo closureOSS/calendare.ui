@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterLink } from '@angular/router';
@@ -33,7 +33,7 @@ import { ActionBar } from "../a9uitemplate/action-bar/action-bar";
   ],
   templateUrl: './view-principal.html',
   styleUrl: './view-principal.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class ViewPrincipal {
   public principal = input.required<PrincipalResponse>();

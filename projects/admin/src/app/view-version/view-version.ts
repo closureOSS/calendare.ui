@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { JsonPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { version } from '../../../../../package.json';
@@ -19,7 +19,7 @@ import { HttpResourceViewer } from '../a9uitemplate/http-resource-viewer/http-re
   ],
   templateUrl: './view-version.html',
   styleUrl: './view-version.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class ViewVersion {
   private readonly calendareResource = inject(CalendareResource);

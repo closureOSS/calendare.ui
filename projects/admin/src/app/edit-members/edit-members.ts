@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, effect, inject, input, signal } from '@angular/core';
+import { Component, inject, input, linkedSignal, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { HttpErrorHandler } from '../core/http-error-handler';
 import { MatListModule } from '@angular/material/list';
 import { LookupPrincipal } from '../widgets/lookup-principal/lookup-principal';
 import { PrincipalRef } from '../widgets/principal-ref/principal-ref';
@@ -11,9 +10,7 @@ import { CalendareResource } from '../../api/resources';
 import { CalendareService } from '../../api/services';
 import {
   GroupMemberRef, GroupRef, MembershipDirection,
-  MembershipGroupRequest, MembershipMemberRequest, MembershipPrivilegeType, MembershipRequest, PrincipalResponse
-} from '../../api';
-import { HttpErrorResponse } from '@angular/common/http';
+  MembershipGroupRequest, MembershipMemberRequest, MembershipPrivilegeType, MembershipRequest, PrincipalResponse} from '../../api';
 import { firstValueFrom } from 'rxjs';
 import { ActionBar } from '../a9uitemplate/action-bar/action-bar';
 import { TranslocoDirective } from '@jsverse/transloco';
@@ -21,6 +18,10 @@ import { LocationStrategy } from '@angular/common';
 import { NavigateBackButton } from '../a9uitemplate/navigate-back-button/navigate-back-button';
 import { ConfirmDialogProvider } from '../a9uitemplate/dialog-confirm/confirm-dialog-provider';
 import { HttpResourceViewer } from '../a9uitemplate/http-resource-viewer/http-resource-viewer';
+import { HintBox } from '../a9uitemplate/hint-box/hint-box';
+import { HttpProblemDetails } from '../core/http-problem-details';
+import { HttpErrorOnSave } from '../a9uitemplate/http-error-on-save/http-error-on-save';
+import { httpErrorToProblemDetails } from '../core/http-error-helper';
 
 @Component({
   selector: 'cal-edit-members',
@@ -35,34 +36,28 @@ import { HttpResourceViewer } from '../a9uitemplate/http-resource-viewer/http-re
     NavigateBackButton,
     LookupPrincipal,
     PrincipalRef,
+    HintBox,
+    HttpErrorOnSave,
     TranslocoDirective,
   ],
   templateUrl: './edit-members.html',
   styleUrl: './edit-members.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditMembers {
   public username = input.required<string>();
   private readonly calendareResource = inject(CalendareResource);
   private readonly client = inject(CalendareService);
 
-  public readonly memberships = this.calendareResource.getMemberships(this.username, MembershipDirection.Members);
+  public readonly memberships = this.calendareResource.getMemberships(this.username, MembershipDirection.Members, { defaultValue: { memberships: [], groups: [] } });
 
-  constructor() {
-    const httpErrorHandler = inject(HttpErrorHandler);
-    effect(() => {
-      const error = this.memberships.error();
-      httpErrorHandler.standardErrorHandler(error);
-    });
+  public dirty = linkedSignal({
+    source: this.memberships.status,
+    computation: (data) => data !== 'resolved'
+  });
 
-    effect(() => {
-      if (this.memberships.status() === 'resolved') {
-        this.dirty.set(false);
-      }
-    });
+  refresh() {
+    this.memberships.reload();
   }
-
-  public dirty = signal<boolean>(false);
 
   private readonly confirm = inject(ConfirmDialogProvider);
   public async confirmCancel(): Promise<boolean> {
@@ -75,10 +70,7 @@ export class EditMembers {
     this.location.back();
   }
 
-  refresh() {
-    this.memberships.reload();
-  }
-
+  protected formMessage = signal<HttpProblemDetails | null>(null);
   async submit() {
     const request = this.memberships.value()?.groups?.map(g => {
       return {
@@ -97,14 +89,7 @@ export class EditMembers {
       this.refresh();
     }
     catch (e) {
-      const pd = e as HttpErrorResponse;
-      if (pd) {
-        console.error('Error %d: %o', pd.status, pd);
-        // this.formMessage.set(pd.detail ?? 'Saving changes failed');
-      } else {
-        console.error('Unknown error while amending collection: %o', e);
-        // this.formMessage.set('Saving changes failed (reason unknown)');
-      }
+      this.formMessage.set(httpErrorToProblemDetails(e));
     }
   }
 
@@ -122,7 +107,7 @@ export class EditMembers {
   }
 
   public add(principal: PrincipalResponse, group: GroupRef) {
-    console.log('Adding to group %o -> %o', group, principal);
+    // console.log('Adding to group %o -> %o', group, principal);
     const exists = group.members?.find(p => p.username === principal.username);
     if (exists) {
       if (exists.membershipType === MembershipPrivilegeType.Unassigned) {
@@ -131,6 +116,7 @@ export class EditMembers {
       return; // nothing to do, principal already in list
     }
     this.dirty.set(true);
+    this.formMessage.set(null);
     group.members ??= [];
     group.members.push({
       displayname: principal.displayName,

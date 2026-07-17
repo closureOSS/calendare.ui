@@ -1,11 +1,9 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { computed, inject, Injectable } from '@angular/core';
+import { computed, inject, Service } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class PageResponsiveness {
   private readonly breakpointObserver = inject(BreakpointObserver);
   private layoutChanges = this.breakpointObserver.observe([

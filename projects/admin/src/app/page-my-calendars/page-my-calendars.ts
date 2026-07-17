@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { CurrentUserInfoJwt } from '../core/current-user-info';
 import { ViewCollections } from '../view-collections/view-collections';
@@ -23,7 +23,7 @@ import { FloatingActionBar } from '../a9uitemplate/floating-action-bar/floating-
   ],
   templateUrl: './page-my-calendars.html',
   styleUrl: './page-my-calendars.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class PageMyCalendars {
   private readonly currentUserInfo = inject(CurrentUserInfoJwt);

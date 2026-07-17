@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'a9-action-bar',
@@ -8,7 +8,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   },
   templateUrl: './action-bar.html',
   styleUrl: './action-bar.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActionBar {
 

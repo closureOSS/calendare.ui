@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -20,7 +20,6 @@ import { TranslocoDirective } from '@jsverse/transloco';
   },
   templateUrl: './site-toolbar.html',
   styleUrl: './site-toolbar.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SiteToolbar {
   appTitle = input.required<string>();

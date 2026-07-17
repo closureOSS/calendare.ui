@@ -1,11 +1,9 @@
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { CalendareService, PrincipalResponse, UserRegisterRequest } from '../../api';
 import { firstValueFrom } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class CurrentUserRepository {
   private readonly client = inject(CalendareService);
 

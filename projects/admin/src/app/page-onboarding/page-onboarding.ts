@@ -1,19 +1,14 @@
 import { HttpStatusCode } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormPrincipalCreate } from '../form-principal-create/form-principal-create';
-import { FormPrincipalCreateData } from '../form-principal-create/form-principal-create.data';
+import { PrincipalCreateFormData } from '../form-principal-create/principal-create-form.interface';
 import { HintBox } from '../a9uitemplate/hint-box/hint-box';
 import { CurrentUserInfoJwt } from '../core/current-user-info';
 import { CurrentUserRepository } from '../core/current-user-repository';
 import { ErrorDialogProvider } from '../a9uitemplate/dialog-error/error-dialog-provider';
-import { ReactiveFormsModule } from '@angular/forms';
 import { PrincipalResponse } from '../../api/models';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 import { LanguageSwitcher } from '../a9uitemplate/language-switcher/language-switcher';
@@ -25,11 +20,6 @@ import { ThemeSwitcher } from '../a9uitemplate/theme-switcher/theme-switcher';
     RouterLink,
     MatButtonModule,
     MatIconModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatCheckboxModule,
-    MatInputModule,
-    MatAutocompleteModule,
     HintBox,
     FormPrincipalCreate,
     LanguageSwitcher,
@@ -38,7 +28,7 @@ import { ThemeSwitcher } from '../a9uitemplate/theme-switcher/theme-switcher';
   ],
   templateUrl: './page-onboarding.html',
   styleUrl: './page-onboarding.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class PageOnboarding {
   private errorDialog = inject(ErrorDialogProvider);
@@ -49,7 +39,7 @@ export class PageOnboarding {
 
   public allowAutoProvisioning = signal<boolean>(false);
   public formMessage = signal<string | null>(null);
-  public defaultData: Partial<FormPrincipalCreateData>;
+  public defaultData: Partial<PrincipalCreateFormData>;
   private transloco = inject(TranslocoService);
 
   constructor() {
@@ -73,13 +63,13 @@ export class PageOnboarding {
       }
     });
     this.defaultData = {
-      email: this.currentUser.email(),
-      displayName: this.currentUser.displayname(),
+      email: this.currentUser.email() ?? '',
+      displayName: this.currentUser.displayname() ?? '',
       username: 'user-' + this.currentUser.subject(),
     };
   }
 
-  public async onboard(data: FormPrincipalCreateData) {
+  public async onboard(data: PrincipalCreateFormData) {
     const response = await this.currentUserRepository.createDefaultAccount({ ...data, type: "INDIVIDUAL" });
     const principal = response as PrincipalResponse;
     // console.log('AutoProvisioning(%o) --> %o (%o)', data, response, principal);

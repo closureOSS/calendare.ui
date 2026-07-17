@@ -1,13 +1,11 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Service, signal } from '@angular/core';
 import { PrincipalResponse } from '../../api';
 import { CurrentUserInfo } from '../a9uitemplate/user-setting-menu/current-user-info';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { firstValueFrom } from 'rxjs';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class CurrentUserInfoJwt extends CurrentUserInfo {
   private usernameSignal = signal<string | null>(null);
   private subSignal = signal<string | null>(null);

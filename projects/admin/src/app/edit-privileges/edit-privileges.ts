@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, signal } from '@angular/core';
+import { Component, computed, inject, input, linkedSignal, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -11,15 +11,17 @@ import {
   PrincipalResponse, PrivilegeGroupRequest,
   PrivilegeGroupResponse, PrivilegeLineResponse, PrivilegePrincipalRequest, PrivilegeRequest
 } from '../../api/models';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ActionBar } from '../a9uitemplate/action-bar/action-bar';
-import { HttpErrorHandler } from '../core/http-error-handler';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { NavigateBackButton } from '../a9uitemplate/navigate-back-button/navigate-back-button';
 import { LocationStrategy } from '@angular/common';
 import { ConfirmDialogProvider } from '../a9uitemplate/dialog-confirm/confirm-dialog-provider';
 import { MatCardModule } from '@angular/material/card';
 import { HttpResourceViewer } from '../a9uitemplate/http-resource-viewer/http-resource-viewer';
+import { HintBox } from '../a9uitemplate/hint-box/hint-box';
+import { HttpProblemDetails } from '../core/http-problem-details';
+import { HttpErrorOnSave } from '../a9uitemplate/http-error-on-save/http-error-on-save';
+import { httpErrorToProblemDetails } from '../core/http-error-helper';
 
 @Component({
   selector: 'cal-edit-privileges',
@@ -33,11 +35,13 @@ import { HttpResourceViewer } from '../a9uitemplate/http-resource-viewer/http-re
     LookupPrincipal,
     NavigateBackButton,
     ActionBar,
+    HintBox,
+    HttpErrorOnSave,
     TranslocoDirective,
   ],
   templateUrl: './edit-privileges.html',
   styleUrl: './edit-privileges.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class EditPrivileges {
   public username = input.required<string>();
@@ -48,21 +52,14 @@ export class EditPrivileges {
 
   public readonly privileges = this.calendareResource.getPrivilegesOutgoing(this.grantor, true, false);
 
-  constructor() {
-    const httpErrorHandler = inject(HttpErrorHandler);
-    effect(() => {
-      const error = this.privileges.error();
-      httpErrorHandler.standardErrorHandler(error);
-    });
+  public dirty = linkedSignal({
+    source: this.privileges.status,
+    computation: (data) => data !== 'resolved'
+  });
 
-    effect(() => {
-      if (this.privileges.status() === 'resolved') {
-        this.dirty.set(false);
-      }
-    });
+  refresh() {
+    this.privileges.reload();
   }
-
-  public dirty = signal<boolean>(false);
 
   private readonly confirm = inject(ConfirmDialogProvider);
   public async confirmCancel(): Promise<boolean> {
@@ -74,11 +71,7 @@ export class EditPrivileges {
   back() {
     this.location.back();
   }
-
-  refresh() {
-    this.privileges.reload();
-  }
-
+  protected formMessage = signal<HttpProblemDetails | null>(null);
   async submit() {
     const request = {
       grantorUri: this.grantor(),
@@ -101,14 +94,7 @@ export class EditPrivileges {
       this.refresh();
     }
     catch (e) {
-      const pd = e as HttpErrorResponse;
-      if (pd) {
-        console.error('Error %d: %o', pd.status, pd);
-        // this.formMessage.set(pd.detail ?? 'Saving changes failed');
-      } else {
-        console.error('Unknown error while amending collection: %o', e);
-        // this.formMessage.set('Saving changes failed (reason unknown)');
-      }
+      this.formMessage.set(httpErrorToProblemDetails(e));
     }
   }
 

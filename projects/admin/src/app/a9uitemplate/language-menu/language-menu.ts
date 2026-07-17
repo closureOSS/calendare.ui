@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { TranslocoService, LangDefinition } from '@jsverse/transloco';
 import { UserSettingProvider } from '../user-setting';
@@ -10,7 +10,6 @@ import { UserSettingProvider } from '../user-setting';
   ],
   templateUrl: './language-menu.html',
   styleUrl: './language-menu.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LanguageMenu {
   private readonly settings = inject(UserSettingProvider);

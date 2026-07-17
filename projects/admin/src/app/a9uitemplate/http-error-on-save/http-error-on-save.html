@@ -1,0 +1,8 @@
+@if(error(); as err) {
+@if(err) {
+<div class="title">{{err.title}}</div>
+<span class="status">{{err.status}}</span>
+<span class="url">{{err.url}}</span>
+<span class="trace">{{err.traceId}}</span>
+}
+}

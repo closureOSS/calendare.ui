@@ -1,9 +1,9 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { importSvgMaterialIcons } from './import-svg-material-icons.generated';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class SvgIcons {
   private sanitizer = inject(DomSanitizer);
   private registry = inject(MatIconRegistry);

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { ViewVersion } from '../view-version/view-version';
 
 @Component({
@@ -8,7 +8,7 @@ import { ViewVersion } from '../view-version/view-version';
   ],
   templateUrl: './page-features.html',
   styleUrl: './page-features.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class PageFeatures {
 

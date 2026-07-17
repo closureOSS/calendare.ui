@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { ViewCollections } from '../view-collections/view-collections';
 import { ViewCredentials } from '../view-credentials/view-credentials';
@@ -41,29 +41,12 @@ import { EditEmailConfirm } from '../edit-email-confirm/edit-email-confirm';
   ],
   templateUrl: './page-principal.html',
   styleUrl: './page-principal.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class PagePrincipal {
   public username = input.required<string>();
   private readonly calendareResource = inject(CalendareResource);
   readonly PrivilegeMask = PrivilegeMaskConstant;
-
-  private usernameSafe = computed(() => {
-    const username = this.username();
-    return username ? username : undefined;
-  });
-  public reload = signal<number>(0);
-  public refreshCredentials() {
-    this.reload.update(value => value + 1);
-  }
-
-  // principalResource = resource({
-  //   params: () => ({ username: this.username() }),
-  //   loader: ({ params }) => {
-  //     return this.client.api.user.byUsername(params.username).get();
-  //   }
-  // });
-  // public readonly principal = computed(() => this.principalResource.hasValue() ? this.principalResource.value() : null);
 
   public readonly principal = this.calendareResource.getUser(this.username);
 

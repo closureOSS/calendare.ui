@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'a9-site-footer',
@@ -8,7 +8,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   },
   templateUrl: './site-footer.html',
   styleUrl: './site-footer.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SiteFooter {
 

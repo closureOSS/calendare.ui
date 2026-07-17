@@ -1,21 +1,23 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { EditTrxJournal } from '../edit-trx-journal/edit-trx-journal';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { CalendareResource } from '../../api/resources';
 import { PermissionResponse } from '../../api';
 import { PrivilegeMask } from '../core/privilege-mask';
 import { HintBox } from '../a9uitemplate/hint-box/hint-box';
+import { EditTrxGc } from '../edit-trx-gc/edit-trx-gc';
 
 @Component({
   selector: 'cal-page-maintenance',
   imports: [
     EditTrxJournal,
+    EditTrxGc,
     HintBox,
     TranslocoDirective,
   ],
   templateUrl: './page-maintenance.html',
   styleUrl: './page-maintenance.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class PageMaintenance {
   private readonly calendareResource = inject(CalendareResource);

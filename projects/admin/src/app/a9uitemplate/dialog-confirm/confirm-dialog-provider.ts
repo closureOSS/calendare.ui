@@ -1,13 +1,11 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogConfirmContent } from './dialog-confirm-content';
 import { DialogConfirm } from './dialog-confirm';
 import { firstValueFrom } from 'rxjs';
 import { TranslocoService } from '@jsverse/transloco';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class ConfirmDialogProvider {
   private readonly dialog = inject(MatDialog);
   private readonly transloco = inject(TranslocoService);

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
@@ -20,7 +20,6 @@ import { MatButtonModule } from '@angular/material/button';
   ],
   templateUrl: './user-setting-menu.html',
   styleUrl: './user-setting-menu.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserSettingMenu {
   public currentUser = inject(CurrentUserInfo);

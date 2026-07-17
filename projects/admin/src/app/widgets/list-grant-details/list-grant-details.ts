@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { PrivilegeItemResponse } from '../../../api';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { TranslocoDirective } from '@jsverse/transloco';
@@ -11,7 +11,7 @@ import { TranslocoDirective } from '@jsverse/transloco';
   ],
   templateUrl: './list-grant-details.html',
   styleUrl: './list-grant-details.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class ListGrantDetails {
   grants = input.required<PrivilegeItemResponse[] | undefined>();

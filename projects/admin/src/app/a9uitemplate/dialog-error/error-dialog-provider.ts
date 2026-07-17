@@ -1,11 +1,9 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { DialogErrorData } from './dialog-error-data';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogError } from './dialog-error';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class ErrorDialogProvider {
   readonly dialog = inject(MatDialog);
   private isActive = false;

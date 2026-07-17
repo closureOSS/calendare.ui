@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, linkedSignal } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Component, computed, inject, input, linkedSignal } from '@angular/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -25,7 +24,6 @@ import { ConfirmDialogProvider } from '../a9uitemplate/dialog-confirm/confirm-di
   imports: [
     MatButtonModule,
     MatIconModule,
-    ReactiveFormsModule,
     MatFormFieldModule,
     MatCheckboxModule,
     MatInputModule,
@@ -38,7 +36,7 @@ import { ConfirmDialogProvider } from '../a9uitemplate/dialog-confirm/confirm-di
   ],
   templateUrl: './edit-principal-permissions.html',
   styleUrl: './edit-principal-permissions.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class EditPrincipalPermissions {
   public username = input.required<string>();
