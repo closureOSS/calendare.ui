@@ -1,10 +1,14 @@
-<aside [class]="mode()" [class.slim]="slim()">
-  @if(!spinner()) {
-  <mat-icon [svgIcon]="svgIcon()"></mat-icon>
-  } @else {
-  <mat-spinner></mat-spinner>
-  }
-  <div class="content">
+<hlm-alert [class]="boxClass()">
+  <ng-icon [name]="svgIcon()" size="2rem" />
+  <div hlmAlertTitle class="text-balance">
     <ng-content></ng-content>
   </div>
-</aside>
+  <div hlmAlertDescription [class]="bodyClass()">
+    <ng-content select=".body" />
+    @if(spinner()){
+    <hlm-progress class="min-w-full bg-accent h-2 border border-primary/20 mbs-2 rounded-none">
+      <hlm-progress-indicator class="bg-primary" />
+    </hlm-progress>
+    }
+  </div>
+</hlm-alert>

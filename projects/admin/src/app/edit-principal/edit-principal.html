@@ -1,66 +1,64 @@
 <form [formRoot]="editForm" *transloco="let t">
-  <mat-card>
-    <mat-card-header>
-      <div mat-card-avatar class="card-icon">
-        <cal-icon-principal-type
+  <hlm-card class="max-w-3xl">
+    <hlm-card-header>
+      <div class="flex items-center gap-3 w-full">
+        <cal-icon-principal-type size="2.25rem"
           [type]="$safeNavigationMigration(principal.value()?.principalType?.label)"></cal-icon-principal-type>
+        <div>
+          <h3 hlmCardTitle>
+            {{ principal.value()?.username }} &ndash;
+            {{ principal.value()?.displayName }}
+          </h3>
+          <p hlmCardDescription>{{ principal.value()?.principalType?.name }}</p>
+        </div>
       </div>
-      <mat-card-title>{{ principal.value()?.username }} &ndash;
-        {{ principal.value()?.displayName }}</mat-card-title>
-      <mat-card-subtitle>{{ principal.value()?.principalType?.name }}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="a9-form">
-        <mat-form-field>
-          <mat-label>{{ t('Full name') }}</mat-label>
-          <input matInput [formField]="editForm.displayName" type="text" [placeholder]="t('Full name of principal')" />
-        </mat-form-field>
+    </hlm-card-header>
+    <div hlmCardContent>
+      <hlm-field-group>
+        <hlm-field>
+          <label hlmFieldLabel>{{ t('Full name') }}</label>
+          <input hlmInput [formField]="editForm.displayName" type="text" [placeholder]="t('Full name of principal')" />
+          <a9-field-error [field]="editForm.displayName()"></a9-field-error>
+        </hlm-field>
 
-        <mat-form-field>
-          <mat-label>{{ t('Timezone') }}</mat-label>
-          <input matInput [formField]="editForm.timezone" #timezoneinput type="text" [placeholder]="t('Timezone')"
-            [matAutocomplete]="timezonelist" (input)="filterTimezones()" (focus)="filterTimezones()" />
-          <mat-autocomplete requireSelection #timezonelist="matAutocomplete">
-            @for (tz of filteredOptions; track tz) {
-            <mat-option [value]="tz">{{ tz }}</mat-option>
-            }
-          </mat-autocomplete>
-          <mat-hint>{{ t('Your current timezone, i.e. Asia/Bangkok, Europe/Berlin, ...') }}</mat-hint>
-          <mat-error [field]="editForm.timezone()"></mat-error>
+        <hlm-field>
+          <label hlmFieldLabel for="timezone">{{ t('Timezone') }}</label>
+          <a9-input-timezone [formField]="editForm.timezone" [placeholder]="t('e.g. Europe/Zurich')"
+            [empty]="t('No timezone(s) found')" />
+          <a9-field-error [field]="editForm.color()">
+            {{ t('Your current timezone, i.e. Asia/Bangkok, Europe/Berlin, ...') }}
+          </a9-field-error>
+        </hlm-field>
 
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>{{ t('Color') }}</mat-label>
-          <input matInput [formField]="editForm.color" type="color" colorspace="limited-srgb"
+        <hlm-field>
+          <label hlmFieldLabel>{{ t('Color') }}</label>
+          <input hlmInput [formField]="editForm.color" type="color" colorspace="limited-srgb"
             [placeholder]="t('Color identifier')" />
-          <mat-hint>{{ t('Usage depends on client; format #rrggbbaa') }}</mat-hint>
-        </mat-form-field>
+          <a9-field-error [field]="editForm.color()">
+            {{ t('Usage depends on client; format #rrggbbaa') }}
+          </a9-field-error>
+        </hlm-field>
 
-        <mat-form-field>
-          <mat-label>{{ t('Description') }}</mat-label>
-          <textarea matInput [formField]="editForm.description" [placeholder]="t('Description')"></textarea>
-        </mat-form-field>
+        <hlm-field>
+          <label hlmFieldLabel>{{ t('Description') }}</label>
+          <textarea hlmTextarea [formField]="editForm.description" [placeholder]="t('Description')"
+            class="min-h-16"></textarea>
+        </hlm-field>
 
-        <mat-form-field>
-          <mat-label>{{ t('Main e-mail address') }}</mat-label>
-          <input matInput [formField]="editForm.email" type="text" [placeholder]="t('Main e-mail address')" />
-          <mat-error [field]="editForm.email()"></mat-error>
-        </mat-form-field>
+        <hlm-field>
+          <label hlmFieldLabel>{{ t('Main e-mail address') }}</label>
+          <input hlmInput [formField]="editForm.email" type="text" [placeholder]="t('Main e-mail address')" />
+          <a9-field-error [field]="editForm.email()"></a9-field-error>
+        </hlm-field>
 
-        @if(editForm().getError('serverError')) {
-        <a9-hint-box class="a9-form-msg" mode="error" [slim]="true">{{ editForm().getError('serverError')?.message
-          }}</a9-hint-box>
-        }
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <a9-action-bar>
-        <button matButton="filled" [disabled]="editForm().submitting()" type="submit">{{ t('Save') }}</button>
-        <button matButton (click)="back()" type="button">{{ t('Cancel') }}</button>
-      </a9-action-bar>
-    </mat-card-actions>
-  </mat-card>
+        <a9-form-error [errors]="editForm().getError('serverError')"></a9-form-error>
+      </hlm-field-group>
+    </div>
+    <hlm-card-footer>
+      <button hlmBtn variant="default" [disabled]="editForm().submitting()" type="submit">{{ t('Save') }}</button>
+      <button hlmBtn variant="ghost" (click)="back()" type="button">{{ t('Cancel') }}</button>
+    </hlm-card-footer>
+  </hlm-card>
 </form>
 
 <!-- <pre class="debug">{{principal()|json}}</pre> -->

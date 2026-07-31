@@ -1,7 +1,5 @@
 <article *transloco="let t">
-  <header class="a9-site-header">
-    <h1>{{ t('Calendars') }}</h1>
-  </header>
+  <a9-site-title>{{ t('Calendars') }}</a9-site-title>
 
   <section>
     @if(username(); as username) {
@@ -11,10 +9,10 @@
       [principalType]="prin.principalType"></cal-view-collections>
     @if(!prin.isRoot) {
     <a9-floating-action-bar>
-      <button matFab [disabled]="!hasPermission(prin.permissions, PrivilegeMask.Bind)"
-        [routerLink]="['/collection', 'create', username, CollectionType.Calendar]"><mat-icon
-          svgIcon="calendar_add_on"></mat-icon></button>
-      <!-- <button matButton (click)="refresh()">Refresh</button> -->
+      <button hlmBtn variant="secondary" size="icon-lg" [disabled]="!hasPermission(prin.permissions, PrivilegeMask.Bind)"
+        [routerLink]="['/collection', 'create', username, CollectionType.Calendar]">
+        <ng-icon name="matCalendarAddOnOutline" data-icon="inline-start"></ng-icon>
+      </button>
     </a9-floating-action-bar>
     }
     }

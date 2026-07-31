@@ -1,10 +1,9 @@
-<mat-card *transloco="let t">
-  <mat-card-header>
-    <mat-card-title>{{ t('Garbage collection file storage') }}</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-  </mat-card-content>
-  <mat-card-actions>
-    <button matButton (click)="collectGarbage()">{{ t('Clean') }}</button>
-  </mat-card-actions>
-</mat-card>
+<hlm-item variant="outline" class="max-w-2xl" *transloco="let t">
+  <hlm-item-content>
+    <hlm-item-title>{{ t('Garbage collection file storage') }}</hlm-item-title>
+    <p hlmItemDescription>{{ t('Deletes all files in the external S3 or local storage which are no longer referenced') }}</p>
+  </hlm-item-content>
+  <hlm-item-actions>
+    <button hlmBtn variant="destructive" (click)="collectGarbage()" size="sm">{{ t('Clean') }}</button>
+  </hlm-item-actions>
+</hlm-item>

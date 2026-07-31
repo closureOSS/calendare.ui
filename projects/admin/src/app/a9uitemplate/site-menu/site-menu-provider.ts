@@ -1,5 +1,11 @@
-import { afterRenderEffect, DOCUMENT, inject, Injectable, Renderer2, signal } from '@angular/core';
+import { Service, signal } from '@angular/core';
 import { Routes } from '@angular/router';
+import { TranslocoService } from '@jsverse/transloco';
+
+export class MenuSection {
+  public label?: string;
+  public menuItems: MenuConfig[] = [];
+};
 
 export class MenuConfig {
   public label!: string;
@@ -9,63 +15,63 @@ export class MenuConfig {
   public desc?: string;
   public order = 0;
   public section = false;
+  public session = false;
 };
 
-@Injectable()
+@Service()
 export class SiteMenuProvider {
-  static Class_PopupMenuOpen = 'modal-dialog-open';
-
-  #isMenuOpen = signal<boolean>(false);
-  public isOpen = this.#isMenuOpen.asReadonly();
-
   #menuConfig = signal<MenuConfig[]>([]);
   public menuConfig = this.#menuConfig.asReadonly();
 
+  #menuSections = signal<MenuSection[]>([]);
+  public menuSection = this.#menuSections.asReadonly();
 
-  public close() {
-    this.#isMenuOpen.set(false);
-  }
-
-  public open() {
-    this.#isMenuOpen.set(true);
-  }
-
-  public toggle() {
-    this.#isMenuOpen.set(!this.#isMenuOpen());
-  }
-
-  public load(routes: Routes) {
-    const menuItems = this.mapRoutes(routes, ['/']);
+  public load(routes: Routes, translate: TranslocoService) {
+    const menuItems = this.mapRoutes(routes, ['/'], translate);
     this.#menuConfig.set(menuItems);
+    this.#menuSections.set(this.mapSection(menuItems, translate));
+    // console.log(this.#menuConfig(), this.#menuSections());
   }
 
-  private mapRoutes(routes: Routes, basePath: string[]) {
+  private mapRoutes(routes: Routes, basePath: string[], translate: TranslocoService) {
     const menuItems: MenuConfig[] = [];
     for (const route of routes) {
-      if (!route.data?.['menu']) continue;
-      const item = { path: [...basePath, route.path], ...route.data?.['menu'] } as MenuConfig;
-      // console.log(item);
-      menuItems.push(item);
+      // console.log(route, basePath);
+      if (route.data?.['menu']) {
+        const item = { path: [...basePath, route.path], ...route.data?.['menu'] } as MenuConfig;
+        if (item.label) {
+          item.label = translate.translate(item.label);
+        }
+        if (item.desc) {
+          item.desc = translate.translate(item.desc);
+        }
+        menuItems.push(item);
+      }
       if (route.children) {
-        menuItems.push(...this.mapRoutes(route.children, [...basePath, route.path!]));
+        let subroutePath = route.path && route.path !== '' ? [...basePath, route.path!] : [...basePath];
+        menuItems.push(...this.mapRoutes(route.children, subroutePath, translate));
       }
     }
     return menuItems;
   }
 
-  #document = inject(DOCUMENT);
-  #renderer = inject(Renderer2);
-
-  constructor() {
-    afterRenderEffect({
-      write: () => {
-        const target = this.#document.documentElement;
-        if (this.#isMenuOpen() === true) {
-          this.#renderer.addClass(target, SiteMenuProvider.Class_PopupMenuOpen);
-        } else {
-          this.#renderer.removeClass(target, SiteMenuProvider.Class_PopupMenuOpen);
-        }
+  private mapSection(menuItems: MenuConfig[], translate: TranslocoService): MenuSection[] {
+    const sections: MenuSection[] = [];
+    let current: MenuSection | null = null;
+    for (const menu of menuItems) {
+      if (!current && !menu.section) {
+        current = new MenuSection();
+        sections.push(current);
       }
-    });
+      if (menu.section) {
+        current = new MenuSection();
+        current.label = menu.label;
+        sections.push(current);
+      }
+      else if (!menu.session) {
+        current?.menuItems.push(menu);
+      }
+    }
+    return sections;
   }
 }

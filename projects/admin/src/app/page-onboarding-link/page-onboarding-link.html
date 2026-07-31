@@ -1,25 +1,24 @@
-<article *transloco="let t">
-  <h1><mat-icon svgIcon="favicon" class="favicon"></mat-icon>Calendare</h1>
-
-  <div class="onboarding">
-    <a9-hint-box mode="warning">
-      <div>{{ t('No account for *username found.', { username: currentUser.email()}) }}</div>
-      <div>
-        {{ t('Link either to an existing account below or create an new account.') }}
-        {{ t('Cancel if you used a wrong user.') }}
-      </div>
-    </a9-hint-box>
-
+<hlm-card class="@lg:w-lg p-6" *transloco="let t">
+  <hlm-card-header>
+    <p hlmCardTitle class="py-1 text-lg">{{ t('#ShortAppname')}}</p>
+    <div hlmCardAction>
+      <button hlmBtn variant="secondary" [routerLink]="['/onboarding']">{{ t('Sign Up') }}</button>
+    </div>
+    <a9-hint-box hlmCardDescription mode="warning" class="col-span-full">
+        {{ t('No account for *username found.', { username: currentUser.email()}) }}
+        <div class="flex gap-2 flex-col pt-4">
+          <p>{{ t('Link either to an existing account below or create an new account.') }}</p>
+          <p>{{ t('Cancel if you used a wrong user.') }}</p>
+        </div>
+      </a9-hint-box>
+    </hlm-card-header>
+    <div hlmCardContent>
     @if(allowAutoProvisioning()) {
-    <cal-login-username-password [loginLabel]="t('Link account')" (login)="linkCurrentUser($event)" [formMessage]="errorLoginMsg()">
-      <a matButton="outlined" [routerLink]="['/onboarding']">{{ t('New account') }}</a>
-      <a matButton  (click)="abort()">{{ t('Abort login') }}</a>
+    <cal-login-username-password [loginLabel]="t('Link account')" (login)="linkCurrentUser($event)"
+      [formMessage]="errorLoginMsg()" class="px-4">
+      <!-- <a hlmBtn variant="outline" [routerLink]="['/onboarding']">{{ t('New account') }}</a> -->
+      <a hlmBtn variant="ghost" (click)="abort()">{{ t('Abort login') }}</a>
     </cal-login-username-password>
     }
   </div>
-
-  <aside class="config">
-    <a9-theme-switcher></a9-theme-switcher>
-    <a9-language-switcher></a9-language-switcher>
-  </aside>
-</article>
+</hlm-card>

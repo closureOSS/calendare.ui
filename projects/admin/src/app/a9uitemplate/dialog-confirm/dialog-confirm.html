@@ -1,16 +1,20 @@
-<div mat-dialog-title>{{data.title}}</div>
-<mat-dialog-content>
-  <p class="intro">{{data.intro}}</p>
-  @if(data.body){
-  <div class="body">{{data.body}}</div>
-  }
-  <p class="question">{{data.question}}</p>
-</mat-dialog-content>
-<mat-dialog-actions *transloco="let t">
-  @if(data.confirmOnly) {
-  <button matButton [mat-dialog-close]="true" cdkFocusInitial>{{ t('Close') }}</button>
-  } @else {
-  <button matButton [mat-dialog-close]="false" cdkFocusInitial>{{ t('No') }}</button>
-  <button matButton [mat-dialog-close]="true">{{ t('Yes') }}</button>
-  }
-</mat-dialog-actions>
+ <hlm-dialog-header>
+  <h3 hlmDialogTitle class="text-2xl">{{data.title}}</h3>
+  <p hlmDialogDescription class="text-primary text-base py-1">{{data.intro}}</p>
+</hlm-dialog-header>
+
+@if(data.body){
+<div class="body">{{data.body}}</div>
+}
+<p class="py-4 font-medium text-base">{{data.question}}</p>
+
+<hlm-dialog-footer *transloco="let t">
+  <!-- <div hlmButtonGroup class=""> -->
+    @if(data.confirmOnly){
+    <button hlmBtn variant="default">{{ t('Close') }}</button>
+    } @else {
+    <button hlmBtn variant="default" type="submit" (click)="_dialogRef.close(false)">{{ t('No') }}</button>
+    <button hlmBtn variant="default" (click)="_dialogRef.close(true)">{{ t('Yes') }}</button>
+    }
+  <!-- </div> -->
+</hlm-dialog-footer>

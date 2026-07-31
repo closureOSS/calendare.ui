@@ -7,8 +7,6 @@ import { IconPrincipalType } from '../icon-principal-type/icon-principal-type';
     IconPrincipalType,
   ],
   templateUrl: './principal-ref.html',
-  styleUrl: './principal-ref.scss',
-
 })
 export class PrincipalRef {
   readonly type = input.required<string | null | undefined>();

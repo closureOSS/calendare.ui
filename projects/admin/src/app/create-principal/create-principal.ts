@@ -8,17 +8,17 @@ import { firstValueFrom } from 'rxjs';
 import { ErrorDialogProvider } from '../a9uitemplate/dialog-error/error-dialog-provider';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 import { NavigateBackButton } from '../a9uitemplate/navigate-back-button/navigate-back-button';
+import { HlmCardImports } from '@spartan-ng/helm/card';
 
 @Component({
   selector: 'cal-create-principal',
   imports: [
+    HlmCardImports,
     FormPrincipalCreate,
     NavigateBackButton,
     TranslocoDirective,
   ],
   templateUrl: './create-principal.html',
-  styleUrl: './create-principal.scss',
-
 })
 export class CreatePrincipal {
   principalTypeLabel = input.required<string>();

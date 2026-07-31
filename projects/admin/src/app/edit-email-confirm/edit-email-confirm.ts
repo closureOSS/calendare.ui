@@ -1,17 +1,16 @@
 import { Component, inject, input, output, signal } from '@angular/core';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 import { PrincipalResponse, CalendareService } from '../../api';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { ActionBar } from '../a9uitemplate/action-bar/action-bar';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { firstValueFrom } from 'rxjs';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
-import { HintBox } from '../a9uitemplate/hint-box/hint-box';
 import { form, FormField, FormRoot, required } from '@angular/forms/signals';
-import { FormSignalError } from '../a9uitemplate/form-signal-error';
+import { FormError } from '../a9uitemplate/form-error/form-error';
+import { FieldError } from '../a9uitemplate/field-error/field-error';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
+import { HlmInputImports } from '@spartan-ng/helm/input';
 
 export interface EmailConfirmFormData {
   confirmationToken: string;
@@ -20,21 +19,18 @@ export interface EmailConfirmFormData {
 @Component({
   selector: 'cal-edit-email-confirm',
   imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    MatFormFieldModule,
-    FormSignalError,
-    MatInputModule,
-    ActionBar,
-    HintBox,
     FormField,
     FormRoot,
+    FormError,
+    FieldError,
+    HlmCardImports,
+    HlmButtonGroupImports,
+    HlmButtonImports,
+    HlmInputImports,
+    HlmFieldImports,
     TranslocoDirective,
   ],
   templateUrl: './edit-email-confirm.html',
-  styleUrl: './edit-email-confirm.scss',
-
 })
 export class EditEmailConfirm {
   public principal = input.required<PrincipalResponse>();

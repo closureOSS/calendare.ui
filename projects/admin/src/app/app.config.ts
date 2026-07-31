@@ -1,5 +1,5 @@
-import { ApplicationConfig, inject, isDevMode, provideAppInitializer, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
-import { provideRouter, TitleStrategy, withComponentInputBinding, withRouterConfig, withViewTransitions } from '@angular/router';
+import { ApplicationConfig, inject, isDevMode, provideAppInitializer, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { provideRouter, TitleStrategy, withComponentInputBinding, withDebugTracing, withRouterConfig, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -11,13 +11,14 @@ import { provideTransloco } from '@jsverse/transloco';
 import { TranslocoHttpLoader } from './a9uitemplate/transloco-loader';
 import { APP_SITE_TITLE, PageTitleStrategy } from './a9uitemplate/page-title-strategy';
 import { CurrentUserInfoJwt } from './core/current-user-info';
-import { CurrentUserInfo } from './a9uitemplate/user-setting-menu/current-user-info';
+import { CurrentUserInfo } from './a9uitemplate/current-user-info';
 import { marker as _ } from "@jsverse/transloco-keys-manager/marker";
-import { SvgIcons } from './core/svg-icons';
 import { AppAuthState } from './core/app-auth-state';
 import { UserSettingProvider } from './a9uitemplate/user-setting';
-import { provideSignalFormsConfig } from '@angular/forms/signals';
-import { NG_STATUS_CLASSES } from '@angular/forms/signals/compat';
+import { provideSpartanHlm } from '@spartan-ng/helm/utils';
+import { provideNgIconsConfig } from '@ng-icons/core';
+import { CalendareSiteSearchProvider } from './core/calendare-site-search-provider';
+import { SiteSearchProvider } from './a9uitemplate/site-search/site-search-provider';
 
 export function appConfig(config: RuntimeConfig): ApplicationConfig {
   console.log('Bootstrapping with %o', config);
@@ -27,14 +28,14 @@ export function appConfig(config: RuntimeConfig): ApplicationConfig {
       { provide: APP_SITE_TITLE, useValue: _('#TitleAppname') },
       { provide: TitleStrategy, useClass: PageTitleStrategy },
       { provide: CurrentUserInfo, useExisting: CurrentUserInfoJwt },
-      provideZonelessChangeDetection(),
+      { provide: SiteSearchProvider, useExisting: CalendareSiteSearchProvider },
       provideBrowserGlobalErrorListeners(),
       provideRouter(routes,
         withRouterConfig({ canceledNavigationResolution: 'computed' }),
         // withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
         withComponentInputBinding(),
         withViewTransitions(),
-        // withDebugTracing()
+        withDebugTracing()
       ),
       provideAuth({
         config: {
@@ -58,7 +59,8 @@ export function appConfig(config: RuntimeConfig): ApplicationConfig {
           // unauthorizedRoute: '/goodbye',
         },
       }),
-      // provideHttpClient(withInterceptors([includeBearerTokenInterceptor])),
+      provideSpartanHlm(),
+      provideNgIconsConfig({ size: '1.5rem', }),
       provideHttpClient(
         withInterceptors([
           authInterceptor(),
@@ -78,9 +80,9 @@ export function appConfig(config: RuntimeConfig): ApplicationConfig {
         },
         loader: TranslocoHttpLoader
       }),
-      provideAppInitializer(() => {
-        const _svgIcons = inject(SvgIcons);
-      }),
+      // provideAppInitializer(() => {
+      //   const _svgIcons = inject(SvgIcons);
+      // }),
       provideAppInitializer(() => {
         const authState = inject(AppAuthState);
         authState.start();
@@ -89,9 +91,9 @@ export function appConfig(config: RuntimeConfig): ApplicationConfig {
         const userSettings = inject(UserSettingProvider);
         userSettings.initialize();
       }),
-      provideSignalFormsConfig({
-        classes: NG_STATUS_CLASSES
-      }),
+      // provideSignalFormsConfig({
+      //   classes: NG_STATUS_CLASSES
+      // }),
     ]
   };
 };

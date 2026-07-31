@@ -1,45 +1,51 @@
 <a9-navigate-back-button></a9-navigate-back-button>
 <form [formRoot]="editForm" *transloco="let t">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>{{ t('Create *collection for *username', {username: username(), collection:
-        t(collectionTypeLabel() ?? 'Collection')}) }}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="a9-form">
+  <hlm-card class="max-w-3xl">
+    <hlm-card-header>
+      <h3 hlmCardTitle>{{ t('Create *collection for *username', {username: username(), collection:
+        t(collectionTypeLabel() ?? 'Collection')}) }}</h3>
+    </hlm-card-header>
+    <div hlmCardContent>
+      <hlm-field-group>
 
         @if(!editForm.collectionType().hidden()) {
-        <mat-form-field>
-          <mat-label>{{ t('Type') }}</mat-label>
-          <mat-select [formField]="editForm.collectionType">
-            <mat-option value="Addressbook">{{ t('Addressbook') }}</mat-option>
-            <mat-option value="Calendar">{{ t('Calendar') }}</mat-option>
-            <mat-option value="Collection">{{ t('Collection / Folder') }}</mat-option>
-          </mat-select>
-          <mat-error [field]="editForm.collectionType()"></mat-error>
-        </mat-form-field>
+        <hlm-field>
+          <label hlmFieldLabel for="collectionType">{{ t('Type') }}</label>
+          <hlm-select id="collectionType" [formField]="editForm.collectionType">
+            <hlm-select-trigger buttonId="collectionType" class="w-full">
+              <hlm-select-value [placeholder]="t('Select')" />
+            </hlm-select-trigger>
+            <hlm-select-content *hlmSelectPortal>
+              <hlm-select-group>
+                <hlm-select-item value="Addressbook">{{ t('Addressbook') }}</hlm-select-item>
+                <hlm-select-item value="Calendar">{{ t('Calendar') }}</hlm-select-item>
+                <hlm-select-item value="Collection">{{ t('Collection / Folder') }}</hlm-select-item>
+              </hlm-select-group>
+            </hlm-select-content>
+          </hlm-select>
+          <a9-field-error [field]="editForm.collectionType()"></a9-field-error>
+        </hlm-field>
         }
 
-        <mat-form-field>
-          <mat-label>{{ t('Path name of collection') }}</mat-label>
-          <input matInput [formField]="editForm.uri" type="text" [placeholder]="t('Uri / Path')">
-          <mat-hint>{{ t('Last part of the path name, i.e. /username/something. Can\'t be changed after creation!',
-            {username: username()}) }}</mat-hint>
-          <mat-error [field]="editForm.uri()"></mat-error>
-        </mat-form-field>
+        <hlm-field>
+          <label hlmFieldLabel for="uri">{{ t('Path name of collection') }}</label>
+          <input hlmInput id="uri" [formField]="editForm.uri" type="text" [placeholder]="t('Uri / Path')">
+          <a9-field-error [field]="editForm.uri()">
+            {{ t('Last part of the path name, i.e. /username/something. Can\'t be changed after creation!',
+              {username: username()}) }}
+          </a9-field-error>
+        </hlm-field>
 
-        @if(editForm().getError('serverError')) {
-        <a9-hint-box class="a9-form-msg" mode="error" [slim]="true">{{ editForm().getError('serverError')?.message
-          }}</a9-hint-box>
-        }
+        <a9-form-error [errors]="editForm().getError('serverError')"></a9-form-error>
+      </hlm-field-group>
+    </div>
+    <hlm-card-footer>
+      <div hlmButtonGroup>
+        <button hlmBtn variant="default" tabindex="0" type="submit">{{ t('Create') }}</button>
+        <button hlmBtn variant="outline" type="reset" (click)="refresh()" [title]="t('Reset')">
+          <ng-icon name="matRestartAltOutline" />
+        </button>
       </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <a9-action-bar>
-        <button matButton="filled" tabindex="1" type="submit">{{ t('Create') }}</button>
-        <button matIconButton type="reset" (click)="refresh()" [title]="t('Reset')"><mat-icon
-            svgIcon="restart_alt"></mat-icon></button>
-      </a9-action-bar>
-    </mat-card-actions>
-  </mat-card>
+    </hlm-card-footer>
+  </hlm-card>
 </form>

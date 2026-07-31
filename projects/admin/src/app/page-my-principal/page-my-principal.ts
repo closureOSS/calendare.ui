@@ -1,6 +1,4 @@
 import { Component, computed, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { PrivilegeMask, CollectionType } from '../../api';
 import { CalendareResource } from '../../api/resources';
@@ -11,12 +9,11 @@ import { ViewPrincipal } from '../view-principal/view-principal';
 import { ViewMember } from '../view-member/view-member';
 import { ViewMemberships } from '../view-memberships/view-memberships';
 import { EditEmailConfirm } from '../edit-email-confirm/edit-email-confirm';
+import { hlmH4 } from '@spartan-ng/helm/typography';
 
 @Component({
   selector: 'cal-page-my-principal',
   imports: [
-    MatButtonModule,
-    MatIconModule,
     ViewMember,
     ViewMemberships,
     ViewPrincipal,
@@ -24,10 +21,9 @@ import { EditEmailConfirm } from '../edit-email-confirm/edit-email-confirm';
     TranslocoDirective
   ],
   templateUrl: './page-my-principal.html',
-  styleUrl: './page-my-principal.scss',
-
 })
 export class PageMyPrincipal {
+  public hlmSectionTitle = hlmH4;
   private readonly currentUserInfo = inject(CurrentUserInfoJwt);
   public username = computed(() => {
     const account = this.currentUserInfo.account();

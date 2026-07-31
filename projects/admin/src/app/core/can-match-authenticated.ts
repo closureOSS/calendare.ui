@@ -4,23 +4,6 @@ import { CurrentUserInfoJwt } from "./current-user-info";
 import { OidcSecurityService } from "angular-auth-oidc-client";
 import { take, map } from "rxjs";
 
-// const isAuthMatch = async (_route: Route, _segments: UrlSegment[]): Promise<GuardResult> => {
-//   const oidcSecurityService = inject(OidcSecurityService);
-//   return false;
-//   if (oidcSecurityService.isAuthenticated()) {
-//     // console.log('Authenticated by OIDC');
-//     return true;
-//   }
-//   const currentUser = inject(CurrentUserInfoJwt);
-//   if (currentUser.isAuthenticated() === true) {
-//     // console.log('Authenticated by calendare (local)');
-//     return true;
-//   }
-//   return false;
-// }
-
-// export const canMatchAuthenticated: CanMatchFn = isAuthMatch;
-
 
 export const isPreAuthenticated: CanActivateFn = () => {
   const oidcSecurityService = inject(OidcSecurityService);
@@ -83,10 +66,6 @@ export const isAuthenticatedChild: CanActivateChildFn = (_childRoute: ActivatedR
   );
 };
 
-export const isLinkedAccount: CanActivateFn = () => {
-  const currentUser = inject(CurrentUserInfoJwt);
-  return currentUser.isLinked();
-};
 
 export const isUnlinkedAccount: CanActivateFn = () => {
   const currentUser = inject(CurrentUserInfoJwt);

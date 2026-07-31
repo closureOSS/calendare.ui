@@ -1,46 +1,50 @@
 import { Component, inject, input, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { CreateCollectionFormData } from './create-collection-form.interface';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { v4 as uuidv4 } from 'uuid';
 import { firstValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ActionBar } from '../a9uitemplate/action-bar/action-bar';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 import { LocationStrategy } from '@angular/common';
 import { CalendareService } from '../../api/services';
 import { CollectionType } from '../../api/models';
 import { NavigateBackButton } from '../a9uitemplate/navigate-back-button/navigate-back-button';
-import { MatCardModule } from '@angular/material/card';
-import { HintBox } from '../a9uitemplate/hint-box/hint-box';
 import { ConfirmDialogProvider } from '../a9uitemplate/dialog-confirm/confirm-dialog-provider';
-import { MatIconModule } from '@angular/material/icon';
 import { form, FormField, FormRoot, hidden, maxLength, minLength, pattern, required } from '@angular/forms/signals';
-import { FormSignalError } from '../a9uitemplate/form-signal-error';
+import { FormError } from '../a9uitemplate/form-error/form-error';
+import { FieldError } from '../a9uitemplate/field-error/field-error';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
+import { HlmInputImports } from '@spartan-ng/helm/input';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { matRestartAltOutline } from '@ng-icons/material-symbols/outline';
+import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
   selector: 'cal-create-collection',
   imports: [
-    MatButtonModule,
     FormField,
     FormRoot,
-    MatCardModule,
-    MatFormFieldModule,
-    FormSignalError,
-    MatIconModule,
-    MatSelectModule,
-    MatInputModule,
+    HlmCardImports,
+    HlmButtonGroupImports,
+    HlmButtonImports,
+    HlmInputImports,
+    HlmFieldImports,
+    HlmSelectImports,
+    NgIcon,
     NavigateBackButton,
-    HintBox,
-    ActionBar,
-    TranslocoDirective
+    FormError,
+    FieldError,
+    TranslocoDirective,
+  ],
+  providers: [
+    provideIcons({
+      matRestartAltOutline,
+    }),
   ],
   templateUrl: './create-collection.html',
-  styleUrl: './create-collection.scss',
-
 })
 export class CreateCollection {
   public username = input.required<string>();
@@ -101,7 +105,11 @@ export class CreateCollection {
               return { kind: 'serverError', message: this.transloco.translate('Saving changes failed (reason unknown)') };
             }
           }
-        }
+        },
+        onInvalid: (field) => {
+          const firstError = field().errorSummary()[0];
+          firstError?.fieldTree().focusBoundControl();
+        },
       }
     }
   );

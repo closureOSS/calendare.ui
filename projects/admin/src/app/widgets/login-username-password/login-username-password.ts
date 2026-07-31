@@ -1,33 +1,37 @@
 import { booleanAttribute, Component, inject, input, model, output, signal } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { LoginCredentialsFormData } from './login-credentials-form-data';
-import { ActionBar } from '../../a9uitemplate/action-bar/action-bar';
-import { HintBox } from '../../a9uitemplate/hint-box/hint-box';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
-import { form, FormField, FormRoot, maxLength, minLength, pattern, required, SchemaPath } from '@angular/forms/signals';
-import { FormSignalError } from '../../a9uitemplate/form-signal-error';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { passwordConfig, usernameConfig } from '../form-username-config';
+import { FormError } from '../../a9uitemplate/form-error/form-error';
+import { FieldError } from '../../a9uitemplate/field-error/field-error';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
+import { HlmInputImports } from '@spartan-ng/helm/input';
+import { HlmLabelImports } from '@spartan-ng/helm/label';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { matRestartAltOutline } from '@ng-icons/material-symbols/outline';
 
 @Component({
   selector: 'cal-login-username-password',
   imports: [
-    MatButtonModule,
-    MatIconModule,
     FormField,
     FormRoot,
-    MatFormFieldModule,
-    FormSignalError,
-    MatInputModule,
-    HintBox,
-    ActionBar,
+    HlmButtonGroupImports,
+    HlmButtonImports,
+    HlmLabelImports,
+    HlmFieldImports,
+    HlmInputImports,
+    NgIcon,
+    FormError,
+    FieldError,
     TranslocoDirective,
   ],
+  providers: [
+    provideIcons({ matRestartAltOutline, }),
+  ],
   templateUrl: './login-username-password.html',
-  styleUrl: './login-username-password.scss',
-
 })
 export class LoginUsernamePassword {
   public hasReset = input(false, { transform: booleanAttribute });

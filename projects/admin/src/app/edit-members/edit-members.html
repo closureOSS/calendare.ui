@@ -1,45 +1,56 @@
 <a9-navigate-back-button></a9-navigate-back-button>
-<mat-card *transloco="let t">
+<hlm-card *transloco="let t" class="max-w-2xl">
+  <hlm-card-header>
+    <h3 hlmCardTitle>
+      {{ t('Edit members of *username', { username: username()}) }}
+    </h3>
+  </hlm-card-header>
 
-  <mat-card-header>
-    <mat-card-title>{{ t('Edit members of *username', { username: username()}) }}</mat-card-title>
-  </mat-card-header>
-
-  <mat-card-content>
-    <a9-http-resource-viewer [resource]="memberships" defaultErrorHandler="true" class="editor">
+  <div hlmCardContent>
+    <a9-http-resource-viewer [resource]="memberships" defaultErrorHandler="true" class="flex flex-col gap-2 divide-y divide-primary/50">
       @let ms = memberships.value()!;
       @for(grp of ms.groups; track grp.group.uri) {
-      <div class="memberslist">
-        <div class="priv-class">{{grp.group.displayname}}</div>
+      <div class="mb-4">
+        <div class="py-2" [class]="hlmGroup">{{grp.group.displayname}}</div>
         <cal-lookup-principal [label]="t('Add principal')" (principal)="add($event, grp)"></cal-lookup-principal>
-        <mat-action-list>
+        <div class="flex flex-col gap-1 mb-6 pt-1">
           @for(m of grp.members; track m.username) {
-          <button mat-list-item (click)="remove(m, grp)">
-            <mat-icon matListItemIcon
-              [svgIcon]="m.membershipType !== 'Unassigned' ? 'cancel' : 'restore_from_trash'"></mat-icon>
-            <span matListItemTitle>
-              <cal-principal-ref [type]="m.principalType" [name]="m.displayname"
-                [strike]="m.membershipType === 'Unassigned'"></cal-principal-ref>
-            </span>
-          </button>
+          <hlm-item variant="outline" size="xs">
+            <hlm-item-media>
+              <cal-icon-principal-type [type]="m.principalType"></cal-icon-principal-type>
+            </hlm-item-media>
+            <hlm-item-content>
+              <hlm-item-title>
+                <span [class.line-through]="m.membershipType === 'Unassigned'">{{ m.displayname}}</span>
+              </hlm-item-title>
+            </hlm-item-content>
+            <hlm-item-actions>
+              <button hlmBtn [variant]="m.membershipType !== 'Unassigned'? 'destructive' : 'ghost'" size="icon"
+                (click)="remove(m, grp)">
+                <ng-icon
+                  [name]="m.membershipType !== 'Unassigned' ? 'matCancelFillOutline' : 'matRestoreFromTrashFillOutline'" />
+              </button>
+            </hlm-item-actions>
+          </hlm-item>
           }
-        </mat-action-list>
+        </div>
       </div>
       }
     </a9-http-resource-viewer>
     @if(formMessage()) {
-    <a9-hint-box class="a9-form-msg" mode="error" [slim]="true"><a9-http-error-on-save
-        [error]="formMessage()"></a9-http-error-on-save></a9-hint-box>
+    <a9-hint-box mode="error">
+      <a9-http-error-on-save [error]="formMessage()"></a9-http-error-on-save>
+    </a9-hint-box>
     }
-  </mat-card-content>
+  </div>
 
-  <mat-card-actions>
-    <a9-action-bar class="separate">
-      <button matButton="filled" [disabled]="!dirty()" (click)="submit()" type="button">{{ t('Save') }}</button>
-      <button matIconButton type="reset" (click)="refresh()" [title]="t('Reset')">
-        <mat-icon svgIcon="restart_alt"></mat-icon>
+  <hlm-card-footer>
+    <hlm-button-group>
+      <button hlmBtn variant="default" [disabled]="!dirty()" (click)="submit()" type="button">{{ t('Save') }}</button>
+      <button hlmBtn variant="outline" size="icon" type="reset" (click)="refresh()" [title]="t('Reset')">
+        <ng-icon name="matRestartAltOutline" />
       </button>
-    </a9-action-bar>
-  </mat-card-actions>
+    </hlm-button-group>
+  </hlm-card-footer>
   <!-- <pre>{{ members()|json}}</pre> -->
-</mat-card>
+</hlm-card>

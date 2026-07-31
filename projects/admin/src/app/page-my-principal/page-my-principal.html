@@ -10,18 +10,16 @@
   </section>
   @if(hasPermission(principal.value().permissions, PrivilegeMask.ReadAcl)) {
   @if(!principal.value().isRoot) {
-  <section>
+  <section class="mbs-4">
     <cal-view-memberships [username]="username">
-      <div>{{ t('Memberships *principal', { principal: principal.value().displayName}) }}</div>
+      <h4 [class]="hlmSectionTitle">{{ t('Memberships *principal', { principal: principal.value().displayName}) }}</h4>
     </cal-view-memberships>
   </section>
   }
   @if(principal.value().hasGroups) {
-  <section>
-    <header>
-    </header>
+  <section class="mbs-4">
     <cal-view-member [username]="username">
-      <div>{{ t('Members') }}</div>
+      <h4 [class]="hlmSectionTitle">{{ t('Members') }}</h4>
     </cal-view-member>
   </section>
   }

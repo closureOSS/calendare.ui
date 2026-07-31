@@ -15,8 +15,9 @@
   }
   @default {
   <ng-content select="status-error">
-    <a9-hint-box mode="error">{{ t('Data retrieval failed.') }} <span class="statuscode">{{resource().statusCode()
-        }}</span></a9-hint-box>
+    <a9-hint-box mode="error">
+      {{ t('Data retrieval failed.') }} <span class="statuscode">{{resource().statusCode() }}</span>
+    </a9-hint-box>
   </ng-content>
   }
   }

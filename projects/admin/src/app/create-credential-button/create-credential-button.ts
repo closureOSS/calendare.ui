@@ -1,28 +1,29 @@
 import { booleanAttribute, Component, input, output } from '@angular/core';
 import { TranslocoDirective } from '@jsverse/transloco';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
+import { matAddCardOutline, matIdCard2Outline, matIdCardFillOutline } from '@ng-icons/material-symbols/outline';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'cal-create-credential-button',
   imports: [
-    MatMenuModule,
-    MatButtonModule,
-    MatIconModule,
+    NgIcon,
+    HlmDropdownMenuImports,
+    HlmButtonImports,
     RouterLink,
     TranslocoDirective,
   ],
-  host: {
-    '[class.mini]': 'mini()'
-  },
+  providers: [
+    provideIcons({
+      matAddCardOutline, matIdCard2Outline, matIdCardFillOutline,
+    }),
+  ],
   templateUrl: './create-credential-button.html',
-  styleUrl: './create-credential-button.scss',
 })
 export class CreateCredentialButton {
   public username = input.required<string>();
   public email = input<string | null | undefined>(null);
-  public mini = input(false, { transform: booleanAttribute });
   public disabled = input(false, { transform: booleanAttribute });
 }

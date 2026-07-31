@@ -1,17 +1,16 @@
 import { Component, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterLink } from '@angular/router';
 import { TranslocoDirective } from '@jsverse/transloco';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'cal-page-not-found',
   imports: [
     RouterLink,
-    MatButtonModule,
+    HlmButtonImports,
     TranslocoDirective,
   ],
   templateUrl: './page-not-found.html',
-  styleUrl: './page-not-found.scss',
 })
 export class PageNotFound {
   private router = inject(Router);

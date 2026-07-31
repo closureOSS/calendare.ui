@@ -1,11 +1,12 @@
 <a9-navigate-back-button></a9-navigate-back-button>
-<article *transloco="let t">
+<hlm-card *transloco="let t" class="max-w-4xl">
+  <hlm-card-header>
+    <h3 hlmCardTitle>
+      {{t(collection.value()?.collectionType ?? 'Collection')}} {{collection.value()?.uri}}
+    </h3>
+  </hlm-card-header>
 
-  <header>
-    <h1>{{t(collection.value()?.collectionType ?? 'Collection')}} {{collection.value()?.uri}}</h1>
-  </header>
-
-  <section>
+  <div hlmCardContent>
     @if(collection.value(); as collection) {
     <div class="permission-set">
       <div class="label">{{ t('Global - Public permissions to everybody') }}</div>
@@ -24,10 +25,14 @@
     </div>
     <!-- <pre class="debug">{{globalPermitSelf()}} | {{authorizedProhibit()}} | {{ownerProhibit()}} </pre> -->
     }
+  </div>
 
-    <a9-action-bar class="separate">
-      <button matButton="filled" [disabled]="!dirty()" (click)="submit()" type="button">{{ t('Save') }}</button>
-      <button matIconButton type="reset" (click)="refresh()" [title]="t('Reset')"><mat-icon svgIcon="restart_alt"></mat-icon></button>
-    </a9-action-bar>
-  </section>
-</article>
+  <hlm-card-footer>
+    <hlm-button-group>
+      <button hlmBtn variant="default" [disabled]="!dirty()" (click)="submit()" type="button">{{ t('Save') }}</button>
+      <button hlmBtn variant="outline" type="reset" (click)="refresh()" [title]="t('Reset')">
+        <ng-icon name="matRestartAltOutline" />
+      </button>
+    </hlm-button-group>
+  </hlm-card-footer>
+</hlm-card>

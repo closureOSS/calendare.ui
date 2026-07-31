@@ -1,21 +1,26 @@
 import { LocationStrategy } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { TranslocoDirective } from '@jsverse/transloco';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { matKeyboardDoubleArrowLeftOutline } from '@ng-icons/material-symbols/outline';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'a9-navigate-back-button',
   imports: [
-    MatButtonModule,
-    MatIconModule,
+    HlmButtonImports,
+    NgIcon,
     TranslocoDirective,
   ],
   host: {
-    'class': 'a9-navigate-back'
+    'class': 'block -mt-4 py-2'
   },
+  providers: [
+    provideIcons({
+      matKeyboardDoubleArrowLeftOutline,
+    })
+  ],
   templateUrl: './navigate-back-button.html',
-  styleUrl: './navigate-back-button.scss',
 })
 export class NavigateBackButton {
   private readonly location = inject(LocationStrategy);

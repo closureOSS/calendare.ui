@@ -7,8 +7,6 @@ import { ViewVersion } from '../view-version/view-version';
     ViewVersion,
   ],
   templateUrl: './page-features.html',
-  styleUrl: './page-features.scss',
-
 })
 export class PageFeatures {
 

@@ -1,1 +1,4 @@
-<button matButton (click)="back()" *transloco="let t"><mat-icon svgIcon="keyboard_double_arrow_left"></mat-icon>{{t('Back')}}</button>
+<button hlmBtn variant="link" size="sm" (click)="back()" *transloco="let t">
+  <ng-icon name="matKeyboardDoubleArrowLeftOutline" data-icon="inline-start" />
+  {{t('Back')}}
+</button>

@@ -1,13 +1,18 @@
 @if(grants()) {
-<mat-expansion-panel *transloco="let t">
-  <mat-expansion-panel-header>
-    <mat-panel-title>{{ t('Custom') }}</mat-panel-title>
-    <mat-panel-description>{{ t('Click for details') }}</mat-panel-description>
-  </mat-expansion-panel-header>
-  <ul class="grants">
-    @for(grant of grants(); track grant.id) {
-    <li>{{grant.description}} &ndash; <span class="grant-id">{{grant.id}}</span></li>
-    }
-  </ul>
-</mat-expansion-panel>
+<hlm-collapsible #collapsible="brnCollapsible" *transloco="let t">
+  <div class="flex items-center gap-2 py-4">
+    {{ t('Custom') }}
+    <button hlmCollapsibleTrigger hlmBtn variant="ghost" size="icon" [title]="t('Click for details')">
+      <ng-icon [name]="collapsible.expanded() ? 'matCollapseAllFillOutline' : 'matExpandAllFillOutline'" />
+      <span class="sr-only">{{ t('Toggle') }}</span>
+    </button>
+  </div>
+  <hlm-collapsible-content>
+    <ul class="flex flex-col gap-2 mx-4 px-4 text-xs w-fit border border-muted text-accent-foreground">
+      @for(grant of grants(); track grant.id) {
+      <li class="p-2">{{grant.description}} &ndash; <span class="grant-id">{{grant.id}}</span></li>
+      }
+    </ul>
+  </hlm-collapsible-content>
+</hlm-collapsible>
 }

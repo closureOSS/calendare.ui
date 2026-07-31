@@ -1,5 +1,6 @@
-<div class="permissions" [class]="{'vertical': vertical(), 'prohibit': prohibit()}">
+<div class="flex w-full flex-wrap justify-left gap-2" [class]="{'prohibit': prohibit()}">
   @for(perm of permissionList(); track perm) {
-  <div class="permission" [class]="{'none': perm === 'None', 'all': perm === 'All'}">{{ perm }}</div>
+  <div hlmBadge class="min-w-20"
+    [class]="{'rounded-none': perm === 'None', 'rounded-tr-lg': perm === 'All', 'bg-allow': !prohibit(), 'bg-prohibit': prohibit(), 'text-allow-foreground': !prohibit(), 'text-prohibit-foreground': prohibit()}">{{ perm }}</div>
   }
 </div>

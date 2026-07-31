@@ -8,9 +8,8 @@
     <cal-edit-email-confirm [principal]="principal" (confirmed)="$event ? refresh() : null"></cal-edit-email-confirm>
     }
     @if(hasPermission(principal.permissions, PrivilegeMask.ReadCurrentUserPrivilegeSet)) {
-    <aside>
-      <!-- <button matButton (click)="principalResource.reload()">Refresh</button> -->
-      <div class="label">{{ t('Current user privileges') }}</div>
+    <aside class="mt-px mbs-2 p-4 bg-muted text-muted-foreground rounded-none mbe-8 max-w-5xl border border-card">
+      <label hlmLabel class="mb-4">{{ t('Current user privileges') }}</label>
       <cal-list-permissions [permissions]="principal.permissions"></cal-list-permissions>
     </aside>
     }
@@ -22,39 +21,37 @@
   @if(!principal.isRoot) {
   <section>
     <cal-view-memberships [username]="username()">
-      <div>{{ t('Memberships *principal', { principal: principal.displayName}) }}</div>
+      <h4 [class]="hlmSectionTitle">{{ t('Memberships *principal', { principal: principal.displayName}) }}</h4>
     </cal-view-memberships>
   </section>
   }
   @if(principal.hasGroups) {
-  <section>
-    <header>
-    </header>
+  <section class="mbs-4">
     <cal-view-member [username]="username()">
-      <div>{{ t('Members') }}</div>
+      <h4 [class]="hlmSectionTitle">{{ t('Members') }}</h4>
     </cal-view-member>
   </section>
   }
   }
   @if(hasPermission(principal.permissions, PrivilegeMask.ReadAcl)) {
-  <section>
+  <section class="mbs-4">
     <cal-view-privileges-to [username]="username()">
-      <div>{{ t('Grants to *principal', { principal: principal.displayName}) }}</div>
+      <h4 [class]="hlmSectionTitle">{{ t('Grants to *principal', { principal: principal.displayName}) }}</h4>
     </cal-view-privileges-to>
   </section>
   @if(!principal.isRoot) {
-  <section>
+  <section class="mbs-4">
     <cal-view-privileges-from [username]="username()"
       [editable]="hasPermission(principal.permissions, PrivilegeMask.WriteAcl)">
-      <div>{{ t('Privileges of *principal at', { principal: principal.displayName}) }}</div>
+      <h4 [class]="hlmSectionTitle">{{ t('Privileges of *principal at', { principal: principal.displayName}) }}</h4>
     </cal-view-privileges-from>
   </section>
   }
   }
   @if(hasPermission(principal.permissions, PrivilegeMask.ReadAcl)) {
-  <section>
+  <section class="mbs-4">
     <header>
-      <div class="section-title">{{ t('Credentials') }}</div>
+      <h4 [class]="hlmSectionTitle" class="py-4 mbs-8">{{ t('Credentials') }}</h4>
     </header>
     <cal-view-credentials [username]="username()"></cal-view-credentials>
     <a9-floating-action-bar>
@@ -64,16 +61,17 @@
   </section>
   }
   @if(!principal.isRoot) {
-  <section>
+  <section class="mbs-4">
     <header>
-      <div class="section-title">{{ t('Collections') }}</div>
+      <h4 [class]="hlmSectionTitle" class="py-4 mbs-8">{{ t('Collections') }}</h4>
     </header>
     <cal-view-collections [username]="username()" [principalType]="principal.principalType"></cal-view-collections>
     <a9-floating-action-bar>
-      <button matFab extended [disabled]="!hasPermission(principal.permissions, PrivilegeMask.Bind)"
-        [routerLink]="['/collection', 'create', username()]"><mat-icon svgIcon="add_box"></mat-icon>{{ t('Collection')
-        }}</button>
-      <!-- <button matButton (click)="refresh()">Refresh</button> -->
+      <button hlmBtn variant="secondary" [disabled]="!hasPermission(principal.permissions, PrivilegeMask.Bind)"
+        [routerLink]="['/collection', 'create', username()]">
+        <ng-icon name="matAddBoxFillOutline" data-icon="inline-start" />
+        {{ t('Collection') }}
+      </button>
     </a9-floating-action-bar>
   </section>
   }

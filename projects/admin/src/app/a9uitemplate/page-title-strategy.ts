@@ -2,7 +2,7 @@ import { inject, InjectionToken, Service } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, TitleStrategy } from '@angular/router';
 import { MenuConfig } from '../a9uitemplate/site-menu/site-menu-provider';
-import { TranslocoService } from '@jsverse/transloco';
+import { translateSignal, TranslocoService } from '@jsverse/transloco';
 
 export const APP_SITE_TITLE = new InjectionToken<string>('application title');
 
@@ -10,7 +10,7 @@ export const APP_SITE_TITLE = new InjectionToken<string>('application title');
 export class PageTitleStrategy extends TitleStrategy {
   private readonly title = inject(Title);
   private readonly transloco = inject(TranslocoService);
-  private readonly applicationTitle = inject(APP_SITE_TITLE);
+  private readonly applicationTitle = translateSignal(inject(APP_SITE_TITLE));
 
   override updateTitle(snapshot: RouterStateSnapshot): void {
     let pageTitle = this.buildTitle(snapshot);
@@ -23,7 +23,7 @@ export class PageTitleStrategy extends TitleStrategy {
         pageTitle = menuConfig.label;
       }
     }
-    const siteName = this.transloco.translate(this.applicationTitle);
+    const siteName = this.applicationTitle();
     if (pageTitle) {
       this.title.setTitle(`${this.transloco.translate(pageTitle)} - ${siteName}`);
     } else {

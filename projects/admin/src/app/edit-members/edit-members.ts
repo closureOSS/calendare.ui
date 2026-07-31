@@ -1,18 +1,12 @@
 import { Component, inject, input, linkedSignal, signal } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatListModule } from '@angular/material/list';
 import { LookupPrincipal } from '../widgets/lookup-principal/lookup-principal';
-import { PrincipalRef } from '../widgets/principal-ref/principal-ref';
 import { CalendareResource } from '../../api/resources';
 import { CalendareService } from '../../api/services';
 import {
   GroupMemberRef, GroupRef, MembershipDirection,
-  MembershipGroupRequest, MembershipMemberRequest, MembershipPrivilegeType, MembershipRequest, PrincipalResponse} from '../../api';
+  MembershipGroupRequest, MembershipMemberRequest, MembershipPrivilegeType, MembershipRequest, PrincipalResponse
+} from '../../api';
 import { firstValueFrom } from 'rxjs';
-import { ActionBar } from '../a9uitemplate/action-bar/action-bar';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { LocationStrategy } from '@angular/common';
 import { NavigateBackButton } from '../a9uitemplate/navigate-back-button/navigate-back-button';
@@ -22,28 +16,42 @@ import { HintBox } from '../a9uitemplate/hint-box/hint-box';
 import { HttpProblemDetails } from '../core/http-problem-details';
 import { HttpErrorOnSave } from '../a9uitemplate/http-error-on-save/http-error-on-save';
 import { httpErrorToProblemDetails } from '../core/http-error-helper';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmItemImports } from '@spartan-ng/helm/item';
+import { matRestartAltOutline, matCancelFillOutline, matRestoreFromTrashFillOutline } from '@ng-icons/material-symbols/outline';
+import { IconPrincipalType } from '../widgets/icon-principal-type/icon-principal-type';
+import { hlmH4 } from '@spartan-ng/helm/typography';
 
 @Component({
   selector: 'cal-edit-members',
   imports: [
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
+    HlmCardImports,
+    HlmButtonGroupImports,
+    HlmButtonImports,
+    HlmItemImports,
+    NgIcon,
     HttpResourceViewer,
-    MatListModule,
-    ActionBar,
     NavigateBackButton,
+    IconPrincipalType,
     LookupPrincipal,
-    PrincipalRef,
     HintBox,
     HttpErrorOnSave,
     TranslocoDirective,
   ],
+  providers: [
+    provideIcons({
+      matRestartAltOutline,
+      matCancelFillOutline,
+      matRestoreFromTrashFillOutline,
+    }),
+  ],
   templateUrl: './edit-members.html',
-  styleUrl: './edit-members.scss',
 })
 export class EditMembers {
+  protected hlmGroup = hlmH4;
   public username = input.required<string>();
   private readonly calendareResource = inject(CalendareResource);
   private readonly client = inject(CalendareService);

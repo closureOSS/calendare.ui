@@ -1,0 +1,38 @@
+<hlm-autocomplete [(search)]="search" [(value)]="value" (valueChange)="selectSearch($event)" [itemToString]="itemToString" autoHighlight
+  *transloco="let t">
+  <hlm-autocomplete-input [placeholder]="placeholder()" showClear />
+  <hlm-autocomplete-content *hlmAutocompletePortal>
+    <hlm-autocomplete-status class="justify-start text-xs">
+      @if (hits.error(); as error) {
+      {{ error }}
+      } @else if (hits.isLoading()) {
+      <hlm-spinner />
+      {{ t('Loading...') }}
+      } @else if (search().length === 0) {
+      {{ placeholder() }}
+      } @else if (hits.hasValue() && hits.value().length === 0) {
+      {{ t('Nothing found for ') }}{{ search() }}
+      } @else if (hits.hasValue()) {
+      {{ t('*cnt results found',{cnt: hits.value().length }) }}
+      }
+    </hlm-autocomplete-status>
+
+    <div hlmAutocompleteList>
+      @if (hits.hasValue()) {
+      @for (option of hits.value(); track $index) {
+      <hlm-autocomplete-item [value]="option" class="flex-row py-3">
+        <!-- @if(option.icon) { -->
+        <ng-icon class="text-primary self-baseline" size="1.25rem" [svg]="option.icon ?? ''" />
+        <!-- } -->
+        <div class="flex flex-col gap-0.5 flex-1">
+          <p>{{ option.label }}</p>
+          @if(option.desc) {
+          <p class="text-muted-foreground text-xs">{{ option.desc }}</p>
+          }
+        </div>
+      </hlm-autocomplete-item>
+      }
+      }
+    </div>
+  </hlm-autocomplete-content>
+</hlm-autocomplete>

@@ -8,22 +8,18 @@ Local = 5
 -->
 @switch(status()) {
 @case ('error') {
-<!-- <mat-progress-bar class="load-error" mode="buffer"></mat-progress-bar> -->
 }
 @case ('loading') {
-<div class="loader">
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-</div>
+<hlm-progress class="min-w-full bg-accent h-2 border rounded-none">
+  <hlm-progress-indicator class="bg-primary" />
+</hlm-progress>
 }
 @case ('reloading') {
-<div class="loader">
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-</div>
+<hlm-progress class="min-w-full bg-accent h-2 border rounded-none">
+  <hlm-progress-indicator class="bg-primary" />
+</hlm-progress>
 }
 @case('resolved') {
-<!-- <div class="loader">
-  <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
-</div> -->
 }
 @default {}
 }

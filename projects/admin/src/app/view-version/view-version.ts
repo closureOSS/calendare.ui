@@ -1,25 +1,33 @@
 import { Component, computed, inject } from '@angular/core';
 import { JsonPipe } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
 import { version } from '../../../../../package.json';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { CalendareFeatures, FeatureByClient } from '../../api';
 import { CalendareResource } from '../../api/resources';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { HttpResourceViewer } from '../a9uitemplate/http-resource-viewer/http-resource-viewer';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { matCheckOutline } from '@ng-icons/material-symbols/outline';
+import { A9LabelValueListImports } from '../a9uitemplate/label-value-list';
+import { HlmTableImports } from '@spartan-ng/helm/table';
+import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 
 @Component({
   selector: 'cal-view-version',
   imports: [
     JsonPipe,
-    MatIconModule,
-    MatTooltipModule,
+    NgIcon,
+    A9LabelValueListImports,
+    HlmTableImports,
+    HlmTooltipImports,
     HttpResourceViewer,
     TranslocoDirective,
   ],
+   providers: [
+    provideIcons({
+      matCheckOutline,
+    }),
+  ],
   templateUrl: './view-version.html',
-  styleUrl: './view-version.scss',
-
 })
 export class ViewVersion {
   private readonly calendareResource = inject(CalendareResource);

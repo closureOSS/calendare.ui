@@ -1,9 +1,11 @@
-import { inject, Service } from '@angular/core';
-import { ThemeMode } from './theme-switcher/theme-switch-provider';
+import { computed, effect, inject, Service, signal } from '@angular/core';
+import { ThemeMode, ThemeSwitchProvider } from './theme-switcher/theme-switch-provider';
 import { TranslocoService } from '@jsverse/transloco';
+import { ColorPalette, ColorPaletteSwitchProvider } from './color-palette-switcher/color-palette-switch-provider';
 
 export class UserSetting {
   public themeMode = ThemeMode.Auto;
+  public colorPalette = ColorPalette.Default;
   public language = 'en';
 }
 
@@ -15,68 +17,64 @@ export class UserSettingProvider {
   // Theme Mode
   //
   public setThemeMode(mode: ThemeMode) {
-    const settings = this.read();
-    if (settings.themeMode !== mode) {
-      settings.themeMode = mode;
-      this.write(settings);
-      this.activateThemeMode(settings);
+    if (this.settings().themeMode !== mode) {
+      const settings = { ... this.settings(), themeMode: mode };
+      this.settings.set(settings);
     }
   }
+  public getThemeMode = computed(() => this.settings().themeMode);
+  protected readonly themeSwitcher = inject(ThemeSwitchProvider);
 
-  public getThemeMode(): ThemeMode {
-    const settings = this.read();
-    return settings.themeMode;
+  //
+  // Color Palette
+  //
+  public setColorPalette(palette: ColorPalette) {
+    if (this.settings().colorPalette !== palette) {
+      const settings = { ... this.settings(), colorPalette: palette };
+      this.settings.set(settings);
+    }
   }
+  public getColorPalette = computed(() => this.settings().colorPalette);
+  protected readonly paletteSwitcher = inject(ColorPaletteSwitchProvider);
 
-  private activateThemeMode(settings: UserSetting) {
-    // TODO: ?? invert logic ??
-  }
 
   //
   // Language
   //
   public setLanguage(language: string) {
-    const settings = this.read();
-    if (settings.language !== language) {
-      settings.language = language;
-      this.write(settings);
-      this.activateLanguage(settings);
+    if (this.settings().language !== language) {
+      const settings = { ... this.settings(), language: language };
+      this.settings.set(settings);
     }
   }
-
-
-  public getLanguage(): string {
-    const settings = this.read();
-    return settings.language;
-  }
-
+  public getLanguage = computed(() => this.settings().language);
   protected readonly transloco = inject(TranslocoService);
-  private activateLanguage(settings: UserSetting) {
-    this.transloco.setActiveLang(settings.language);
-  }
-
-
 
   public reset() {
     localStorage.removeItem(this.STORAGE_KEY);
   }
 
   public initialize() {
-    const settings = this.read();
-    this.activateLanguage(settings);
-    this.activateThemeMode(settings);
+    this.read();
   }
 
-  private read(): UserSetting {
+  private settings = signal<UserSetting>(new UserSetting());
+  private read() {
     const item = localStorage.getItem(this.STORAGE_KEY);
     if (item) {
-      return JSON.parse(item) as UserSetting;
+      this.settings.set(JSON.parse(item) as UserSetting);
+    } else {
+      this.settings.set(new UserSetting());
     }
-    return new UserSetting();
+    return this.settings();
   }
 
-  private write(us: UserSetting) {
-    const data = JSON.stringify(us);
+  #syncStorage = effect(() => {
+    const settings = this.settings();
+    const data = JSON.stringify(settings);
     localStorage.setItem(this.STORAGE_KEY, data);
-  }
+    this.themeSwitcher.toggleThemeMode(settings.themeMode);
+    this.paletteSwitcher.selectColorPalette(settings.colorPalette);
+    this.transloco.setActiveLang(settings.language);
+  });
 }

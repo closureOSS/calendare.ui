@@ -1,4 +1,4 @@
-/* @ts-nocheck */
+// @ts-nocheck
 /* eslint-disable */
 /* @noformat */
 /* @formatter:off */
@@ -65,6 +65,10 @@ export class TestingService {
             headers = options.headers;
         } else {
             headers = new HttpHeaders(options?.headers);
+        }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
         }
 
         return this.httpClient.request('get', url, {

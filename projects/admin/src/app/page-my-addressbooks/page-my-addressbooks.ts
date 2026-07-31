@@ -1,6 +1,4 @@
 import { Component, computed, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { ViewCollections } from '../view-collections/view-collections';
@@ -10,20 +8,28 @@ import { CurrentUserInfoJwt } from '../core/current-user-info';
 import { hasPermission } from '../core/has-permissions';
 import { PrivilegeMaskConstant } from '../core/privilege-mask';
 import { FloatingActionBar } from '../a9uitemplate/floating-action-bar/floating-action-bar';
+import { SiteTitle } from "../a9uitemplate/site-title/site-title";
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { matContactsFillOutline } from '@ng-icons/material-symbols/outline';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'cal-page-my-addressbooks',
   imports: [
-    MatButtonModule,
-    MatIconModule,
+    HlmButtonImports,
+    NgIcon,
     RouterLink,
     ViewCollections,
     FloatingActionBar,
-    TranslocoDirective
+    TranslocoDirective,
+    SiteTitle
+  ],
+  providers: [
+    provideIcons({
+      matContactsFillOutline,
+    })
   ],
   templateUrl: './page-my-addressbooks.html',
-  styleUrl: './page-my-addressbooks.scss',
-
 })
 export class PageMyAddressbooks {
   private readonly currentUserInfo = inject(CurrentUserInfoJwt);

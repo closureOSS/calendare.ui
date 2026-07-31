@@ -1,18 +1,29 @@
 import { Component, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { DialogCredentialCreatedContent } from './dialog-credential-created-content';
+import { BrnDialogRef, injectBrnDialogContext } from '@spartan-ng/brain/dialog';
+import { HlmAlertDialogImports } from '@spartan-ng/helm/alert-dialog';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { hlmCode } from '@spartan-ng/helm/typography';
 
 @Component({
   imports: [
-    MatButtonModule, MatDialogModule,
-    TranslocoDirective,],
+    HlmButtonImports,
+    HlmAlertDialogImports,
+    TranslocoDirective,
+  ],
+  host: {
+    class: 'flex flex-col gap-2',
+  },
   templateUrl: './dialog-credential-created.html',
-  styleUrl: './dialog-credential-created.scss',
 })
 export class DialogCredentialCreated {
-  data = inject<DialogCredentialCreatedContent>(MAT_DIALOG_DATA);
+  hlmLead = ``;
+  hlmSecret = `${hlmCode} break-all p-4 cursor-pointer`;
+  hlmQuestion = `font-medium my-2`;
+  protected readonly _dialogRef = inject<BrnDialogRef<boolean>>(BrnDialogRef);
+  private readonly _dialogContext = injectBrnDialogContext<{ data: DialogCredentialCreatedContent }>();
+  protected readonly data = this._dialogContext.data;
 
   async writeClipboardText(text: string) {
     try {

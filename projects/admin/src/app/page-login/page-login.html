@@ -1,20 +1,7 @@
-<article *transloco="let t">
-  <h1><mat-icon svgIcon="favicon" class="favicon"></mat-icon>{{ t('#ShortAppname') }}</h1>
-
-  <mat-card>
-    <mat-card-content>
-      <a9-hint-box mode="info">{{ t('Welcome to the #FullAppname.') }}</a9-hint-box>
-    </mat-card-content>
-    <mat-card-actions>
-      <a9-action-bar class="separate">
-        <button matButton="filled" (click)="loginOidc()">{{ t('Login') }}</button>
-      </a9-action-bar>
-    </mat-card-actions>
-  </mat-card>
-
-  <aside class="config">
-    <a9-theme-switcher></a9-theme-switcher>
-    <a9-language-switcher></a9-language-switcher>
-  </aside>
-
-</article>
+<div class="@lg:w-lg p-6" *transloco="let t">
+  <p [class]="hlmH2">{{ t('#ShortAppname')}}</p>
+  <p [class]="hlmP">{{ t('Welcome to the #FullAppname.') }}</p>
+  <div hlmButtonGroup class="my-4" orientation="horizontal">
+    <a hlmBtn variant="default" (click)="loginOidc()">{{t('Login')}}</a>
+  </div>
+</div>

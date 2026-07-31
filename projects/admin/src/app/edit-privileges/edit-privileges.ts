@@ -1,9 +1,5 @@
 import { Component, computed, inject, input, linkedSignal, signal } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { LookupPrincipal } from "../widgets/lookup-principal/lookup-principal";
-import { PrincipalRef } from '../widgets/principal-ref/principal-ref';
 import { CalendareService } from '../../api/services';
 import { CalendareResource } from '../../api/resources';
 import { firstValueFrom } from 'rxjs';
@@ -11,39 +7,51 @@ import {
   PrincipalResponse, PrivilegeGroupRequest,
   PrivilegeGroupResponse, PrivilegeLineResponse, PrivilegePrincipalRequest, PrivilegeRequest
 } from '../../api/models';
-import { ActionBar } from '../a9uitemplate/action-bar/action-bar';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { NavigateBackButton } from '../a9uitemplate/navigate-back-button/navigate-back-button';
 import { LocationStrategy } from '@angular/common';
 import { ConfirmDialogProvider } from '../a9uitemplate/dialog-confirm/confirm-dialog-provider';
-import { MatCardModule } from '@angular/material/card';
 import { HttpResourceViewer } from '../a9uitemplate/http-resource-viewer/http-resource-viewer';
 import { HintBox } from '../a9uitemplate/hint-box/hint-box';
 import { HttpProblemDetails } from '../core/http-problem-details';
 import { HttpErrorOnSave } from '../a9uitemplate/http-error-on-save/http-error-on-save';
 import { httpErrorToProblemDetails } from '../core/http-error-helper';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { matCancelFillOutline, matRestartAltOutline, matRestoreFromTrashFillOutline } from '@ng-icons/material-symbols/outline';
+import { hlmH4 } from '@spartan-ng/helm/typography';
+import { HlmItemImports } from '@spartan-ng/helm/item';
+import { IconPrincipalType } from '../widgets/icon-principal-type/icon-principal-type';
 
 @Component({
   selector: 'cal-edit-privileges',
   imports: [
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatListModule,
+    HlmCardImports,
+    HlmButtonGroupImports,
+    HlmButtonImports,
+    HlmItemImports,
+    NgIcon,
     HttpResourceViewer,
-    PrincipalRef,
+    IconPrincipalType,
     LookupPrincipal,
     NavigateBackButton,
-    ActionBar,
     HintBox,
     HttpErrorOnSave,
     TranslocoDirective,
   ],
+  providers: [
+    provideIcons({
+      matRestartAltOutline,
+      matCancelFillOutline,
+      matRestoreFromTrashFillOutline,
+    }),
+  ],
   templateUrl: './edit-privileges.html',
-  styleUrl: './edit-privileges.scss',
-
 })
 export class EditPrivileges {
+  protected hlmGroup = hlmH4;
   public username = input.required<string>();
   public grantorUri = input<string>();
   private readonly calendareResource = inject(CalendareResource);

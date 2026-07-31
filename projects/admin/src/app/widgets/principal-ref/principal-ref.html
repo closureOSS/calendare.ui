@@ -1,4 +1,5 @@
-<div class="principal" [class]="{strike: strike()}">
+<div class="inline-flex items-center-safe gap-1" [class.line-through]="strike()">
   <cal-icon-principal-type [type]="type()"></cal-icon-principal-type>
-  {{name()}}<ng-content/>
+  {{name()}}
+  <ng-content/>
 </div>

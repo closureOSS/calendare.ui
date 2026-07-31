@@ -1,0 +1,7 @@
+@if (field().invalid() && field().touched()) {
+@for (error of field().errors(); track error.kind) {
+<hlm-field-error [validator]="error.kind">{{ error.message }}</hlm-field-error>
+}
+} @else {
+  <div hlmFieldDescription><ng-content /></div>
+}

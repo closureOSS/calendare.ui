@@ -1,0 +1,10 @@
+<button hlmButton [hlmDropdownMenuTrigger]="menuLanguage" [title]="t('Language')"  *transloco="let t">
+  <ng-icon name="matLanguageOutline" />
+  <span class="sr-only">{{ t('Language') }}</span>
+</button>
+
+<ng-template #menuLanguage>
+  <hlm-dropdown-menu>
+    <a9-language-menu></a9-language-menu>
+  </hlm-dropdown-menu>
+</ng-template>

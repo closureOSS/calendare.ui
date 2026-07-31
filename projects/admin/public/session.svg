@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+
+    <!-- Theme Colors based on oklch(0.34 0.12 240) -->
+    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#172554" stop-opacity="0.95" />
+    </linearGradient>
+
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.9" />
+    </linearGradient>
+
+    <!-- Soft Glassmorphism Effects -->
+    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.05" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bgGrad)" />
+
+  <!-- ABSTRACT BACKGROUND GEOMETRIES (For abstract cropping padding) -->
+  <g opacity="0.6">
+    <circle cx="200" cy="240" r="160" fill="#1e3a8a" opacity="0.3" />
+    <rect x="120" y="80" width="180" height="180" rx="32" fill="url(#glassGrad)" transform="rotate(-10 210 170)" />
+    <circle cx="580" cy="120" r="80" fill="#3b82f6" opacity="0.15" />
+    <circle cx="620" cy="280" r="130" fill="#1d4ed8" opacity="0.15" />
+  </g>
+
+  <!-- MAIN CALENDAR CARD -->
+  <g transform="translate(220, 70)">
+    <!-- Calendar Body -->
+    <rect width="380" height="280" rx="24" fill="url(#primaryGrad)" stroke="#2563eb" stroke-width="1.5" stroke-opacity="0.3" />
+    
+    <!-- Calendar Header Bar -->
+    <path d="M 0,24 A 24,24 0 0,1 24,0 L 356,0 A 24,24 0 0,1 380,24 L 380,55 L 0,55 Z" fill="#0f172a" opacity="0.4" />
+    
+    <!-- Calendar Rings/Binders -->
+    <rect x="60" y="-15" width="12" height="30" rx="6" fill="#60a5fa" opacity="0.7" />
+    <rect x="308" y="-15" width="12" height="30" rx="6" fill="#60a5fa" opacity="0.7" />
+
+    <!-- Grid Layout (Abstracted Calendar Days) -->
+    <!-- Row 1 -->
+    <rect x="30" y="85" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.25" />
+    <rect x="87" y="85" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.25" />
+    <rect x="144" y="85" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.4" />
+    <rect x="201" y="85" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.25" />
+    <rect x="258" y="85" width="42" height="38" rx="8" fill="url(#accentGrad)" />
+    <rect x="315" y="85" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.15" />
+
+    <!-- Row 2 -->
+    <rect x="30" y="138" width="42" height="38" rx="8" fill="url(#accentGrad)" opacity="0.4" />
+    <rect x="87" y="138" width="42" height="38" rx="8" fill="#2563eb" opacity="0.6" />
+    <!-- Checkmark on Row 2, Day 2 -->
+    <path d="M 102,157 L 107,162 L 116,151" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+    
+    <!-- Current Day Highlight Ring -->
+    <rect x="142" y="136" width="46" height="42" rx="10" fill="none" stroke="#60a5fa" stroke-width="2" />
+    <rect x="144" y="138" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.3" />
+    
+    <rect x="201" y="138" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.25" />
+    <rect x="258" y="138" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.25" />
+    <rect x="315" y="138" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.15" />
+
+    <!-- Row 3 -->
+    <rect x="30" y="191" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.15" />
+    <rect x="87" y="191" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.25" />
+    <rect x="144" y="191" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.3" />
+    <rect x="201" y="191" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.1" />
+    <rect x="258" y="191" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.2" />
+    <rect x="315" y="191" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.1" />
+  </g>
+
+  <!-- FOREGROUND TASK / CHECKLIST CARD (Overlapping Right) -->
+  <g transform="translate(500, 210)">
+    <rect width="170" height="170" rx="20" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5" stroke-opacity="0.4" />
+    
+    <!-- Checklist Item 1 -->
+    <circle cx="35" cy="45" r="14" fill="#2563eb" opacity="0.4" />
+    <path d="M 29,45 L 33,49 L 41,40" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+    <rect x="60" y="36" width="80" height="8" rx="4" fill="#93c5fd" opacity="0.5" />
+    <rect x="60" y="50" width="50" height="6" rx="3" fill="#93c5fd" opacity="0.3" />
+
+    <!-- Checklist Item 2 -->
+    <circle cx="35" cy="95" r="14" fill="#2563eb" opacity="0.4" />
+    <path d="M 29,95 L 33,99 L 41,90" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+    <rect x="60" y="86" width="85" height="8" rx="4" fill="#93c5fd" opacity="0.5" />
+    <rect x="60" y="100" width="65" height="6" rx="3" fill="#93c5fd" opacity="0.3" />
+
+    <!-- Checklist Item 3 (Unchecked/Empty state) -->
+    <circle cx="35" cy="140" r="12" fill="none" stroke="#93c5fd" stroke-width="2" opacity="0.4" />
+    <rect x="60" y="136" width="70" height="8" rx="4" fill="#93c5fd" opacity="0.2" />
+  </g>
+
+  <!-- ABSTRACT SCHEDULING ELEMENTS / TRACKS (Top Right background context) -->
+  <g transform="translate(560, 80)" opacity="0.75">
+    <!-- Schedule Row 1 -->
+    <rect x="0" y="0" width="36" height="28" rx="8" fill="url(#accentGrad)" opacity="0.8" />
+    <rect x="46" y="4" width="90" height="8" rx="4" fill="#60a5fa" />
+    <rect x="46" y="18" width="50" height="6" rx="3" fill="#60a5fa" opacity="0.6" />
+
+    <!-- Schedule Row 2 -->
+    <rect x="40" y="45" width="36" height="28" rx="8" fill="url(#accentGrad)" opacity="0.6" />
+    <rect x="86" y="49" width="90" height="8" rx="4" fill="#60a5fa" />
+    <rect x="86" y="63" width="60" height="6" rx="3" fill="#60a5fa" opacity="0.6" />
+  </g>
+</svg>

@@ -1,11 +1,9 @@
 import { afterRenderEffect, DOCUMENT, inject, RendererFactory2, Service, signal } from '@angular/core';
-import { UserSettingProvider } from '../user-setting';
 
 export enum ThemeMode { Auto = 'Auto', Dark = 'Dark', Light = 'Light', };
 
 @Service()
 export class ThemeSwitchProvider {
-  private readonly settings = inject(UserSettingProvider);
   #document = inject(DOCUMENT);
   #rendererFactory = inject(RendererFactory2);
   #renderer = this.#rendererFactory.createRenderer(null, null);
@@ -21,18 +19,15 @@ export class ThemeSwitchProvider {
           mode = window.matchMedia('(prefers-color-scheme: dark)').matches ? ThemeMode.Dark : ThemeMode.Light;
         }
         if (mode === ThemeMode.Dark) {
-          this.#renderer.addClass(this.#document.body, `dark-theme`);
+          this.#renderer.addClass(this.#document.documentElement, 'dark');
         } else {
-          this.#renderer.removeClass(this.#document.body, 'dark-theme');
+          this.#renderer.removeClass(this.#document.documentElement, 'dark');
         }
       }
     });
-
-    this.#themeMode.set(this.settings.getThemeMode());
   }
 
   public toggleThemeMode(mode: ThemeMode) {
-    this.settings.setThemeMode(mode);
     this.#themeMode.set(mode);
   }
 }

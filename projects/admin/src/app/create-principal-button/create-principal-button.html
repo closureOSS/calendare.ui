@@ -1,28 +1,27 @@
 <ng-container *transloco="let t">
-  @if(mini()) {
-  <button matMiniFab [matMenuTriggerFor]="menu" [disabled]="!canCreatePrincipal(permissions())"><mat-icon
-      svgIcon="add"></mat-icon></button>
-  } @else {
-  <button matFab extended [matMenuTriggerFor]="menu" [disabled]="!canCreatePrincipal(permissions())"><mat-icon
-      svgIcon="add"></mat-icon>{{ t('Principal') }}</button>
-  }
+  <button hlmBtn variant="secondary" [hlmDropdownMenuTrigger]="menuPrincipals" [disabled]="!canCreatePrincipal(permissions())">
+    <ng-icon name="matPersonAddOutline" data-icon="inline-start" />
+    {{ t('Principal') }}
+  </button>
 
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item routerLink="/principal/new/INDIVIDUAL">
-      <mat-icon svgIcon="person#ptype"></mat-icon>
-      <span>{{ t('Person') }}</span>
-    </button>
-    <button mat-menu-item routerLink="/principal/new/GROUP">
-      <mat-icon svgIcon="group#ptype"></mat-icon>
-      <span>{{ t('Group') }}</span>
-    </button>
-    <button mat-menu-item routerLink="/principal/new/ROOM">
-      <mat-icon svgIcon="meeting_room#ptype"></mat-icon>
-      <span>{{ t('Room') }}</span>
-    </button>
-    <button mat-menu-item routerLink="/principal/new/RESOURCE">
-      <mat-icon svgIcon="speaker#ptype"></mat-icon>
-      <span>{{ t('Resource') }}</span>
-    </button>
-  </mat-menu>
+  <ng-template #menuPrincipals>
+    <hlm-dropdown-menu>
+      <button hlmDropdownMenuItem routerLink="/principal/new/INDIVIDUAL">
+        <ng-icon name="matPerson2FillOutline"></ng-icon>
+        <span>{{ t('Person') }}</span>
+      </button>
+      <button hlmDropdownMenuItem routerLink="/principal/new/GROUP">
+        <ng-icon name="matGroupFillOutline"></ng-icon>
+        <span>{{ t('Group') }}</span>
+      </button>
+      <button hlmDropdownMenuItem routerLink="/principal/new/ROOM">
+        <ng-icon name="matMeetingRoomFillOutline"></ng-icon>
+        <span>{{ t('Room') }}</span>
+      </button>
+      <button hlmDropdownMenuItem routerLink="/principal/new/RESOURCE">
+        <ng-icon name="matSpeakerFillOutline"></ng-icon>
+        <span>{{ t('Resource') }}</span>
+      </button>
+    </hlm-dropdown-menu>
+  </ng-template>
 </ng-container>

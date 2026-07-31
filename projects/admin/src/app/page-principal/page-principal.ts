@@ -1,5 +1,4 @@
 import { Component, inject, input } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { ViewCollections } from '../view-collections/view-collections';
 import { ViewCredentials } from '../view-credentials/view-credentials';
 import { ViewPrincipal } from '../view-principal/view-principal';
@@ -9,7 +8,6 @@ import { ViewMemberships } from "../view-memberships/view-memberships";
 import { ViewMember } from '../view-member/view-member';
 import { hasPermission } from '../core/has-permissions';
 import { ListPermissions } from "../widgets/list-permissions/list-permissions";
-import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { CalendareResource } from '../../api/resources';
 import { PrivilegeMask } from '../../api';
@@ -19,11 +17,17 @@ import { CreateCredentialButton } from "../create-credential-button/create-crede
 import { FloatingActionBar } from '../a9uitemplate/floating-action-bar/floating-action-bar';
 import { NavigateBackButton } from '../a9uitemplate/navigate-back-button/navigate-back-button';
 import { EditEmailConfirm } from '../edit-email-confirm/edit-email-confirm';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { matAddBoxFillOutline } from '@ng-icons/material-symbols/outline';
+import { hlmH4 } from '@spartan-ng/helm/typography';
+import { HlmLabelImports } from '@spartan-ng/helm/label';
 
 @Component({
   imports: [
-    MatButtonModule,
-    MatIconModule,
+    HlmButtonImports,
+    HlmLabelImports,
+    NgIcon,
     ViewCredentials,
     ViewCollections,
     ViewPrincipal,
@@ -39,11 +43,15 @@ import { EditEmailConfirm } from '../edit-email-confirm/edit-email-confirm';
     CreateCredentialButton,
     TranslocoDirective,
   ],
+  providers: [
+    provideIcons({
+      matAddBoxFillOutline,
+    }),
+  ],
   templateUrl: './page-principal.html',
-  styleUrl: './page-principal.scss',
-
 })
 export class PagePrincipal {
+  public hlmSectionTitle = hlmH4;
   public username = input.required<string>();
   private readonly calendareResource = inject(CalendareResource);
   readonly PrivilegeMask = PrivilegeMaskConstant;

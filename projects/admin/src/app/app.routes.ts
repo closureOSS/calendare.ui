@@ -2,243 +2,268 @@ import { Routes } from '@angular/router';
 import { PageNotFound } from './page-not-found/page-not-found';
 import { PageLogin } from './page-login/page-login';
 import { isPreAuthenticated, isAuthenticatedChild, isUnlinkedAccount, isAuthenticated } from './core/can-match-authenticated';
-import { PageMode } from './a9uitemplate/page-mode';
 import { marker as _ } from "@jsverse/transloco-keys-manager/marker";
+import {
+  matCalendarTodayOutline, matConstructionOutline, matContactsOutline, matFolderOutline,
+  matIdCardOutline, matLogoutOutline, matPerson2Outline, matPersonSearchOutline, matTuneOutline
+} from '@ng-icons/material-symbols/outline';
 
 export const routes: Routes = [
   { path: 'start', pathMatch: 'full', redirectTo: '/my/credentials' },
   {
-    path: 'starting',
-    loadComponent: () => import('./page-start/page-start').then(c => c.PageStart),
-  },
-  {
-    path: 'my',
-    title: _('My profile'),
+    path: '',
     data: {
-      menu: { label: _('My profile'), section: true, },
-      pageMode: PageMode.Default,
+      breadcrumb: _('#TitleAppname'),
     },
-    canActivateChild: [isAuthenticatedChild],
+    canActivate: [isAuthenticated],
+    loadComponent: () => import('./site-layout/site-layout').then(c => c.SiteLayout),
     children: [
       {
-        path: 'credentials',
+        path: 'my',
+        title: _('My profile'),
         data: {
-          pageMode: PageMode.Default,
-          menu: { label: _('Credentials'), icon: 'id_card' }
+          menu: { label: _('My profile'), section: true, },
+          breadcrumb: _('My profile'),
         },
-        canActivate: [isAuthenticated],
-        loadComponent: () => import('./page-my-credentials/page-my-credentials').then(c => c.PageMyCredentials),
+        canActivateChild: [isAuthenticatedChild],
+        children: [
+          {
+            path: 'credentials',
+            data: {
+              breadcrumb: _('Credentials'),
+              menu: { label: _('Credentials'), icon: matIdCardOutline, }
+            },
+            canActivate: [isAuthenticated],
+            loadComponent: () => import('./page-my-credentials/page-my-credentials').then(c => c.PageMyCredentials),
+          },
+          {
+            path: 'principal',
+            data: {
+              breadcrumb: _('Principal'),
+              menu: { label: _('Principal'), icon: matPerson2Outline, }
+            },
+            canActivate: [isAuthenticated],
+            loadComponent: () => import('./page-my-principal/page-my-principal').then(c => c.PageMyPrincipal),
+          },
+          {
+            path: 'calendars',
+            data: {
+              breadcrumb: _('Calendars'),
+              menu: { label: _('Calendars'), icon: matCalendarTodayOutline, }
+            },
+            canActivate: [isAuthenticated],
+            loadComponent: () => import('./page-my-calendars/page-my-calendars').then(c => c.PageMyCalendars),
+          },
+          {
+            path: 'addressbooks',
+            data: {
+              breadcrumb: _('Addressbooks'),
+              menu: { label: _('Addressbooks'), icon: matContactsOutline, }
+            },
+            canActivate: [isAuthenticated],
+            loadComponent: () => import('./page-my-addressbooks/page-my-addressbooks').then(c => c.PageMyAddressbooks),
+          },
+          {
+            path: 'collections',
+            data: {
+              breadcrumb: _('Collections'),
+              menu: { label: _('Collections'), icon: matFolderOutline, }
+            },
+            canActivate: [isAuthenticated],
+            loadComponent: () => import('./page-my-collections/page-my-collections').then(c => c.PageMyCollections),
+          },
+          { path: '', pathMatch: 'full', redirectTo: 'credentials', },
+        ]
+      },
+      {
+        path: 'sysops',
+        title: _('Administration'),
+        data: {
+          menu: { label: _('Administration'), section: true },
+          breadcrumb: _('Administration'),
+        },
+        canActivateChild: [isAuthenticatedChild],
+        children: [
+          {
+            path: 'principal',
+            title: _('All principals'),
+            data: {
+              breadcrumb: _('All principals'),
+              menu: { label: _('All principals'), icon: matPersonSearchOutline, }
+            },
+            canActivate: [isAuthenticated],
+            loadComponent: () => import('./page-list-principals/page-list-principals').then(c => c.PageListPrincipals),
+          },
+          {
+            path: 'features',
+            // title: _('Features'),
+            data: {
+              breadcrumb: _('Features'),
+              menu: { label: _('Features'), icon: matTuneOutline, }
+            },
+            canActivate: [isAuthenticated],
+            loadComponent: () => import('./page-features/page-features').then(c => c.PageFeatures),
+          },
+          {
+            path: 'maintenance',
+            // title: _('Maintenance'),
+            data: {
+              breadcrumb: _('Maintenance'),
+              menu: { label: _('Maintenance'), icon: matConstructionOutline, }
+            },
+            canActivate: [isAuthenticated],
+            loadComponent: () => import('./page-maintenance/page-maintenance').then(c => c.PageMaintenance),
+          },
+          { path: '', pathMatch: 'full', redirectTo: 'principal', },
+        ]
       },
       {
         path: 'principal',
         data: {
-          pageMode: PageMode.Default,
-          menu: { label: _('Principal'), icon: 'person' }
+          breadcrumb: _('Principal'),
         },
-        canActivate: [isAuthenticated],
-        loadComponent: () => import('./page-my-principal/page-my-principal').then(c => c.PageMyPrincipal),
+        // canMatch: [canMatchAuthenticated],
+        canActivateChild: [isAuthenticatedChild],
+        children: [
+          {
+            path: 'new/:principalTypeLabel',
+            loadComponent: () => import('./create-principal/create-principal').then(c => c.CreatePrincipal),
+          },
+          {
+            path: 'edit/:username',
+            loadComponent: () => import('./edit-principal/edit-principal').then(c => c.EditPrincipal),
+            canDeactivate: [(component) => component.confirmCancel()],
+          },
+          {
+            path: 'permissions/:username',
+            loadComponent: () => import('./edit-principal-permissions/edit-principal-permissions').then(c => c.EditPrincipalPermissions),
+            canDeactivate: [(component) => component.confirmCancel()],
+          },
+          {
+            path: 'delete/:username',
+            loadComponent: () => import('./delete-principal/delete-principal').then(c => c.DeletePrincipal),
+          },
+          {
+            path: 'members/:username',
+            loadComponent: () => import('./edit-members/edit-members').then(c => c.EditMembers),
+            canDeactivate: [(component) => component.confirmCancel()],
+          },
+          {
+            path: 'privileges/:username',
+            loadComponent: () => import('./edit-privileges/edit-privileges').then(c => c.EditPrivileges),
+            canDeactivate: [(component) => component.confirmCancel()],
+          },
+          {
+            path: 'show/:username',
+            loadComponent: () => import('./page-principal/page-principal').then(c => c.PagePrincipal),
+            // children: [
+            //   {
+            //     path: '**',
+            //     resolve: {
+            //       slugs: wildcardSlugsResolver,
+            //     },
+            //     component: PagePrincipalComponent,
+            //   },
+            // ]
+          },
+          // { path: '', pathMatch: 'full', component: PageNotFound },
+        ]
       },
       {
-        path: 'calendars',
+        path: 'collection',
         data: {
-          pageMode: PageMode.Default,
-          menu: { label: _('Calendars'), icon: 'calendar_today' }
+          breadcrumb: _('Collection'),
         },
-        canActivate: [isAuthenticated],
-        loadComponent: () => import('./page-my-calendars/page-my-calendars').then(c => c.PageMyCalendars),
+        // canMatch: [canMatchAuthenticated],
+        canActivateChild: [isAuthenticatedChild],
+        children: [
+          {
+            path: 'edit/:username',
+            loadComponent: () => import('./edit-collection/edit-collection').then(c => c.EditCollection),
+            canDeactivate: [(component) => component.confirmCancel()],
+          },
+          {
+            path: 'permissions/:username',
+            loadComponent: () => import('./edit-collection-permissions/edit-collection-permissions').then(c => c.EditCollectionPermissions),
+            canDeactivate: [(component) => component.confirmCancel()],
+          },
+          {
+            path: 'create/:username/:collectionTypeLabel',
+            loadComponent: () => import('./create-collection/create-collection').then(c => c.CreateCollection),
+            canDeactivate: [(component) => component.confirmCancel()],
+          },
+          {
+            path: 'create/:username',
+            loadComponent: () => import('./create-collection/create-collection').then(c => c.CreateCollection),
+            canDeactivate: [(component) => component.confirmCancel()],
+          },
+        ]
       },
       {
-        path: 'addressbooks',
+        path: 'credential',
         data: {
-          pageMode: PageMode.Default,
-          menu: { label: _('Addressbooks'), icon: 'contacts' }
+          breadcrumb: _('Credential'),
         },
-        canActivate: [isAuthenticated],
-        loadComponent: () => import('./page-my-addressbooks/page-my-addressbooks').then(c => c.PageMyAddressbooks),
+        // canMatch: [canMatchAuthenticated],
+        canActivateChild: [isAuthenticatedChild],
+        children: [
+          {
+            path: 'create/:username/appkey',
+            loadComponent: () => import('./create-credential/create-credential').then(c => c.CreateCredential),
+            canDeactivate: [(component) => component.confirmCancel()],
+          },
+          {
+            path: 'create/:username/pwd',
+            loadComponent: () => import('./create-credential-pwd/create-credential-pwd').then(c => c.CreateCredentialPwd),
+            canDeactivate: [(component) => component.confirmCancel()],
+          },
+          {
+            path: 'reset/:username/:accesskey',
+            loadComponent: () => import('./reset-credential-pwd/reset-credential-pwd').then(c => c.ResetCredentialPwd),
+            canDeactivate: [(component) => component.confirmCancel()],
+          },
+        ]
       },
-      {
-        path: 'collections',
-        data: {
-          pageMode: PageMode.Default,
-          menu: { label: _('Collections'), icon: 'folder' }
-        },
-        canActivate: [isAuthenticated],
-        loadComponent: () => import('./page-my-collections/page-my-collections').then(c => c.PageMyCollections),
-      },
+      { path: '', pathMatch: 'full', redirectTo: '/my/credentials' },
     ]
   },
   {
-    path: 'sysops',
-    title: _('Administration'),
-    data: {
-      menu: { label: _('Administration'), section: true },
-      pageMode: PageMode.Default,
-    },
-    canActivateChild: [isAuthenticatedChild],
+    path: '',
+    loadComponent: () => import('./session-layout/session-layout').then(c => c.SessionLayout),
     children: [
       {
-        path: 'principal',
-        title: _('All principals'),
+        path: 'login',
+        title: _('Welcome'),
+        loadComponent: () => import('./page-login/page-login').then(c => c.PageLogin),
+      },
+      {
+        path: 'goodbye',
+        title: _('Logout'),
         data: {
-          menu: { label: _('All principals'), icon: 'person_search' }
+          menu: { label: _('Logout'), icon: matLogoutOutline, desc: _('Logout DESC'), session: true, }
         },
-        canActivate: [isAuthenticated],
-        loadComponent: () => import('./page-list-principals/page-list-principals').then(c => c.PageListPrincipals),
+        loadComponent: () => import('./page-goodbye/page-goodbye').then(c => c.PageGoodbye),
       },
       {
-        path: 'features',
-        // title: _('Features'),
-        data: {
-          menu: { label: _('Features'), icon: 'tune' }
-        },
-        canActivate: [isAuthenticated],
-        loadComponent: () => import('./page-features/page-features').then(c => c.PageFeatures),
+        path: 'starting',
+        title: _('Welcome'),
+        loadComponent: () => import('./page-start/page-start').then(c => c.PageStart),
       },
       {
-        path: 'maintenance',
-        // title: _('Maintenance'),
-        data: {
-          menu: { label: _('Maintenance'), icon: 'construction' }
-        },
-        canActivate: [isAuthenticated],
-        loadComponent: () => import('./page-maintenance/page-maintenance').then(c => c.PageMaintenance),
+        path: 'onboarding',
+        title: _('Welcome'),
+        loadComponent: () => import('./page-onboarding/page-onboarding').then(c => c.PageOnboarding),
+        canActivate: [isPreAuthenticated, isUnlinkedAccount]
       },
+      {
+        path: 'onboarding/link',
+        title: _('Welcome'),
+        loadComponent: () => import('./page-onboarding-link/page-onboarding-link').then(c => c.PageOnboardingLink),
+        canActivate: [isPreAuthenticated, isUnlinkedAccount]
+      },
+      { path: '**', component: PageNotFound, canActivate: [isPreAuthenticated], },
+      { path: '**', component: PageNotFound }
     ]
   },
-  {
-    path: 'principal',
-    data: {
-      pageMode: PageMode.Default,
-    },
-    // canMatch: [canMatchAuthenticated],
-    canActivateChild: [isAuthenticatedChild],
-    children: [
-      {
-        path: 'new/:principalTypeLabel',
-        loadComponent: () => import('./create-principal/create-principal').then(c => c.CreatePrincipal),
-      },
-      {
-        path: 'edit/:username',
-        loadComponent: () => import('./edit-principal/edit-principal').then(c => c.EditPrincipal),
-        canDeactivate: [(component) => component.confirmCancel()],
-      },
-      {
-        path: 'permissions/:username',
-        loadComponent: () => import('./edit-principal-permissions/edit-principal-permissions').then(c => c.EditPrincipalPermissions),
-        canDeactivate: [(component) => component.confirmCancel()],
-      },
-      {
-        path: 'delete/:username',
-        loadComponent: () => import('./delete-principal/delete-principal').then(c => c.DeletePrincipal),
-      },
-      {
-        path: 'members/:username',
-        loadComponent: () => import('./edit-members/edit-members').then(c => c.EditMembers),
-        canDeactivate: [(component) => component.confirmCancel()],
-      },
-      {
-        path: 'privileges/:username',
-        loadComponent: () => import('./edit-privileges/edit-privileges').then(c => c.EditPrivileges),
-        canDeactivate: [(component) => component.confirmCancel()],
-      },
-      {
-        path: 'show/:username',
-        loadComponent: () => import('./page-principal/page-principal').then(c => c.PagePrincipal),
-        // children: [
-        //   {
-        //     path: '**',
-        //     resolve: {
-        //       slugs: wildcardSlugsResolver,
-        //     },
-        //     component: PagePrincipalComponent,
-        //   },
-        // ]
-      },
-      // { path: '', pathMatch: 'full', component: PageNotFound },
-    ]
-  },
-  {
-    path: 'collection',
-    data: {
-      pageMode: PageMode.Default,
-    },
-    // canMatch: [canMatchAuthenticated],
-    canActivateChild: [isAuthenticatedChild],
-    children: [
-      {
-        path: 'edit/:username',
-        loadComponent: () => import('./edit-collection/edit-collection').then(c => c.EditCollection),
-        canDeactivate: [(component) => component.confirmCancel()],
-      },
-      {
-        path: 'permissions/:username',
-        loadComponent: () => import('./edit-collection-permissions/edit-collection-permissions').then(c => c.EditCollectionPermissions),
-        canDeactivate: [(component) => component.confirmCancel()],
-      },
-      {
-        path: 'create/:username/:collectionTypeLabel',
-        loadComponent: () => import('./create-collection/create-collection').then(c => c.CreateCollection),
-        canDeactivate: [(component) => component.confirmCancel()],
-      },
-      {
-        path: 'create/:username',
-        loadComponent: () => import('./create-collection/create-collection').then(c => c.CreateCollection),
-        canDeactivate: [(component) => component.confirmCancel()],
-      },
-    ]
-  },
-  {
-    path: 'credential',
-    data: {
-      pageMode: PageMode.Default,
-    },
-    // canMatch: [canMatchAuthenticated],
-    canActivateChild: [isAuthenticatedChild],
-    children: [
-      {
-        path: 'create/:username/appkey',
-        loadComponent: () => import('./create-credential/create-credential').then(c => c.CreateCredential),
-        canDeactivate: [(component) => component.confirmCancel()],
-      },
-      {
-        path: 'create/:username/pwd',
-        loadComponent: () => import('./create-credential-pwd/create-credential-pwd').then(c => c.CreateCredentialPwd),
-        canDeactivate: [(component) => component.confirmCancel()],
-      },
-      {
-        path: 'reset/:username/:accesskey',
-        loadComponent: () => import('./reset-credential-pwd/reset-credential-pwd').then(c => c.ResetCredentialPwd),
-        canDeactivate: [(component) => component.confirmCancel()],
-      },
-    ]
-  },
-  {
-    path: 'login',
-    title: _('Welcome'),
-    data: { pageMode: PageMode.Modal },
-    component: PageLogin,
-  },
-  {
-    path: 'goodbye',
-    title: _('Logout'),
-    data: { pageMode: PageMode.Modal },
-    loadComponent: () => import('./page-goodbye/page-goodbye').then(c => c.PageGoodbye),
-  },
-  {
-    path: 'onboarding',
-    data: { pageMode: PageMode.Modal },
-    loadComponent: () => import('./page-onboarding/page-onboarding').then(c => c.PageOnboarding),
-    // canMatch: [canMatchAuthenticated],
-    canActivate: [isPreAuthenticated, isUnlinkedAccount]
-  },
-  {
-    path: 'onboarding/link',
-    data: { pageMode: PageMode.Modal },
-    loadComponent: () => import('./page-onboarding-link/page-onboarding-link').then(c => c.PageOnboardingLink),
-    // canMatch: [canMatchAuthenticated],
-    canActivate: [isPreAuthenticated, isUnlinkedAccount]
-  },
-  // { path: '', pathMatch: 'full', redirectTo: '/login' },
-  { path: '**', component: PageNotFound, canActivate: [isPreAuthenticated],/* canMatch: [canMatchAuthenticated]*/ },
   { path: '**', component: PageLogin },
 ];

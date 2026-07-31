@@ -1,8 +1,6 @@
 import { HttpStatusCode } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { FormPrincipalCreate } from '../form-principal-create/form-principal-create';
 import { PrincipalCreateFormData } from '../form-principal-create/principal-create-form.interface';
 import { HintBox } from '../a9uitemplate/hint-box/hint-box';
@@ -11,26 +9,32 @@ import { CurrentUserRepository } from '../core/current-user-repository';
 import { ErrorDialogProvider } from '../a9uitemplate/dialog-error/error-dialog-provider';
 import { PrincipalResponse } from '../../api/models';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
-import { LanguageSwitcher } from '../a9uitemplate/language-switcher/language-switcher';
-import { ThemeSwitcher } from '../a9uitemplate/theme-switcher/theme-switcher';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { hlmH1, hlmH2, hlmH3, hlmH4, hlmMuted, hlmP } from '@spartan-ng/helm/typography';
+import { HlmCardImports } from '@spartan-ng/helm/card';
 
 @Component({
   selector: 'cal-page-onboarding',
   imports: [
     RouterLink,
-    MatButtonModule,
-    MatIconModule,
     HintBox,
     FormPrincipalCreate,
-    LanguageSwitcher,
-    ThemeSwitcher,
+    HlmCardImports,
+    HlmButtonImports,
     TranslocoDirective,
   ],
+  host: {
+    class: 'w-full flex items-center flex-col'
+  },
   templateUrl: './page-onboarding.html',
-  styleUrl: './page-onboarding.scss',
-
 })
 export class PageOnboarding {
+  hlmH1 = hlmH1;
+  hlmH2 = hlmH2;
+  hlmH3 = hlmH3;
+  hlmH4 = hlmH4;
+  hlmP = hlmP;
+  hlmCite = hlmMuted;
   private errorDialog = inject(ErrorDialogProvider);
   private readonly router = inject(Router);
 

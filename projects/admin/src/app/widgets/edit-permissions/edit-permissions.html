@@ -1,6 +1,7 @@
-<div class="permissions" [class]="{'vertical': vertical(), 'prohibit': prohibit()}">
+<div class="flex flex-wrap gap-2 py-4" [class]="{'flex-col': vertical()}">
   @for(perm of permissionList(); track perm.label) {
-  <div class="permission" (click)="toggleFlag(perm)" (keyup.space)="toggleFlag(perm)" tabindex="0"
-    [class]="{'enabled': perm.enabled, 'combined': perm.combined, 'none': perm.flag===0}">{{ perm.label }}</div>
+  <div (click)="toggleFlag(perm)" (keyup.space)="toggleFlag(perm)" tabindex="0" [class]="styling(perm)">
+    {{ perm.label }}
+  </div>
   }
 </div>

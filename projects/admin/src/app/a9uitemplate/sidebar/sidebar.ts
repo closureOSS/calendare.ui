@@ -1,0 +1,47 @@
+import { Component, inject } from '@angular/core';
+import { TranslocoDirective } from '@jsverse/transloco';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
+import { SiteMenuProvider } from '../site-menu/site-menu-provider';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { CurrentUserInfo } from '../current-user-info';
+import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
+import { matAccountBoxOutline, matAccountCircleOutline, matLanguageOutline, matLogoutOutline, matMoreVertFillOutline, matMoreVertOutline } from '@ng-icons/material-symbols/outline';
+import { LanguageMenu } from '../language-menu/language-menu';
+import { lucideEllipsisVertical } from '@ng-icons/lucide';
+
+@Component({
+  selector: 'a9-sidebar',
+  imports: [
+    HlmSidebarImports,
+    HlmAvatarImports,
+    HlmDropdownMenuImports,
+    NgIcon,
+    RouterLink,
+    RouterLinkActive,
+    TranslocoDirective,
+    LanguageMenu,
+  ],
+  templateUrl: './sidebar.html',
+  providers: [
+    provideIcons({
+      lucideEllipsisVertical,
+      matLogoutOutline,
+      matAccountBoxOutline,
+      matLanguageOutline,
+      matAccountCircleOutline,
+    }),
+  ],
+})
+export class Sidebar {
+  protected readonly menu = inject(SiteMenuProvider);
+
+  public currentUser = inject(CurrentUserInfo);
+  private readonly router = inject(Router);
+
+  public async logout() {
+    await this.currentUser.logout();
+    await this.router.navigate(['/goodbye']);
+  }
+}

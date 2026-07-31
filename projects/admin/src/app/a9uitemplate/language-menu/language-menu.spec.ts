@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LanguageMenu } from './language-menu';
-import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('LanguageMenu', () => {
   let component: LanguageMenu;
@@ -9,13 +8,12 @@ describe('LanguageMenu', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LanguageMenu, provideZonelessChangeDetection()]
-    })
-      .compileComponents();
+      imports: [LanguageMenu],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LanguageMenu);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {

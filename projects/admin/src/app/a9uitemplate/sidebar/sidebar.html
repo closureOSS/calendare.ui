@@ -1,0 +1,108 @@
+<div hlmSidebarWrapper *transloco="let t">
+  <!-- h-[calc(100svh-var(--header-height))] -->
+  <hlm-sidebar class="border-r"
+    sidebarContainerClass="top-[calc(var(--header-height))] h-[calc(100svh-var(--header-height))] shrink-0">
+    <hlm-sidebar-header>
+      <ul hlmSidebarMenu>
+        <li hlmSidebarMenuItem class="bg-sidebar-primary-foreground">
+          <a hlmSidebarMenuButton size="lg" routerLink="/">
+            <div
+              class="flex aspect-square size-8 items-center justify-center">
+              <img src="icon.svg" alt="Logo" class="object-contain object-center">
+            </div>
+            <div class="grid flex-1 text-left leading-tight text-primary">
+              <span class="truncate font-medium text-base tracking-wider">{{ t('closure.ch') }}</span>
+              <span class="truncate text-xs tracking-tighter -mt-1">{{ t('Open Source Software') }}</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </hlm-sidebar-header>
+    <div hlmSidebarContent>
+      @for(section of menu.menuSection(); track $index) {
+      <div hlmSidebarGroup>
+        @if(section.label){
+        <div hlmSidebarGroupLabel>{{ section.label }}</div>
+        }
+        <div hlmSidebarGroupContent>
+          <ul hlmSidebarMenu>
+            @for(route of section.menuItems; track $index) {
+            <li hlmSidebarMenuItem>
+              <a hlmSidebarMenuButton [routerLink]="route.path" routerLinkActive #rla="routerLinkActive"
+                [isActive]="rla.isActive" ariaCurrentWhenActive="page">
+                <!-- @if(route.icon){ -->
+                <ng-icon class="text-primary" size="1.25rem" [svg]="route.icon" />
+                <!-- } -->
+                <span>{{ route.label }}</span>
+              </a>
+            </li>
+            }
+          </ul>
+        </div>
+      </div>
+      }
+    </div>
+    <div hlmSidebarFooter>
+      <ul hlmSidebarMenu>
+        <li hlmSidebarMenuItem>
+          <a hlmSidebarMenuButton size="lg" [hlmDropdownMenuTrigger]="menuUser">
+            @if(currentUser.displayname() || currentUser.email()) {
+            <hlm-avatar>
+              @if(currentUser.picture(); as pict) {
+              <img hlmAvatarImage [src]="pict" [alt]="t('User settings menu')" />
+              } @else {
+              <span hlmAvatarFallback>NN</span>
+              }
+            </hlm-avatar>
+            <div class="grid flex-1 text-left text-sm leading-tight">
+              <span class="truncate font-medium">{{ currentUser.displayname() }}</span>
+              <span class="truncate text-xs">{{ currentUser.email() }}</span>
+            </div>
+            } @else{
+            <ng-icon name="matAccountCircleOutline"></ng-icon>
+            }
+            <button hlmSidebarMenuAction [hlmDropdownMenuTrigger]="menuUser">
+              <ng-icon name="lucideEllipsisVertical" />
+              <span class="sr-only">More</span>
+            </button>
+
+            <ng-template #menuUser>
+              <hlm-dropdown-menu>
+                <!-- ng-content for custom user menus ... -->
+                <hlm-dropdown-menu-group>
+                  <a hlmDropdownMenuItem disabled="true">
+                    <ng-icon name="matAccountBoxOutline" />
+                    {{ t('My account') }}
+                  </a>
+                </hlm-dropdown-menu-group>
+                <!-- example end -->
+                <hlm-dropdown-menu-group>
+                  <button hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]="menuLanguage" side="right" align="start">
+                    <ng-icon name="matLanguageOutline" />
+                    {{ t('Language') }}
+                    <hlm-dropdown-menu-item-sub-indicator />
+                  </button>
+                </hlm-dropdown-menu-group>
+                <hlm-dropdown-menu-separator />
+                <hlm-dropdown-menu-group>
+                  <button hlmDropdownMenuItem (click)="logout()">
+                    <ng-icon name="matLogoutOutline" />
+                    {{ t('Logout') }}
+                  </button>
+                </hlm-dropdown-menu-group>
+              </hlm-dropdown-menu>
+            </ng-template>
+            <ng-template #menuLanguage>
+              <hlm-dropdown-menu-sub>
+                <a9-language-menu></a9-language-menu>
+              </hlm-dropdown-menu-sub>
+            </ng-template>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </hlm-sidebar>
+  <div class="flex-1 overflow-y-auto bg-muted/30 pbe-[calc(var(--header-height))]">
+    <ng-content />
+  </div>
+</div>

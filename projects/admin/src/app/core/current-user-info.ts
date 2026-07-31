@@ -1,6 +1,6 @@
 import { computed, inject, Service, signal } from '@angular/core';
 import { PrincipalResponse } from '../../api';
-import { CurrentUserInfo } from '../a9uitemplate/user-setting-menu/current-user-info';
+import { CurrentUserInfo } from '../a9uitemplate/current-user-info';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { firstValueFrom } from 'rxjs';
 

@@ -1,51 +1,48 @@
-import { Component, ElementRef, inject, input, linkedSignal, viewChild } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
+import { Component, inject, input, linkedSignal } from '@angular/core';
 import { EditPrincipalFormData } from './edit-principal-form.interface';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { IconPrincipalType } from '../widgets/icon-principal-type/icon-principal-type';
 import { CalendareService } from '../../api/services';
 import { CalendareResource } from '../../api/resources';
 import { HttpErrorResponse } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { ActionBar } from '../a9uitemplate/action-bar/action-bar';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
-import { HintBox } from '../a9uitemplate/hint-box/hint-box';
 import { LocationStrategy } from '@angular/common';
-import { MatCardHeader, MatCardContent, MatCardActions, MatCardModule } from "@angular/material/card";
 import { ConfirmDialogProvider } from '../a9uitemplate/dialog-confirm/confirm-dialog-provider';
 import { PrincipalResponse, UserAmendRequest } from '../../api';
 import { emptyToNullString, nullToEmptyString } from '../../api/utils/form-helpers';
 import { email, form, FormField, FormRoot, required } from '@angular/forms/signals';
-import { FormSignalError } from '../a9uitemplate/form-signal-error';
+import { FormError } from '../a9uitemplate/form-error/form-error';
+import { FieldError } from '../a9uitemplate/field-error/field-error';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
+import { HlmInputImports } from '@spartan-ng/helm/input';
+import { HlmSelectImports } from '@spartan-ng/helm/select';
+import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
+import { InputTimezone } from '../a9uitemplate/input-timezone/input-timezone';
 
 @Component({
   selector: 'cal-edit-principal',
   imports: [
-    MatButtonModule,
-    MatIconModule,
     FormField,
     FormRoot,
-    MatFormFieldModule,
-    MatCheckboxModule,
-    MatInputModule,
-    MatAutocompleteModule,
-    MatCardModule,
-    HintBox,
+    HlmCardImports,
+    HlmButtonGroupImports,
+    HlmButtonImports,
+    HlmInputImports,
+    HlmFieldImports,
+    HlmSelectImports,
+    HlmTextareaImports,
+    HlmCheckboxImports,
+    InputTimezone,
+    FormError,
+    FieldError,
     IconPrincipalType,
-    ActionBar,
-    MatCardHeader,
-    MatCardContent,
-    MatCardActions,
-    FormSignalError,
     TranslocoDirective,
   ],
   templateUrl: './edit-principal.html',
-  styleUrl: './edit-principal.scss',
-
 })
 export class EditPrincipal {
   public username = input.required<string>();
@@ -107,13 +104,6 @@ export class EditPrincipal {
   // public refresh() {
   //   this.principal.reload();
   // }
-
-  public filteredOptions: string[] = [];
-  public timezoneInput = viewChild.required<ElementRef>('timezoneinput');
-  filterTimezones(): void {
-    const filterValue = this.timezoneInput()?.nativeElement?.value?.toLowerCase();
-    this.filteredOptions = filterValue ? Intl.supportedValuesOf('timeZone').filter(o => o?.toLowerCase().includes(filterValue)) : Intl.supportedValuesOf('timeZone');
-  }
 
   protected toFormModel(data: PrincipalResponse | null | undefined): EditPrincipalFormData {
     return {

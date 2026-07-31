@@ -12,8 +12,10 @@ import { HttpErrorHandler } from '../../core/http-error-handler';
     HintBox,
     TranslocoDirective,
   ],
+  host: {
+    class: 'relative block',
+  },
   templateUrl: './http-resource-viewer.html',
-  styleUrl: './http-resource-viewer.scss',
 })
 export class HttpResourceViewer<TPayload> {
   resource = input.required<HttpResourceRef<TPayload>>();

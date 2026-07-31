@@ -1,21 +1,21 @@
 import { Component, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { OperationService } from '../../api/services';
 import { firstValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TranslocoDirective } from '@jsverse/transloco';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmItemImports } from '@spartan-ng/helm/item';
 
 @Component({
   selector: 'cal-edit-trx-gc',
   imports: [
-    MatCardModule,
-    MatButtonModule,
+    HlmCardImports,
+    HlmItemImports,
+    HlmButtonImports,
     TranslocoDirective,
   ],
   templateUrl: './edit-trx-gc.html',
-  styleUrl: './edit-trx-gc.scss',
-
 })
 export class EditTrxGc {
   private readonly client = inject(OperationService);

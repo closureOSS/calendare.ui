@@ -1,4 +1,4 @@
-/* @ts-nocheck */
+// @ts-nocheck
 /* eslint-disable */
 /* @noformat */
 /* @formatter:off */
@@ -37,6 +37,10 @@ export class CalendareService {
             headers = options.headers;
         } else {
             headers = new HttpHeaders(options?.headers);
+        }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
         }
 
         return this.httpClient.request('get', url, {
@@ -97,6 +101,10 @@ export class CalendareService {
         } else {
             headers = new HttpHeaders(options?.headers);
         }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
+        }
 
         return this.httpClient.request('get', url, {
             observe,
@@ -148,6 +156,10 @@ export class CalendareService {
         } else {
             headers = new HttpHeaders(options?.headers);
         }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
+        }
 
         return this.httpClient.request('get', url, {
             observe,
@@ -170,6 +182,10 @@ export class CalendareService {
             headers = options.headers;
         } else {
             headers = new HttpHeaders(options?.headers);
+        }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
         }
         // Set Content-Type for JSON requests if not already set
         if (!headers.has('Content-Type')) {
@@ -222,6 +238,10 @@ export class CalendareService {
         } else {
             headers = new HttpHeaders(options?.headers);
         }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
+        }
         // Set Content-Type for JSON requests if not already set
         if (!headers.has('Content-Type')) {
             headers = headers.set('Content-Type', 'application/json');
@@ -250,6 +270,10 @@ export class CalendareService {
         } else {
             headers = new HttpHeaders(options?.headers);
         }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
+        }
 
         return this.httpClient.request('patch', url, {
             body: null,
@@ -274,6 +298,10 @@ export class CalendareService {
         } else {
             headers = new HttpHeaders(options?.headers);
         }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
+        }
 
         return this.httpClient.request('get', url, {
             observe,
@@ -297,6 +325,10 @@ export class CalendareService {
         } else {
             headers = new HttpHeaders(options?.headers);
         }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
+        }
 
         return this.httpClient.request('get', url, {
             observe,
@@ -318,6 +350,10 @@ export class CalendareService {
             headers = options.headers;
         } else {
             headers = new HttpHeaders(options?.headers);
+        }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
         }
         // Set Content-Type for JSON requests if not already set
         if (!headers.has('Content-Type')) {
@@ -351,6 +387,10 @@ export class CalendareService {
             headers = options.headers;
         } else {
             headers = new HttpHeaders(options?.headers);
+        }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
         }
 
         return this.httpClient.request('get', url, {
@@ -404,6 +444,10 @@ export class CalendareService {
         } else {
             headers = new HttpHeaders(options?.headers);
         }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
+        }
 
         return this.httpClient.request('get', url, {
             observe,
@@ -431,6 +475,10 @@ export class CalendareService {
             headers = options.headers;
         } else {
             headers = new HttpHeaders(options?.headers);
+        }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
         }
 
         return this.httpClient.request('get', url, {
@@ -460,6 +508,10 @@ export class CalendareService {
             headers = options.headers;
         } else {
             headers = new HttpHeaders(options?.headers);
+        }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
         }
 
         return this.httpClient.request('patch', url, {
@@ -491,6 +543,10 @@ export class CalendareService {
         } else {
             headers = new HttpHeaders(options?.headers);
         }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
+        }
 
         return this.httpClient.request('delete', url, {
             observe,
@@ -519,6 +575,10 @@ export class CalendareService {
             headers = options.headers;
         } else {
             headers = new HttpHeaders(options?.headers);
+        }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
         }
         // Set Content-Type for JSON requests if not already set
         if (!headers.has('Content-Type')) {
@@ -632,6 +692,10 @@ export class CalendareService {
         } else {
             headers = new HttpHeaders(options?.headers);
         }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
+        }
 
         return this.httpClient.request('get', url, {
             observe,
@@ -684,6 +748,10 @@ export class CalendareService {
         } else {
             headers = new HttpHeaders(options?.headers);
         }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
+        }
 
         return this.httpClient.request('get', url, {
             observe,
@@ -716,6 +784,10 @@ export class CalendareService {
             headers = options.headers;
         } else {
             headers = new HttpHeaders(options?.headers);
+        }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
         }
 
         return this.httpClient.request('get', url, {
@@ -778,6 +850,10 @@ export class CalendareService {
             headers = options.headers;
         } else {
             headers = new HttpHeaders(options?.headers);
+        }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
         }
 
         return this.httpClient.request('get', url, {
@@ -876,6 +952,10 @@ export class CalendareService {
         } else {
             headers = new HttpHeaders(options?.headers);
         }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
+        }
 
         return this.httpClient.request('get', url, {
             observe,
@@ -936,6 +1016,10 @@ export class CalendareService {
             headers = options.headers;
         } else {
             headers = new HttpHeaders(options?.headers);
+        }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
         }
 
         return this.httpClient.request('get', url, {
@@ -1041,6 +1125,10 @@ export class CalendareService {
         } else {
             headers = new HttpHeaders(options?.headers);
         }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
+        }
 
         return this.httpClient.request('get', url, {
             observe,
@@ -1122,6 +1210,10 @@ export class CalendareService {
         } else {
             headers = new HttpHeaders(options?.headers);
         }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
+        }
 
         return this.httpClient.request('get', url, {
             observe,
@@ -1149,6 +1241,10 @@ export class CalendareService {
             headers = options.headers;
         } else {
             headers = new HttpHeaders(options?.headers);
+        }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
         }
 
         return this.httpClient.request('get', url, {
@@ -1265,6 +1361,10 @@ export class CalendareService {
         } else {
             headers = new HttpHeaders(options?.headers);
         }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
+        }
 
         return this.httpClient.request('get', url, {
             observe,
@@ -1288,6 +1388,10 @@ export class CalendareService {
         } else {
             headers = new HttpHeaders(options?.headers);
         }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
+        }
 
         return this.httpClient.request('get', url, {
             observe,
@@ -1310,6 +1414,10 @@ export class CalendareService {
             headers = options.headers;
         } else {
             headers = new HttpHeaders(options?.headers);
+        }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
         }
 
         return this.httpClient.request('get', url, {
@@ -1338,6 +1446,10 @@ export class CalendareService {
             headers = options.headers;
         } else {
             headers = new HttpHeaders(options?.headers);
+        }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
         }
 
         return this.httpClient.request('get', url, {
@@ -1368,6 +1480,10 @@ export class CalendareService {
         } else {
             headers = new HttpHeaders(options?.headers);
         }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
+        }
 
         return this.httpClient.request('get', url, {
             observe,
@@ -1391,6 +1507,10 @@ export class CalendareService {
             headers = options.headers;
         } else {
             headers = new HttpHeaders(options?.headers);
+        }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
         }
 
         return this.httpClient.request('get', url, {
@@ -1419,6 +1539,10 @@ export class CalendareService {
             headers = options.headers;
         } else {
             headers = new HttpHeaders(options?.headers);
+        }
+        // Advertise the response content type declared in the spec
+        if (!headers.has('Accept')) {
+            headers = headers.set('Accept', 'application/json');
         }
 
         return this.httpClient.request('get', url, {

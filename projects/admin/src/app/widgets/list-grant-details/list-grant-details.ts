@@ -1,17 +1,26 @@
 import { Component, input } from '@angular/core';
 import { PrivilegeItemResponse } from '../../../api';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { TranslocoDirective } from '@jsverse/transloco';
+import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
+import { HlmCollapsibleImports } from '@spartan-ng/helm/collapsible';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { matCollapseAllFillOutline, matExpandAllFillOutline } from '@ng-icons/material-symbols/outline';
 
 @Component({
   selector: 'cal-list-grant-details',
   imports: [
-    MatExpansionModule,
     TranslocoDirective,
+    HlmAccordionImports,
+    HlmCollapsibleImports,
+    NgIcon,
+  ],
+  providers: [
+    provideIcons({
+      matExpandAllFillOutline,
+      matCollapseAllFillOutline,
+    }),
   ],
   templateUrl: './list-grant-details.html',
-  styleUrl: './list-grant-details.scss',
-
 })
 export class ListGrantDetails {
   grants = input.required<PrivilegeItemResponse[] | undefined>();

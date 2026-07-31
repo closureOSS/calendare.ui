@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DialogError } from './dialog-error';
-import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('DialogError', () => {
   let component: DialogError;
@@ -9,13 +8,12 @@ describe('DialogError', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DialogError,provideZonelessChangeDetection()]
-    })
-    .compileComponents();
+      imports: [DialogError],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DialogError);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {

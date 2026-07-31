@@ -1,0 +1,10 @@
+<hlm-select class="py-4" [(value)]="value" (valueChange)="selectColor($event)">
+  <hlm-select-trigger class="min-w-xs" size="sm">
+    <hlm-select-value placeholder="Switch color palette" />
+  </hlm-select-trigger>
+  <hlm-select-content *hlmSelectPortal>
+    <hlm-select-item value="Default">(Default)</hlm-select-item>
+    <hlm-select-item value="Blue">Blue</hlm-select-item>
+    <hlm-select-item value="Green">Green</hlm-select-item>
+  </hlm-select-content>
+</hlm-select>

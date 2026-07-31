@@ -1,6 +1,5 @@
 import { Component, inject, input } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterLink } from '@angular/router';
 import { IconPrincipalType } from '../widgets/icon-principal-type/icon-principal-type';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
@@ -10,12 +9,14 @@ import { PrivilegeMaskConstant } from '../core/privilege-mask';
 import { PrincipalResponse, PrivilegeMask } from '../../api/models';
 import { CalendareService } from '../../api';
 import { firstValueFrom } from 'rxjs';
-import { MatCardModule } from '@angular/material/card';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
-import { MatIconModule } from '@angular/material/icon';
 import { ConfirmDialogProvider } from '../a9uitemplate/dialog-confirm/confirm-dialog-provider';
 import { ColorSwatch } from "../widgets/color-swatch/color-swatch";
-import { ActionBar } from "../a9uitemplate/action-bar/action-bar";
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { A9LabelValueListImports } from '../a9uitemplate/label-value-list';
+import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 
 @Component({
   selector: 'cal-view-principal',
@@ -24,16 +25,15 @@ import { ActionBar } from "../a9uitemplate/action-bar/action-bar";
     ListPermissions,
     DatePipe,
     RouterLink,
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
+    HlmButtonImports,
+    HlmButtonGroupImports,
+    HlmCardImports,
+    HlmBadgeImports,
+    A9LabelValueListImports,
     TranslocoDirective,
     ColorSwatch,
-    ActionBar
   ],
   templateUrl: './view-principal.html',
-  styleUrl: './view-principal.scss',
-
 })
 export class ViewPrincipal {
   public principal = input.required<PrincipalResponse>();

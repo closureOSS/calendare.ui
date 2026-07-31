@@ -1,24 +1,26 @@
-<mat-card class="memberships" appearance="outlined" *transloco="let t">
-  <mat-card-header>
-    <mat-card-title>
-      <ng-content></ng-content>
-    </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <a9-http-resource-viewer [resource]="memberships" class="memberlist">
+<hlm-card class="[--card-spacing:--spacing(4)] max-w-5xl" *transloco="let t">
+  <hlm-card-header>
+    <h3 hlmCardTitle><ng-content></ng-content></h3>
+  </hlm-card-header>
+  <div hlmCardContent>
+    <a9-http-resource-viewer [resource]="memberships" class="flex flex-wrap gap-2 divide-accent divide-x-4">
       @let ms = memberships.value();
-      @if(ms?.memberships) {
       @for(m of ms?.memberships; track m.uri) {
-      <span class="member">
-        <a matButton [routerLink]="['/principal', 'show', m.username]">
-          <cal-principal-ref [type]="m.principalType" [name]="m.displayname"></cal-principal-ref>
-        </a>
-      </span>
-      }
-      } @else {
-      <a9-hint-box mode="warning">{{ t('No memberships exist.') }}</a9-hint-box>
+      <hlm-item variant="outline" size="xs" class="max-w-fit cursor-pointer"
+        [routerLink]="['/principal', 'show', m.username]">
+        <hlm-item-media>
+          <cal-icon-principal-type [type]="m.principalType"></cal-icon-principal-type>
+        </hlm-item-media>
+        <hlm-item-content>
+          <hlm-item-title>
+            {{ m.displayname }}
+          </hlm-item-title>
+        </hlm-item-content>
+      </hlm-item>
+      } @empty {
+      <a9-hint-box mode="warning" class="w-full">{{ t('No memberships exist.') }}</a9-hint-box>
       }
     </a9-http-resource-viewer>
-  </mat-card-content>
-</mat-card>
+  </div>
+</hlm-card>
 <!-- <pre class="debug">{{memberships() | json}}</pre> -->

@@ -1,10 +1,9 @@
 <a9-navigate-back-button></a9-navigate-back-button>
-<article *transloco="let t">
-  <header class="a9-page-title">
-    <h1>{{ t('New') }} {{principalTypeLabel()}}</h1>
-  </header>
-
-  <section>
+<hlm-card class="max-w-3xl" *transloco="let t">
+  <hlm-card-header>
+    <h3 hlmCardTitle>{{ t('New') }} {{principalTypeLabel()}}</h3>
+  </hlm-card-header>
+  <div hlmCardContent>
     <cal-form-principal-create (data)="create($event)" [msg]="formMessage()"></cal-form-principal-create>
-  </section>
-</article>
+  </div>
+</hlm-card>

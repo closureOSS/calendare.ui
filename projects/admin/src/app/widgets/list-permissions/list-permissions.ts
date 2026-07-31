@@ -1,20 +1,20 @@
 import { booleanAttribute, Component, computed, input } from '@angular/core';
 import { PrivilegeMaskConstant } from '../../core/privilege-mask';
 import { PrivilegeMask } from '../../../api/models';
+import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 
 @Component({
   selector: 'cal-list-permissions',
   imports: [
+    HlmBadgeImports,
   ],
   templateUrl: './list-permissions.html',
-  styleUrl: './list-permissions.scss',
-
 })
 export class ListPermissions {
   readonly PrivilegeMask = PrivilegeMaskConstant;
   permissions = input.required<PrivilegeMask | null | undefined>();
   filter = input<PrivilegeMask>();
-  vertical = input<boolean>(false, { transform: booleanAttribute });
+  // vertical = input<boolean>(false, { transform: booleanAttribute });
   prohibit = input<boolean>(false, { transform: booleanAttribute });
 
   permissionList = computed(() => {

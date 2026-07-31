@@ -1,52 +1,49 @@
 import { Component, inject, input, signal } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { firstValueFrom } from 'rxjs';
-import { ActionBar } from '../a9uitemplate/action-bar/action-bar';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 import { LocationStrategy } from '@angular/common';
 import { CalendareService } from '../../api/services';
 import { NavigateBackButton } from '../a9uitemplate/navigate-back-button/navigate-back-button';
-import { MatCardModule } from '@angular/material/card';
-import { HintBox } from '../a9uitemplate/hint-box/hint-box';
 import { ConfirmDialogProvider } from '../a9uitemplate/dialog-confirm/confirm-dialog-provider';
-import { MatIconModule } from '@angular/material/icon';
-import { form, FormField, FormRoot, maxLength, pattern, required, validate } from '@angular/forms/signals';
+import { form, FormField, FormRoot, required, validate } from '@angular/forms/signals';
 import { UserCredentialCreateTemplate, UserCredentialResetRequest } from '../../api/models';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogCredentialCreated } from '../dialog-credential-created/dialog-credential-created';
 import { httpErrorToProblemDetails } from '../core/http-error-helper';
 import { ResetCredentialPwdFormData } from './reset-credential-pwd-form.interface';
-import { FormSignalError } from '../a9uitemplate/form-signal-error';
 import { passwordConfig } from '../widgets/form-username-config';
+import { FormError } from '../a9uitemplate/form-error/form-error';
+import { FieldError } from '../a9uitemplate/field-error/field-error';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
+import { HlmInputImports } from '@spartan-ng/helm/input';
+import { CredentialDialogProvider } from '../dialog-credential-created/credential-dialog-provider';
 
 @Component({
   selector: 'cal-reset-credential-pwd',
   imports: [
-    MatButtonModule,
     FormField,
     FormRoot,
-    MatCardModule,
-    MatFormFieldModule,
-    FormSignalError,
-    MatIconModule,
-    MatSelectModule,
-    MatInputModule,
+    HlmCardImports,
+    HlmButtonGroupImports,
+    HlmButtonImports,
+    HlmInputImports,
+    HlmFieldImports,
     NavigateBackButton,
-    HintBox,
-    ActionBar,
+    FormError,
+    FieldError,
     TranslocoDirective
   ],
+  providers: [
+    CredentialDialogProvider,
+  ],
   templateUrl: './reset-credential-pwd.html',
-  styleUrl: './reset-credential-pwd.scss',
 })
 export class ResetCredentialPwd {
   public username = input.required<string>();
   public accesskey = input.required<string>();
   transloco = inject(TranslocoService);
-  readonly dialog = inject(MatDialog);
+  readonly dialog = inject(CredentialDialogProvider);
 
   private readonly client = inject(CalendareService);
   protected readonly formModel = signal<ResetCredentialPwdFormData>({
@@ -78,15 +75,7 @@ export class ResetCredentialPwd {
             const password = field.password().value();
             const request: UserCredentialResetRequest | undefined = password !== '' ? { password: field.password().value(), } : undefined;
             const credential = await firstValueFrom(this.client.setCredentialPassword(this.username(), this.accesskey(), request, undefined));
-            const ref = this.dialog.open(DialogCredentialCreated, {
-              data: {
-                credential: credential,
-                template: UserCredentialCreateTemplate.Generic,
-              },
-              width: '90%',
-              maxWidth: '980px'
-            });
-            const _answer = await firstValueFrom(ref.afterClosed());
+            const ref = await this.dialog.show(credential, UserCredentialCreateTemplate.Generic);
             field().reset();
             this.back();
             return;

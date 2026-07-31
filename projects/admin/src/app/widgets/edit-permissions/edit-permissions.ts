@@ -2,12 +2,17 @@ import { booleanAttribute, Component, computed, input, model } from '@angular/co
 import { PrivilegeMaskConstant } from '../../core/privilege-mask';
 import { PrivilegeMask } from '../../../api/models';
 
+export interface PermissionListItem {
+  label: string;
+  flag: number;
+  enabled: boolean;
+  combined: boolean;
+}
+
 @Component({
   selector: 'cal-edit-permissions',
   imports: [],
   templateUrl: './edit-permissions.html',
-  styleUrl: './edit-permissions.scss',
-
 })
 export class EditPermissions {
   readonly PrivilegeMask = PrivilegeMask;
@@ -20,7 +25,7 @@ export class EditPermissions {
     let mask = this.permissions() ?? PrivilegeMaskConstant.None;
     const filter = this.filter() ?? PrivilegeMaskConstant.None;
     mask = mask & ~filter;
-    const result: { label: string, enabled: boolean, flag: number, combined: boolean }[] = [
+    const result: PermissionListItem[] = [
       { label: 'None', enabled: false, flag: 0, combined: true }
     ];
     for (const tl in PrivilegeMaskConstant) {
@@ -37,7 +42,7 @@ export class EditPermissions {
               flag: val,
               enabled: (mask & val) === val,
               combined: combined,
-            });
+            } as PermissionListItem);
           }
         }
       }
@@ -66,5 +71,58 @@ export class EditPermissions {
     }
     // console.log(val, ((val.flag & (val.flag - 1)) !== 0), this.permissions(), mask);
     this.permissions.set(mask);
+  }
+
+  protected styling(perm: PermissionListItem) {
+    const classes: string[] = [
+      'text-sm', 'text-center',
+      'px-4', 'py-1', 'min-w-20',
+      'hover:cursor-pointer',
+    ];
+    if (perm.enabled) {
+      classes.push(...[
+        'shadow-xs', 'hover:shadow-sm',
+      ]);
+    } else {
+      classes.push(...[
+        'border', 'border-2', 'shadow-xs', 'hover:shadow-sm',
+      ]);
+    }
+    if (perm.combined) {
+      classes.push(...[
+        'rounded-xl'
+      ]);
+    } else {
+      classes.push(...[
+        'rounded-none'
+      ]);
+    }
+    if (perm.flag === 0) {
+      classes.push('none');
+    }
+    if (perm.enabled) {
+      if (this.prohibit()) {
+        classes.push(...[
+          'bg-prohibit', 'text-prohibit-foreground', 'border-prohibit', 'shadow-prohibit-800'
+        ]);
+      } else {
+        classes.push(...[
+          'bg-allow', 'text-allow-foreground', 'border-allow', 'shadow-allow',
+        ]);
+      }
+    } else {
+      if (perm.combined) {
+        classes.push(...[
+          'bg-accent', 'shadow-primary', 'dark:shadow-muted'
+        ]);
+      } else {
+        classes.push(...[
+          'bg-muted',
+          'shadow-primary', 'dark:shadow-muted',
+          'border-muted',
+        ]);
+      }
+    }
+    return classes;
   }
 }

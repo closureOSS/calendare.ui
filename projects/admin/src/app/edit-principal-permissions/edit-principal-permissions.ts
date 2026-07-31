@@ -1,10 +1,4 @@
 import { Component, computed, inject, input, linkedSignal } from '@angular/core';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { IconPrincipalType } from '../widgets/icon-principal-type/icon-principal-type';
 import { EditPermissions } from '../widgets/edit-permissions/edit-permissions';
 import { PrivilegeMaskConstant } from '../core/privilege-mask';
@@ -13,30 +7,34 @@ import { CalendareService } from '../../api/services';
 import { firstValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PrivilegeMask } from '../../api';
-import { ActionBar } from '../a9uitemplate/action-bar/action-bar';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { LocationStrategy } from '@angular/common';
 import { NavigateBackButton } from '../a9uitemplate/navigate-back-button/navigate-back-button';
 import { ConfirmDialogProvider } from '../a9uitemplate/dialog-confirm/confirm-dialog-provider';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { matRestartAltOutline } from '@ng-icons/material-symbols/outline';
 
 @Component({
   selector: 'cal-edit-principal-permissions',
   imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatCheckboxModule,
-    MatInputModule,
-    MatAutocompleteModule,
+    HlmButtonGroupImports,
+    HlmButtonImports,
+    HlmCardImports,
+    NgIcon,
     NavigateBackButton,
     IconPrincipalType,
     EditPermissions,
-    ActionBar,
     TranslocoDirective,
   ],
+  providers: [
+    provideIcons({
+      matRestartAltOutline,
+    }),
+  ],
   templateUrl: './edit-principal-permissions.html',
-  styleUrl: './edit-principal-permissions.scss',
-
 })
 export class EditPrincipalPermissions {
   public username = input.required<string>();

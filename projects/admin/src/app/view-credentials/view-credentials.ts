@@ -1,9 +1,5 @@
 import { Component, computed, effect, inject, input } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDialog } from '@angular/material/dialog';
 import { CalendareResource } from '../../api/resources';
 import { CredentialResponse } from '../../api/models';
 import { CalendareService } from '../../api/services';
@@ -13,27 +9,40 @@ import { ConfirmDialogProvider } from '../a9uitemplate/dialog-confirm/confirm-di
 import { HttpResourceViewer } from '../a9uitemplate/http-resource-viewer/http-resource-viewer';
 import { httpErrorToProblemDetails } from '../core/http-error-helper';
 import { ErrorDialogProvider } from '../a9uitemplate/dialog-error/error-dialog-provider';
-import { DialogCredentialCreated } from '../dialog-credential-created/dialog-credential-created';
 import { RouterLink } from "@angular/router";
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { matIdCardFillOutline } from '@ng-icons/material-symbols/outline';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { A9LabelValueListImports } from '../a9uitemplate/label-value-list';
+import { CredentialDialogProvider } from '../dialog-credential-created/credential-dialog-provider';
 
 @Component({
   selector: 'cal-view-credentials',
   imports: [
     DatePipe,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
+    HlmButtonImports,
+    HlmButtonGroupImports,
+    HlmCardImports,
+    A9LabelValueListImports,
+    NgIcon,
     HttpResourceViewer,
     RouterLink,
     TranslocoDirective,
-],
+  ],
+  providers: [
+    provideIcons({
+      matIdCardFillOutline,
+    }),
+    CredentialDialogProvider,
+  ],
   templateUrl: './view-credentials.html',
-  styleUrl: './view-credentials.scss',
 })
 export class ViewCredentials {
   public username = input.required<string>();
   public reload = input<number>(0);
-  readonly dialog = inject(MatDialog);
+  readonly dialog = inject(CredentialDialogProvider);
   private readonly calendareResource = inject(CalendareResource);
   private readonly client = inject(CalendareService);
 
@@ -92,14 +101,7 @@ export class ViewCredentials {
     try {
       const newCredential = await firstValueFrom(this.client.setCredentialPassword(this.username(), credential.subject!, undefined, credential.credentialType?.label ?? undefined));
       // console.log('Changed password %o: %o', credential, response);
-      const ref = this.dialog.open(DialogCredentialCreated, {
-        data: {
-          credential: newCredential,
-        },
-        width: '90%',
-        maxWidth: '980px'
-      });
-      const _answer = await firstValueFrom(ref.afterClosed());
+      const ref = await this.dialog.show(newCredential, null);
       this.refresh();
     }
     catch (e) {

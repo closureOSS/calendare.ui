@@ -1,54 +1,47 @@
 <a9-navigate-back-button></a9-navigate-back-button>
-<article *transloco="let t">
-  <header>
-    <h1 class="principal">
+<hlm-card *transloco="let t" class="max-w-4xl">
+  <hlm-card-header>
+    <h3 hlmCardTitle>
       <span class="principal-type">
         <cal-icon-principal-type
-          [type]="$safeNavigationMigration(principal.value()?.principalType?.label)"
-        ></cal-icon-principal-type>
+          [type]="$safeNavigationMigration(principal.value()?.principalType?.label)"></cal-icon-principal-type>
         {{ t(principal.value()?.principalType?.name ?? 'Principal') }}
       </span>
       {{ principal.value()?.username }}
-    </h1>
-  </header>
+    </h3>
+  </hlm-card-header>
 
-  <section>
+  <div hlmCardContent>
     @if (principal.value(); as principal) {
-      <div class="permission-set">
-        <div class="label">{{ t('Global - Public permissions to everybody') }}</div>
-        <cal-edit-permissions
-          [permissions]="globalPermitSelf()"
-          (permissionsChange)="globalPermitSelf.set($event ?? 0)"
-        ></cal-edit-permissions>
+    <div class="permission-set">
+      <div class="label">{{ t('Global - Public permissions to everybody') }}</div>
+      <cal-edit-permissions [permissions]="globalPermitSelf()"
+        (permissionsChange)="globalPermitSelf.set($event ?? 0)"></cal-edit-permissions>
+    </div>
+    <div class="permission-set">
+      <div class="label">{{ t('Prohibit for authorized users on inheritance') }}</div>
+      <cal-edit-permissions [permissions]="authorizedProhibit()"
+        (permissionsChange)="authorizedProhibit.set($event ?? 0)" [prohibit]="true"></cal-edit-permissions>
+    </div>
+    <div class="permission-set">
+      <div class="label">
+        {{ t('Prohibit for owner') }} <span class="owner">{{ principal.username }}</span>
       </div>
-      <div class="permission-set">
-        <div class="label">{{ t('Prohibit for authorized users on inheritance') }}</div>
-        <cal-edit-permissions
-          [permissions]="authorizedProhibit()"
-          (permissionsChange)="authorizedProhibit.set($event ?? 0)"
-          [prohibit]="true"
-        ></cal-edit-permissions>
-      </div>
-      <div class="permission-set">
-        <div class="label">
-          {{ t('Prohibit for owner') }} <span class="owner">{{ principal.username }}</span>
-        </div>
-        <cal-edit-permissions
-          [permissions]="ownerProhibit()"
-          (permissionsChange)="ownerProhibit.set($event ?? 0)"
-          [prohibit]="true"
-        ></cal-edit-permissions>
-      </div>
-      <!-- <pre class="debug">{{globalPermitSelf()}} | {{authorizedProhibit()}} | {{ownerProhibit()}} </pre> -->
+      <cal-edit-permissions [permissions]="ownerProhibit()" (permissionsChange)="ownerProhibit.set($event ?? 0)"
+        [prohibit]="true"></cal-edit-permissions>
+    </div>
+    <!-- <pre class="debug">{{globalPermitSelf()}} | {{authorizedProhibit()}} | {{ownerProhibit()}} </pre> -->
     }
+  </div>
 
-    <a9-action-bar class="separate">
-      <button matButton="filled" [disabled]="!dirty()" (click)="submit()" type="button">
+  <hlm-card-footer>
+    <hlm-button-group>
+      <button hlmBtn variant="default" [disabled]="!dirty()" (click)="submit()" type="button">
         {{ t('Save') }}
       </button>
-      <button matIconButton type="reset" (click)="refresh()" [title]="t('Reset')">
-        <mat-icon svgIcon="restart_alt"></mat-icon>
+      <button hlmBtn variant="outline" type="reset" (click)="refresh()" [title]="t('Reset')">
+        <ng-icon name="matRestartAltOutline" />
       </button>
-    </a9-action-bar>
-  </section>
-</article>
+    </hlm-button-group>
+  </hlm-card-footer>
+</hlm-card>

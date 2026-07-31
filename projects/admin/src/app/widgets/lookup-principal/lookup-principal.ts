@@ -1,63 +1,40 @@
-import { Component, inject, input, output } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, } from '@angular/forms';
-import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { debounceTime, distinctUntilChanged, filter, map, of, switchMap } from 'rxjs';
-import { CalendareService, PrincipalResponse } from '../../../api';
-import { AsyncPipe } from '@angular/common';
+import { Component, effect, inject, input, linkedSignal, output, signal } from '@angular/core';
+import { PrincipalResponse } from '../../../api';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
+import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
+import { CalendareResource } from '../../../api/resources';
+import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
+import { TranslocoDirective } from '@jsverse/transloco';
 
 @Component({
   selector: 'cal-lookup-principal',
   imports: [
-    MatFormFieldModule,
-    MatAutocompleteModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    AsyncPipe
+    TranslocoDirective,
+    HlmFieldImports,
+    HlmAutocompleteImports,
+    HlmSpinnerImports,
   ],
   templateUrl: './lookup-principal.html',
-  styleUrl: './lookup-principal.scss',
-
 })
 export class LookupPrincipal {
   public label = input<string>('Lookup principal');
-  public initialValue = input<string>('');
   public principal = output<PrincipalResponse>();
+  public initialValue = input<string>('');
 
-  lookupForm: FormGroup = new FormGroup({
-    searchTerm: new FormControl<string>(this.initialValue())
-  });
+  public search = linkedSignal(() => this.initialValue());
 
-  private readonly calendareService = inject(CalendareService);
-
-  public principalQuery = this.lookupForm.get('searchTerm')?.valueChanges.pipe(
-    // tap(x => console.log('Searching ', x)),
-    debounceTime(250),
-    filter(x => typeof x !== 'object'),
-    distinctUntilChanged(),
-    map(search => {
-      // console.log('CONTENT[%s]/%s', search, typeof search);
-      return search as string;
-    }),
-    switchMap(search => {
-      // console.log('CONTENT[%s]/%s,%d', search, typeof search, search.length);
-      if (search.length < 1) return of([]);
-      return this.calendareService.getUserList(['*'], search, true, false);
-    })
-  );
-
-  displayFn(_principal: PrincipalResponse): string { return ''; }
-
-  choose(event: MatAutocompleteSelectedEvent) {
-    const principal = event.option.value as PrincipalResponse;
-    // console.log('Choose -> ', principal);
-    if (principal) {
-      this.principal.emit(principal);
-    }
+  constructor() {
+    effect(() => {
+      if (this.selected() !== null) {
+        this.principal.emit(this.selected()!);
+        this.search.set('');
+      }
+    });
   }
+
+  public selected = signal<PrincipalResponse | null>(null);
+
+  public itemToString = (item: PrincipalResponse) => item?.displayName ?? '';
+  private readonly calendareResource = inject(CalendareResource);
+  public options = this.calendareResource.getUserList(['*'], this.search, true, false);
 }

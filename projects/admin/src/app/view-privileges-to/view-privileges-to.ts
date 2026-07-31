@@ -1,34 +1,28 @@
 import { Component, computed, inject, input } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
 import { ListPrivileges } from '../widgets/list-privileges/list-privileges';
 import { RouterLink } from '@angular/router';
 import { CalendareResource } from '../../api/resources';
 import { CalendareService } from '../../api';
 import { firstValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ActionBar } from '../a9uitemplate/action-bar/action-bar';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { HttpResourceViewer } from '../a9uitemplate/http-resource-viewer/http-resource-viewer';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmCardImports } from '@spartan-ng/helm/card';
 
 @Component({
   selector: 'cal-view-privileges-to',
   imports: [
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
+    HlmCardImports,
+    HlmButtonImports,
+    HlmButtonGroupImports,
     RouterLink,
     HttpResourceViewer,
     ListPrivileges,
-    ActionBar,
     TranslocoDirective,
   ],
   templateUrl: './view-privileges-to.html',
-  styleUrl: './view-privileges-to.scss',
-
 })
 export class ViewPrivilegesTo {
   public username = input.required<string>();

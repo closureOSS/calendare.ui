@@ -1,33 +1,33 @@
-import { booleanAttribute, Component, input } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
+import { Component, input } from '@angular/core';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { PermissionResponse } from '../../api';
 import { RouterLink } from '@angular/router';
 import { PrivilegeMask } from '../core/privilege-mask';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
+import { matGroupFillOutline, matIdCardFillOutline, matMeetingRoomFillOutline, matPerson2FillOutline, matPersonAddOutline, matSpeakerFillOutline } from '@ng-icons/material-symbols/outline';
 
 @Component({
   selector: 'cal-create-principal-button',
   imports: [
-    MatMenuModule,
-    MatButtonModule,
-    MatIconModule,
+    NgIcon,
+    HlmDropdownMenuImports,
+    HlmButtonImports,
     RouterLink,
     TranslocoDirective,
   ],
-  host: {
-    '[class.mini]': 'mini()'
-  },
+  providers: [
+    provideIcons({
+      matPerson2FillOutline, matMeetingRoomFillOutline,
+      matSpeakerFillOutline, matGroupFillOutline,
+      matPersonAddOutline,
+    }),
+  ],
   templateUrl: './create-principal-button.html',
-  styleUrl: './create-principal-button.scss',
-
 })
 export class CreatePrincipalButton {
   public permissions = input.required<PermissionResponse | undefined>();
-
-  public mini = input(false, { transform: booleanAttribute });
-
   public canCreatePrincipal(permissions: PermissionResponse | undefined) {
     if (!permissions || !permissions.administration) return false;
     return (permissions.administration & PrivilegeMask.Bind) !== PrivilegeMask.None;

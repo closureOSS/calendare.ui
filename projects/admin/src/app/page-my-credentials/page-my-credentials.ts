@@ -4,6 +4,7 @@ import { TranslocoDirective } from '@jsverse/transloco';
 import { CurrentUserInfoJwt } from '../core/current-user-info';
 import { FloatingActionBar } from '../a9uitemplate/floating-action-bar/floating-action-bar';
 import { CreateCredentialButton } from "../create-credential-button/create-credential-button";
+import { SiteTitle } from '../a9uitemplate/site-title/site-title';
 
 @Component({
   selector: 'cal-page-my-credentials',
@@ -11,10 +12,10 @@ import { CreateCredentialButton } from "../create-credential-button/create-crede
     ViewCredentials,
     FloatingActionBar,
     TranslocoDirective,
-    CreateCredentialButton
+    CreateCredentialButton,
+    SiteTitle,
   ],
   templateUrl: './page-my-credentials.html',
-  styleUrl: './page-my-credentials.scss',
 })
 export class PageMyCredentials {
   private readonly currentUserInfo = inject(CurrentUserInfoJwt);

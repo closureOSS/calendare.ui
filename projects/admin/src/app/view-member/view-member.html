@@ -1,33 +1,39 @@
-<mat-card class="members" *transloco="let t">
-  <mat-card-header>
-    <mat-card-title>
-      <ng-content></ng-content>
-    </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <a9-http-resource-viewer [resource]="members">
+<hlm-card class="[--card-spacing:--spacing(4)] max-w-5xl" *transloco="let t">
+  <hlm-card-header>
+    <h3 hlmCardTitle><ng-content></ng-content></h3>
+  </hlm-card-header>
+  <div hlmCardContent>
+    <a9-http-resource-viewer [resource]="members" class="flex flex-col gap-4 mb-4">
       @let ms = members.value();
       @for(grp of ms?.groups; track grp.group) {
       @if(grp.members && grp.members.length > 0 && grp.group && grp.group.membershipType) {
-      <div class="priv-class">{{ grp.group.displayname }}</div>
-      <div class="memberlist">
-        @for(m of grp.members; track m.uri) {
-        <span class="member">
-          <a matButton [routerLink]="['/principal', 'show', m.username]">
-            <cal-principal-ref [type]="m.principalType" [name]="m.displayname"></cal-principal-ref>
-          </a>
-        </span>
-        }
+      <div>
+        <h4 [class]="hlmGroup">{{ grp.group.displayname }}</h4>
+        <div class="flex flex-wrap gap-2 divide-accent divide-x-4">
+          @for(m of grp.members; track m.uri) {
+          <hlm-item variant="outline" size="xs" class="max-w-fit cursor-pointer"
+            [routerLink]="['/principal', 'show', m.username]">
+            <hlm-item-media>
+              <cal-icon-principal-type [type]="m.principalType"></cal-icon-principal-type>
+            </hlm-item-media>
+            <hlm-item-content>
+              <hlm-item-title>
+                {{ m.displayname }}
+              </hlm-item-title>
+            </hlm-item-content>
+          </hlm-item>
+          }
+        </div>
       </div>
       }
       }
     </a9-http-resource-viewer>
-  </mat-card-content>
+  </div>
   <!-- <pre class="debug">{{memberships() | json}}</pre> -->
-  <mat-card-actions>
-    <a9-action-bar>
-      <button matButton [routerLink]="['/principal', 'members', username()]">{{ t('Edit') }}</button>
-      <button matButton (click)="refresh()">{{ t('Refresh') }}</button>
-    </a9-action-bar>
-  </mat-card-actions>
-</mat-card>
+  <hlm-card-footer>
+    <hlm-button-group>
+      <button hlmBtn variant="outline" [routerLink]="['/principal', 'members', username()]">{{ t('Edit') }}</button>
+      <button hlmBtn variant="outline" (click)="refresh()">{{ t('Refresh') }}</button>
+    </hlm-button-group>
+  </hlm-card-footer>
+</hlm-card>

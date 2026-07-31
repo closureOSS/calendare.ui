@@ -1,6 +1,4 @@
 import { Component, inject, signal } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
 import { LoginUsernamePassword } from '../widgets/login-username-password/login-username-password';
 import { LoginCredentialsFormData } from '../widgets/login-username-password/login-credentials-form-data';
@@ -12,26 +10,32 @@ import { CurrentUserInfoJwt } from '../core/current-user-info';
 import { CurrentUserRepository } from '../core/current-user-repository';
 import { ErrorDialogProvider } from '../a9uitemplate/dialog-error/error-dialog-provider';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
-import { LanguageSwitcher } from '../a9uitemplate/language-switcher/language-switcher';
-import { ThemeSwitcher } from '../a9uitemplate/theme-switcher/theme-switcher';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { hlmH1, hlmH2, hlmH3, hlmH4, hlmP, hlmMuted } from '@spartan-ng/helm/typography';
+import { HlmCardImports } from '@spartan-ng/helm/card';
 
 @Component({
   selector: 'cal-page-onboarding-link',
   imports: [
     RouterLink,
-    MatButtonModule,
-    MatIconModule,
     HintBox,
     LoginUsernamePassword,
-    LanguageSwitcher,
-    ThemeSwitcher,
+    HlmButtonImports,
+    HlmCardImports,
     TranslocoDirective,
   ],
+  host: {
+    class: 'w-full flex items-center flex-col'
+  },
   templateUrl: './page-onboarding-link.html',
-  styleUrl: './page-onboarding-link.scss',
-
 })
 export class PageOnboardingLink {
+  hlmH1 = hlmH1;
+  hlmH2 = hlmH2;
+  hlmH3 = hlmH3;
+  hlmH4 = hlmH4;
+  hlmP = hlmP;
+  hlmCite = hlmMuted;
   private errorDialog = inject(ErrorDialogProvider);
   public readonly currentUser = inject(CurrentUserInfoJwt);
   public readonly currentUserRepository = inject(CurrentUserRepository);

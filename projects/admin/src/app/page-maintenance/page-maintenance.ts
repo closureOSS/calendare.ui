@@ -6,6 +6,7 @@ import { PermissionResponse } from '../../api';
 import { PrivilegeMask } from '../core/privilege-mask';
 import { HintBox } from '../a9uitemplate/hint-box/hint-box';
 import { EditTrxGc } from '../edit-trx-gc/edit-trx-gc';
+import { SiteTitle } from '../a9uitemplate/site-title/site-title';
 
 @Component({
   selector: 'cal-page-maintenance',
@@ -13,16 +14,14 @@ import { EditTrxGc } from '../edit-trx-gc/edit-trx-gc';
     EditTrxJournal,
     EditTrxGc,
     HintBox,
+    SiteTitle,
     TranslocoDirective,
   ],
   templateUrl: './page-maintenance.html',
-  styleUrl: './page-maintenance.scss',
-
 })
 export class PageMaintenance {
   private readonly calendareResource = inject(CalendareResource);
   public readonly adminPermissions = this.calendareResource.getPermissionsSelf(undefined);
-
 
   refresh() {
     this.adminPermissions.reload();

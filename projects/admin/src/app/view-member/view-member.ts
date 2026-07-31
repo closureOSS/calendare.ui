@@ -1,30 +1,31 @@
 import { Component, computed, inject, input } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { PrincipalRef } from '../widgets/principal-ref/principal-ref';
 import { CalendareResource } from '../../api/resources';
 import { MembershipDirection } from '../../api';
-import { ActionBar } from '../a9uitemplate/action-bar/action-bar';
-import { MatCardModule } from '@angular/material/card';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { HttpResourceViewer } from '../a9uitemplate/http-resource-viewer/http-resource-viewer';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonGroupImports } from "@spartan-ng/helm/button-group";
+import { HlmItemImports } from '@spartan-ng/helm/item';
+import { IconPrincipalType } from '../widgets/icon-principal-type/icon-principal-type';
 
 @Component({
   selector: 'cal-view-member',
   imports: [
-    MatCardModule,
-    MatButtonModule,
+    HlmCardImports,
+    HlmButtonImports,
+    HlmButtonGroupImports,
+    HlmItemImports,
     RouterLink,
     HttpResourceViewer,
-    PrincipalRef,
-    ActionBar,
+    IconPrincipalType,
     TranslocoDirective,
-  ],
+],
   templateUrl: './view-member.html',
-  styleUrl: './view-member.scss',
-
 })
 export class ViewMember {
+  protected hlmGroup = `font-bold text-sm text-primary py-4`;
   public username = input.required<string>();
   private readonly calendareResource = inject(CalendareResource);
 

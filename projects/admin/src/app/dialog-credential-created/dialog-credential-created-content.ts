@@ -3,9 +3,4 @@ import { CredentialCreateResponse, UserCredentialCreateTemplate } from "../../ap
 export interface DialogCredentialCreatedContent {
   credential: CredentialCreateResponse;
   template: UserCredentialCreateTemplate;
-  title: string;
-  intro: string;
-  body: string | null;
-  question: string;
-  confirmOnly: boolean;
 };

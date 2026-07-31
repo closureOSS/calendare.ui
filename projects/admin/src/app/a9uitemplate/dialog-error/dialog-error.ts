@@ -1,17 +1,24 @@
 import { Component, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
+import { BrnDialogRef, injectBrnDialogContext } from '@spartan-ng/brain/dialog';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
 import { DialogErrorData } from './dialog-error-data';
+import { HlmAlertDialogImports } from '@spartan-ng/helm/alert-dialog';
 
 @Component({
+  selector: 'a9-dialog-error',
   imports: [
-    MatDialogTitle,
-    MatDialogContent,
-    MatButtonModule,
+    HlmButtonGroupImports,
+    HlmButtonImports,
+    HlmAlertDialogImports,
   ],
+  host: {
+    class: 'flex flex-col gap-6',
+  },
   templateUrl: './dialog-error.html',
-  styleUrl: './dialog-error.scss',
 })
 export class DialogError {
-  readonly data = inject<DialogErrorData>(MAT_DIALOG_DATA);
+  protected readonly _dialogRef = inject<BrnDialogRef<boolean>>(BrnDialogRef);
+  private readonly _dialogContext = injectBrnDialogContext<{ data: DialogErrorData }>();
+  protected readonly data = this._dialogContext.data;
 }

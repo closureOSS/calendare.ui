@@ -1,11 +1,5 @@
 import { booleanAttribute, Component, inject, input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { RouterLink } from '@angular/router';
 import { hasPermission } from '../core/has-permissions';
 import { PrivilegeMaskConstant } from '../core/privilege-mask';
@@ -19,33 +13,44 @@ import { HintBox } from '../a9uitemplate/hint-box/hint-box';
 import { ConfirmDialogProvider } from '../a9uitemplate/dialog-confirm/confirm-dialog-provider';
 import { ColorSwatch } from "../widgets/color-swatch/color-swatch";
 import { HttpResourceViewer } from '../a9uitemplate/http-resource-viewer/http-resource-viewer';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { matCalendarTodayFillOutline, matContactsFillOutline, matFolderFillOutline, matLibraryBooksFillOutline } from '@ng-icons/material-symbols/outline';
+import { A9LabelValueListImports } from '../a9uitemplate/label-value-list';
 
 @Component({
   selector: 'cal-view-collections',
   imports: [
     DatePipe,
     RouterLink,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
-    MatExpansionModule,
+    HlmButtonImports,
+    HlmButtonGroupImports,
+    HlmCardImports,
+    A9LabelValueListImports,
+    NgIcon,
     ListPermissions,
     HintBox,
     HttpResourceViewer,
     TranslocoDirective,
     ColorSwatch
   ],
+  providers: [
+    provideIcons({
+      matCalendarTodayFillOutline,
+      matContactsFillOutline,
+      matFolderFillOutline,
+      matLibraryBooksFillOutline,
+    })
+  ],
   templateUrl: './view-collections.html',
-  styleUrl: './view-collections.scss',
-
 })
 export class ViewCollections {
   public username = input.required<string>();
   public principalType = input<PrincipalType | null>();
   public filterType = input<CollectionType | null>(null);
   public filterTechnical = input<boolean>(true, { transform: booleanAttribute });
-  readonly dialog = inject(MatDialog);
   private readonly confirmDialog = inject(ConfirmDialogProvider);
   readonly PrivilegeMask = PrivilegeMaskConstant;
   private readonly transloco = inject(TranslocoService);
@@ -92,15 +97,15 @@ export class ViewCollections {
 
   public svgCardIcon(collectionType: CollectionType | undefined, collectionSubType: CollectionSubType | undefined): string {
     switch (collectionType) {
-      case CollectionType.Calendar: return 'calendar_today#avatar';
-      case CollectionType.Addressbook: return 'contacts#avatar';
+      case CollectionType.Calendar: return 'matCalendarTodayFillOutline';
+      case CollectionType.Addressbook: return 'matContactsFillOutline';
       case CollectionType.Collection: {
         switch (collectionSubType) {
           case CollectionSubType.Default:
-            return 'folder#avatar';
+            return 'matFolderFillOutline';
 
           default:
-            return 'library_books#avatar';
+            return 'matLibraryBooksFillOutline';
         }
       }
     }

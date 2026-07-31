@@ -1,44 +1,47 @@
-import { Component, ElementRef, inject, input, linkedSignal, viewChild } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatInputModule } from '@angular/material/input';
+import { Component, inject, input, linkedSignal } from '@angular/core';
 import { form, FormField, FormRoot } from '@angular/forms/signals';
 import { EditCollectionFormData } from './edit-collection-form.interface';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CalendareResource } from '../../api/resources';
 import { CalendareService } from '../../api/services';
 import { firstValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ActionBar } from '../a9uitemplate/action-bar/action-bar';
 import { LocationStrategy } from '@angular/common';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
-import { MatCardModule } from '@angular/material/card';
-import { HintBox } from '../a9uitemplate/hint-box/hint-box';
 import { ConfirmDialogProvider } from '../a9uitemplate/dialog-confirm/confirm-dialog-provider';
 import { CollectionAmendRequest, CollectionResponse } from '../../api';
 import { emptyToNullString, nullToEmptyString, nullToFalse } from '../../api/utils/form-helpers';
+import { FormError } from '../a9uitemplate/form-error/form-error';
+import { FieldError } from '../a9uitemplate/field-error/field-error';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
+import { HlmInputImports } from '@spartan-ng/helm/input';
+import { HlmSelectImports } from '@spartan-ng/helm/select';
+import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
+import { HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
+import { InputTimezone } from "../a9uitemplate/input-timezone/input-timezone";
 
 @Component({
   selector: 'cal-edit-collection',
   imports: [
-    MatButtonModule,
-    MatIconModule,
     FormField,
     FormRoot,
-    MatFormFieldModule,
-    MatCheckboxModule,
-    MatInputModule,
-    MatCardModule,
-    MatAutocompleteModule,
-    HintBox,
-    ActionBar,
+    HlmCardImports,
+    HlmButtonGroupImports,
+    HlmButtonImports,
+    HlmInputImports,
+    HlmFieldImports,
+    HlmSelectImports,
+    HlmTextareaImports,
+    HlmCheckboxImports,
+    InputTimezone,
+    FormError,
+    FieldError,
     TranslocoDirective,
-  ],
+    InputTimezone
+],
   templateUrl: './edit-collection.html',
-  styleUrl: './edit-collection.scss',
-
 })
 export class EditCollection {
   public username = input.required<string>();
@@ -73,7 +76,11 @@ export class EditCollection {
             return { kind: 'serverError', message: this.transloco.translate('Saving changes failed (reason unknown)') };
           }
         }
-      }
+      },
+      onInvalid: (field) => {
+        const firstError = field().errorSummary()[0];
+        firstError?.fieldTree().focusBoundControl();
+      },
     }
   });
 
@@ -90,13 +97,6 @@ export class EditCollection {
 
   public refresh() {
     this.collection.reload();
-  }
-
-  public filteredOptions: string[] = [];
-  public timezoneInput = viewChild.required<ElementRef>('timezoneinput');
-  filterTimezones(): void {
-    const filterValue = this.timezoneInput()?.nativeElement?.value?.toLowerCase();
-    this.filteredOptions = filterValue ? Intl.supportedValuesOf('timeZone').filter(o => o?.toLowerCase().includes(filterValue)) : Intl.supportedValuesOf('timeZone');
   }
 
   protected toFormModel(collection: CollectionResponse | null | undefined): EditCollectionFormData {

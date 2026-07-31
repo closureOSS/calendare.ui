@@ -1,8 +1,4 @@
 import { booleanAttribute, Component, computed, inject, input } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
 import { ListPrivileges } from '../widgets/list-privileges/list-privileges';
 import { CalendareResource } from '../../api/resources';
 import { PrivilegeGroupResponse } from '../../api/models';
@@ -12,20 +8,16 @@ import { firstValueFrom } from 'rxjs';
 import { ConfirmDialogProvider } from '../a9uitemplate/dialog-confirm/confirm-dialog-provider';
 import { TranslocoService } from '@jsverse/transloco';
 import { HttpResourceViewer } from '../a9uitemplate/http-resource-viewer/http-resource-viewer';
+import { HlmCardImports } from '@spartan-ng/helm/card';
 
 @Component({
   selector: 'cal-view-privileges-from',
   imports: [
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
+    HlmCardImports,
     HttpResourceViewer,
     ListPrivileges,
   ],
   templateUrl: './view-privileges-from.html',
-  styleUrl: './view-privileges-from.scss',
-
 })
 export class ViewPrivilegesFrom {
   public username = input.required<string>();
@@ -47,7 +39,7 @@ export class ViewPrivilegesFrom {
     this.privileges.reload();
   }
 
-  private readonly transloco=inject(TranslocoService);
+  private readonly transloco = inject(TranslocoService);
   public async refuse(priv: PrivilegeGroupResponse) {
     console.log('Refuse privilege received from %o', priv);
     if (!this.editable()) {
@@ -62,7 +54,7 @@ export class ViewPrivilegesFrom {
     }
     const answer = await this.confirmDialog.ask({
       title: this.transloco.translate('Refuse granted privilege'),
-      intro: this.transloco.translate(`Access to the *resource will no longer be possible.`, {resource: x.displayname}),
+      intro: this.transloco.translate(`Access to the *resource will no longer be possible.`, { resource: x.displayname }),
       question: this.transloco.translate('Are you sure?')
     });
     if (answer !== true) {

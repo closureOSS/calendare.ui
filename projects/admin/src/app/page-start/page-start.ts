@@ -1,31 +1,35 @@
 import { Component } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
 import { TranslocoDirective } from '@jsverse/transloco';
-import { HintBox } from '../a9uitemplate/hint-box/hint-box';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ActionBar } from '../a9uitemplate/action-bar/action-bar';
-import { MatButtonModule } from '@angular/material/button';
-import { LanguageSwitcher } from '../a9uitemplate/language-switcher/language-switcher';
-import { ThemeSwitcher } from '../a9uitemplate/theme-switcher/theme-switcher';
+import { provideIcons } from '@ng-icons/core';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { lucideLoaderPinwheel } from '@ng-icons/lucide';
+import { hlmH1, hlmH2, hlmH3, hlmH4, hlmMuted, hlmP } from '@spartan-ng/helm/typography';
+import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 
 @Component({
   selector: 'cal-page-start',
   imports: [
-    MatCardModule,
-    MatIconModule,
-    MatButtonModule,
-    HintBox,
-    ActionBar,
-    LanguageSwitcher,
-    ThemeSwitcher,
-    MatProgressSpinnerModule,
+    HlmButtonGroupImports,
+    HlmButtonImports,
+    HlmSpinnerImports,
     TranslocoDirective,
   ],
+  providers: [
+    provideIcons({
+      lucideLoaderPinwheel,
+    }),
+  ],
   templateUrl: './page-start.html',
-  styleUrl: './page-start.scss',
 })
 export class PageStart {
+  hlmH1 = hlmH1;
+  hlmH2 = hlmH2;
+  hlmH3 = hlmH3;
+  hlmH4 = hlmH4;
+  hlmP = hlmP;
+  hlmCite = hlmMuted;
+
   constructor() {
     console.log('OIDC flow callback ...');
   }

@@ -1,26 +1,27 @@
 import { Component, computed, input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
+import { NgIcon } from '@ng-icons/core';
+import { matGroupFillOutline, matMeetingRoomFillOutline, matPerson2FillOutline, matQuestionMarkFillOutline, matSpeakerFillOutline } from '@ng-icons/material-symbols/outline';
 
 @Component({
   selector: 'cal-icon-principal-type',
   imports: [
-    MatIconModule,
+    NgIcon,
   ],
   templateUrl: './icon-principal-type.html',
-  styleUrl: './icon-principal-type.scss',
-
 })
 export class IconPrincipalType {
   readonly type = input.required<string | null | undefined>();
+  size = input<string>('1.25rem');
+  readonly iconSvg = computed(() => principalIcon(this.type()));
+}
 
-  readonly iconName = computed(() => {
-    switch (this.type()) {
-      case 'INDIVIDUAL': return 'person#ptype';
-      case 'ROOM': return 'meeting_room#ptype';
-      case 'RESOURCE': return 'speaker#ptype';
-      case 'GROUP': return 'group#ptype';
-      default:
-        return 'question_mark';
-    }
-  });
+export function principalIcon(type: string | null | undefined) {
+  switch (type) {
+    case 'INDIVIDUAL': return matPerson2FillOutline;
+    case 'ROOM': return matMeetingRoomFillOutline;
+    case 'RESOURCE': return matSpeakerFillOutline;
+    case 'GROUP': return matGroupFillOutline;
+    default:
+      return matQuestionMarkFillOutline;
+  }
 }

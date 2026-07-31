@@ -6,24 +6,30 @@ import { CalendareResource } from '../../api/resources';
 import { CollectionType, PrivilegeMask } from '../../api/models';
 import { PrivilegeMaskConstant } from '../core/privilege-mask';
 import { hasPermission } from '../core/has-permissions';
-import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
 import { FloatingActionBar } from '../a9uitemplate/floating-action-bar/floating-action-bar';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { matCalendarAddOnOutline } from '@ng-icons/material-symbols/outline';
+import { SiteTitle } from "../a9uitemplate/site-title/site-title";
 
 @Component({
   selector: 'cal-page-my-calendars',
   imports: [
-    MatButtonModule,
-    MatIconModule,
     RouterLink,
     ViewCollections,
     FloatingActionBar,
-    TranslocoDirective
+    HlmButtonImports,
+    NgIcon,
+    SiteTitle,
+    TranslocoDirective,
+  ],
+  providers: [
+    provideIcons({
+      matCalendarAddOnOutline,
+    })
   ],
   templateUrl: './page-my-calendars.html',
-  styleUrl: './page-my-calendars.scss',
-
 })
 export class PageMyCalendars {
   private readonly currentUserInfo = inject(CurrentUserInfoJwt);

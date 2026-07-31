@@ -1,53 +1,52 @@
-import { Component, inject, input, linkedSignal, signal } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
+import { Component, inject, input, linkedSignal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { HttpStatusCode } from '@angular/common/http';
-import { ActionBar } from '../a9uitemplate/action-bar/action-bar';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 import { LocationStrategy } from '@angular/common';
 import { CalendareService } from '../../api/services';
 import { NavigateBackButton } from '../a9uitemplate/navigate-back-button/navigate-back-button';
-import { MatCardModule } from '@angular/material/card';
-import { HintBox } from '../a9uitemplate/hint-box/hint-box';
 import { ConfirmDialogProvider } from '../a9uitemplate/dialog-confirm/confirm-dialog-provider';
-import { MatIconModule } from '@angular/material/icon';
-import { disabled, email, form, FormField, FormRoot, maxLength, minLength, pattern, required, validate } from '@angular/forms/signals';
+import { disabled, form, FormField, FormRoot, required, validate } from '@angular/forms/signals';
 import { UserCredentialCreateRequest, UserCredentialCreateTemplate } from '../../api/models';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogCredentialCreated } from '../dialog-credential-created/dialog-credential-created';
 import { httpErrorToProblemDetails } from '../core/http-error-helper';
 import { CreateCredentialPwdFormData } from './create-credential-pwd-form.interface';
-import { FormSignalError } from '../a9uitemplate/form-signal-error';
 import { passwordConfig, usernameConfig } from '../widgets/form-username-config';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
+import { HlmInputImports } from '@spartan-ng/helm/input';
+import { HlmLabelImports } from '@spartan-ng/helm/label';
+import { FieldError } from "../a9uitemplate/field-error/field-error";
+import { FormError } from "../a9uitemplate/form-error/form-error";
+import { CredentialDialogProvider } from '../dialog-credential-created/credential-dialog-provider';
 
 @Component({
   selector: 'cal-create-credential-pwd',
   imports: [
-    MatButtonModule,
     FormField,
     FormRoot,
-    MatCardModule,
-    MatFormFieldModule,
-    FormSignalError,
-    MatIconModule,
-    MatSelectModule,
-    MatInputModule,
+    HlmCardImports,
+    HlmButtonGroupImports,
+    HlmButtonImports,
+    HlmLabelImports,
+    HlmFieldImports,
+    HlmInputImports,
+    FieldError,
+    FormError,
     NavigateBackButton,
-    HintBox,
-    ActionBar,
-    TranslocoDirective
+    TranslocoDirective,
+  ],
+  providers: [
+    CredentialDialogProvider,
   ],
   templateUrl: './create-credential-pwd.html',
-  styleUrl: './create-credential-pwd.scss',
 })
 export class CreateCredentialPwd {
   public username = input.required<string>();
   public accesskey = input<string>('');
   transloco = inject(TranslocoService);
-  readonly dialog = inject(MatDialog);
+  readonly dialog = inject(CredentialDialogProvider);
 
   private readonly client = inject(CalendareService);
   protected readonly formModel = linkedSignal(() => ({
@@ -87,15 +86,7 @@ export class CreateCredentialPwd {
               description: field.description().value(),
             };
             const credential = await firstValueFrom(this.client.createCredential(this.username(), request));
-            const ref = this.dialog.open(DialogCredentialCreated, {
-              data: {
-                credential: credential,
-                template: UserCredentialCreateTemplate.Generic,
-              },
-              width: '90%',
-              maxWidth: '980px'
-            });
-            const _answer = await firstValueFrom(ref.afterClosed());
+            const ref = await this.dialog.show(credential, UserCredentialCreateTemplate.Generic);
             field().reset();
             this.back();
             return;

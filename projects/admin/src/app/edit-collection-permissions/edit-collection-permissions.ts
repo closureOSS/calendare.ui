@@ -1,10 +1,4 @@
 import { Component, computed, inject, input, linkedSignal } from '@angular/core';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { EditPermissions } from '../widgets/edit-permissions/edit-permissions';
 import { PrivilegeMaskConstant } from '../core/privilege-mask';
 import { CollectionSubType, PermissionRequest, PrivilegeMask } from '../../api/models';
@@ -12,29 +6,33 @@ import { CalendareService } from '../../api/services';
 import { CalendareResource } from '../../api/resources';
 import { HttpErrorResponse } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { ActionBar } from '../a9uitemplate/action-bar/action-bar';
 import { LocationStrategy } from '@angular/common';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 import { NavigateBackButton } from '../a9uitemplate/navigate-back-button/navigate-back-button';
 import { ConfirmDialogProvider } from '../a9uitemplate/dialog-confirm/confirm-dialog-provider';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { matRestartAltOutline } from '@ng-icons/material-symbols/outline';
+import { HlmCardImports } from '@spartan-ng/helm/card';
 
 @Component({
   selector: 'cal-edit-collection-permissions',
   imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatCheckboxModule,
-    MatInputModule,
-    MatAutocompleteModule,
     NavigateBackButton,
     EditPermissions,
-    ActionBar,
+    HlmButtonGroupImports,
+    HlmButtonImports,
+    HlmCardImports,
+    NgIcon,
     TranslocoDirective,
   ],
+  providers: [
+    provideIcons({
+      matRestartAltOutline,
+    }),
+  ],
   templateUrl: './edit-collection-permissions.html',
-  styleUrl: './edit-collection-permissions.scss',
-
 })
 export class EditCollectionPermissions {
   public username = input.required<string>();

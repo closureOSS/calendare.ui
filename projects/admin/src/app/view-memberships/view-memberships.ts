@@ -1,30 +1,29 @@
 import { Component, computed, inject, input } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { PrincipalRef } from '../widgets/principal-ref/principal-ref';
 import { CalendareResource } from '../../api/resources';
 import { MembershipDirection } from '../../api';
 import { TranslocoDirective } from '@jsverse/transloco';
-import { MatCardModule } from '@angular/material/card';
 import { HintBox } from "../a9uitemplate/hint-box/hint-box";
 import { HttpResourceViewer } from '../a9uitemplate/http-resource-viewer/http-resource-viewer';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmItemImports } from '@spartan-ng/helm/item';
+import { IconPrincipalType } from '../widgets/icon-principal-type/icon-principal-type';
 
 @Component({
   selector: 'cal-view-memberships',
   imports: [
-    MatButtonModule,
-    MatCardModule,
+    HlmCardImports,
+    HlmItemImports,
     RouterLink,
     HttpResourceViewer,
-    PrincipalRef,
+    IconPrincipalType,
     TranslocoDirective,
     HintBox
-],
+  ],
   templateUrl: './view-memberships.html',
-  styleUrl: './view-memberships.scss',
-
 })
 export class ViewMemberships {
+  protected hlmGroup = `font-bold text-sm text-primary py-4`;
   public username = input.required<string>();
   private readonly calendareResource = inject(CalendareResource);
 

@@ -1,0 +1,13 @@
+<hlm-autocomplete [(search)]="search" (valueChange)="updateValue($event)" (searchChange)="touch.emit()" [disabled]="disabled()" autoHighlight="true">
+  <hlm-autocomplete-input [inputId]="inputId()" [placeholder]="placeholder() ?? ''" />
+  <hlm-autocomplete-content *hlmAutocompletePortal>
+    @if(empty()){
+    <hlm-autocomplete-empty>{{ empty() }}</hlm-autocomplete-empty>
+    }
+    <div hlmAutocompleteList>
+      @for (tz of filteredOptions(); track tz) {
+      <hlm-autocomplete-item [value]="tz">{{ tz }}</hlm-autocomplete-item>
+      }
+    </div>
+  </hlm-autocomplete-content>
+</hlm-autocomplete>

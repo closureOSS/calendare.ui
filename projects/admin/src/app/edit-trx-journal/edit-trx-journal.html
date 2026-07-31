@@ -1,10 +1,9 @@
-<mat-card *transloco="let t">
-  <mat-card-header>
-    <mat-card-title>{{ t('Transaction journal') }}</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-  </mat-card-content>
-  <mat-card-actions>
-    <button matButton (click)="deleteJournal()">{{ t('Delete') }}</button>
-  </mat-card-actions>
-</mat-card>
+<hlm-item variant="outline" class="max-w-2xl" *transloco="let t">
+  <hlm-item-content>
+    <hlm-item-title>{{ t('Transaction journal') }}</hlm-item-title>
+    <p hlmItemDescription>{{ t('Remove all entries in the transaction journal. Tracing or debugging of past events will no longer be possible.') }}</p>
+  </hlm-item-content>
+  <hlm-item-actions>
+    <button hlmBtn variant="destructive" (click)="deleteJournal()" size="sm">{{ t('Delete') }}</button>
+  </hlm-item-actions>
+</hlm-item>

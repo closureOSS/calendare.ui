@@ -1,37 +1,40 @@
-import { booleanAttribute, Component, ElementRef, inject, input, linkedSignal, model, output, viewChild } from '@angular/core';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
+import { booleanAttribute, Component, computed, inject, input, linkedSignal, model, output } from '@angular/core';
 import { PrincipalCreateFormData } from './principal-create-form.interface';
-import { ActionBar } from '../a9uitemplate/action-bar/action-bar';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 import { HintBox } from '../a9uitemplate/hint-box/hint-box';
-import { email, form, FormField, FormRoot, maxLength, minLength, pattern, readonly, required } from '@angular/forms/signals';
-import { FormSignalError } from '../a9uitemplate/form-signal-error';
+import { email, form, FormField, FormRoot, readonly, required } from '@angular/forms/signals';
 import { usernameConfig } from '../widgets/form-username-config';
+import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
+import { HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
+import { HlmInputImports } from '@spartan-ng/helm/input';
+import { HlmSelectImports } from '@spartan-ng/helm/select';
+import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
+import { FieldError } from '../a9uitemplate/field-error/field-error';
+import { FormError } from '../a9uitemplate/form-error/form-error';
+import { InputTimezone } from '../a9uitemplate/input-timezone/input-timezone';
 
 @Component({
   selector: 'cal-form-principal-create',
   imports: [
-    MatButtonModule,
-    MatIconModule,
     FormField,
     FormRoot,
-    MatFormFieldModule,
-    FormSignalError,
-    MatCheckboxModule,
-    MatInputModule,
-    MatAutocompleteModule,
+    HlmButtonGroupImports,
+    HlmButtonImports,
+    HlmInputImports,
+    HlmFieldImports,
+    HlmSelectImports,
+    HlmTextareaImports,
+    HlmCheckboxImports,
+    InputTimezone,
+    FormError,
+    FieldError,
     HintBox,
-    ActionBar,
     TranslocoDirective,
   ],
   templateUrl: './form-principal-create.html',
-  styleUrl: './form-principal-create.scss',
-
 })
 export class FormPrincipalCreate {
   public readonly readonlyEmail = input(false, { transform: booleanAttribute });
@@ -76,10 +79,12 @@ export class FormPrincipalCreate {
     }
   });
 
-  public filteredOptions: string[] = [];
-  public timezoneInput = viewChild.required<ElementRef>('timezoneinput');
-  filterTimezones(): void {
-    const filterValue = this.timezoneInput()?.nativeElement?.value?.toLowerCase();
-    this.filteredOptions = filterValue ? Intl.supportedValuesOf('timeZone').filter(o => o?.toLowerCase().includes(filterValue)) : Intl.supportedValuesOf('timeZone');
-  }
+  public search = linkedSignal({
+    source: () => this.editForm.timezone().value(),
+    computation: (item) => item ?? '',
+  });
+
+  public readonly filteredOptions = computed(() =>
+    Intl.supportedValuesOf('timeZone').filter((tz) => tz.toLowerCase().includes(this.search().toLowerCase())),
+  );
 }

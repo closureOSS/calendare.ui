@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
+import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
 
 @Component({
   selector: 'a9-floating-action-bar',
-  imports: [],
+  imports: [
+    HlmButtonGroupImports,
+  ],
   host: {
-    'class': 'a9-floating-action-bar'
+    'class': 'sticky bottom-4 right-4 z-10 w-max ml-auto my-4 flex flex-row items-center justify-end gap-4'
   },
   templateUrl: './floating-action-bar.html',
-  styleUrl: './floating-action-bar.scss',
 })
 export class FloatingActionBar {
 
