@@ -1,6 +1,12 @@
 <div class="flex w-full flex-wrap justify-left gap-2" [class]="{'prohibit': prohibit()}">
   @for(perm of permissionList(); track perm) {
-  <div hlmBadge class="min-w-20"
-    [class]="{'rounded-none': perm === 'None', 'rounded-tr-lg': perm === 'All', 'bg-allow': !prohibit(), 'bg-prohibit': prohibit(), 'text-allow-foreground': !prohibit(), 'text-prohibit-foreground': prohibit()}">{{ perm }}</div>
+  <div hlmBadge [class]="{'bg-allow': !prohibit(), 'bg-prohibit': prohibit(), 'text-allow-foreground': !prohibit(), 'text-prohibit-foreground': prohibit()}">
+    @if(perm !== 'None' && perm !== 'All'){
+    <ng-icon [name]="!prohibit() ? 'matKeyFillOutline' : 'matKeyOffFillOutline' " class="mr-0.5" />
+    } @else {
+      <ng-icon name="matAllInclusiveOutline" class="mr-0.5" />
+    }
+    <span class="min-w-16">{{ perm }}</span>
+  </div>
   }
 </div>

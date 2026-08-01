@@ -2,11 +2,24 @@ import { booleanAttribute, Component, computed, input } from '@angular/core';
 import { PrivilegeMaskConstant } from '../../core/privilege-mask';
 import { PrivilegeMask } from '../../../api/models';
 import { HlmBadgeImports } from '@spartan-ng/helm/badge';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideArrowUpRight, lucideLoaderPinwheel } from '@ng-icons/lucide';
+import { matAllInclusiveOutline, matKeyFillOutline, matKeyOffFillOutline, matKeyOffOutline, matKeyOutline } from '@ng-icons/material-symbols/outline';
 
 @Component({
   selector: 'cal-list-permissions',
   imports: [
     HlmBadgeImports,
+    NgIcon,
+  ],
+  providers: [
+    provideIcons({
+      matKeyFillOutline,
+      matKeyOffFillOutline,
+      matKeyOutline,
+      matKeyOffOutline,
+      matAllInclusiveOutline,
+    }),
   ],
   templateUrl: './list-permissions.html',
 })

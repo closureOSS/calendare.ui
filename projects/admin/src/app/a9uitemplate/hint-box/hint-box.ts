@@ -49,7 +49,7 @@ export class HintBox {
   bodyClass = computed(() => {
     switch (this.mode()) {
       case 'error': return 'text-destructive-foreground';
-      case 'warning': return 'text-secondary-foreground';
+      case 'warning': return 'text-secondary';
       case 'info':
       default:
         return '';
