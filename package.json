@@ -65,9 +65,9 @@
   "allowScripts": {
     "msgpackr-extract@3.0.4": true,
     "less@4.5.1": true,
-    "nx@23.1.0": true,
     "esbuild": true,
     "@parcel/watcher": true,
-    "lmdb": true
+    "lmdb": true,
+    "nx": true
   }
 }
