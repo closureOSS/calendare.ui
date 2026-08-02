@@ -1,11 +1,13 @@
-<a9-http-resource-viewer [resource]="collections" class="collections" *transloco="let t" class="grid grid-cols-[minmax(0,min(64rem,100%))] gap-6">
+<a9-http-resource-viewer [resource]="collections" *transloco="let t"
+  class="grid grid-cols-[minmax(0,min(64rem,100%))] gap-6">
   <a9-hint-box ngProjectAs="status-forbidden" mode="warning">{{ t('No permission to see collections.') }}</a9-hint-box>
   <div ngProjectAs="status-notfound"></div>
   @for (collection of filteredCollections(); track collection.id) {
-  <hlm-card [style]="{'--col-color': (collection.color ?? 'transparent')}" [class]="{'default': collection.isDefault}"  class="[--card-spacing:--spacing(4)]">
+  <hlm-card [class]="{'default': collection.isDefault}" class="[--card-spacing:--spacing(4)]">
     <hlm-card-header>
       <div class="flex items-center gap-3 w-full">
-        <ng-icon [name]="svgCardIcon(collection.collectionType, collection.collectionSubType)" size="2.25rem" class="text-primary"></ng-icon>
+        <ng-icon [name]="svgCardIcon(collection.collectionType, collection.collectionSubType)" size="2.25rem"
+          class="text-primary"></ng-icon>
         <div>
           <h3 hlmCardTitle>{{(collection.displayName ?? "&mdash;")}}</h3>
           <p hlmCardDescription>{{ collection.uri }}</p>
@@ -16,7 +18,13 @@
       <a9-label-value-list>
         <a9-label-value-item>
           <label>{{ t('Type') }}</label>
-          {{collection.collectionType}} @if(collection.isTechnical) { <span class="technical">Technical</span>}
+          {{ t(collection.collectionType ?? '') }}
+          <span class="ml-4 inline-flex gap-1">
+            @if(collection.isDefault) { <hlm-badge variant="outline" class="px-4">{{ t('Default collection')
+              }}</hlm-badge>}
+            @if(collection.isTechnical) { <hlm-badge variant="secondary" class="px-4">{{ t('Technical collection')
+              }}</hlm-badge>}
+          </span>
         </a9-label-value-item>
         @if(collection.description) {
         <a9-label-value-item>
@@ -27,7 +35,11 @@
         @if(collection.scheduleTransparency) {
         <a9-label-value-item>
           <label>{{ t('Scheduling') }}</label>
-          {{collection.scheduleTransparency}}
+          @switch(collection.scheduleTransparency) {
+          @case('opaque') { {{ t('Included in Free/Busy')}} }
+          @case('transparent') { {{ t('Excluded from Free/Busy') }} }
+          @default(){ {{ t('Unknown schedule transparency') }} }
+          }
         </a9-label-value-item>
         }
         @if(collection.timezone) {
@@ -46,24 +58,23 @@
         <a9-label-value-item>
           <label>{{ t('Global allow') }}</label>
           <cal-list-permissions [permissions]="collection.globalPermitSelf"
-              [filter]="collectionFilterMask"></cal-list-permissions>
+            [filter]="collectionFilterMask"></cal-list-permissions>
         </a9-label-value-item>
         <a9-label-value-item>
           <label>{{ t('Authorized user prohibited') }}</label>
           <cal-list-permissions [permissions]="collection.authorizedProhibit" [filter]="collectionFilterMask"
-              [prohibit]="true"></cal-list-permissions>
+            [prohibit]="true"></cal-list-permissions>
         </a9-label-value-item>
         <a9-label-value-item>
           <label>{{ t('Owner prohibited') }}</label>
           <cal-list-permissions [permissions]="collection.ownerProhibit" [filter]="collectionFilterMask"
-              [prohibit]="true"></cal-list-permissions>
+            [prohibit]="true"></cal-list-permissions>
         </a9-label-value-item>
         }
         @if(hasPermission(collection.permissions, PrivilegeMask.ReadCurrentUserPrivilegeSet)) {
         <a9-label-value-item>
           <label>{{ t('Permissions') }}</label>
-          <cal-list-permissions [permissions]="collection.permissions"
-              [filter]="userFilterMask"></cal-list-permissions>
+          <cal-list-permissions [permissions]="collection.permissions" [filter]="userFilterMask"></cal-list-permissions>
         </a9-label-value-item>
         }
         <a9-label-value-item>
@@ -75,13 +86,16 @@
     <hlm-card-footer>
       <div hlmButtonGroup>
         <button hlmBtn [disabled]="!hasPermission(collection.permissions, PrivilegeMask.WriteProperties)"
-          [routerLink]="['/collection', 'edit', username()]" [queryParams]="{ uri: collection.uri}" variant="outline">{{ t('Edit')
+          [routerLink]="['/collection', 'edit', username()]" [queryParams]="{ uri: collection.uri}" variant="outline">{{
+          t('Edit')
           }}</button>
         <button hlmBtn [disabled]="!hasPermission(collection.permissions, PrivilegeMask.Share)"
-          [routerLink]="['/principal', 'privileges', username()]" [queryParams]="{ grantorUri: collection.uri}" variant="outline">{{
+          [routerLink]="['/principal', 'privileges', username()]" [queryParams]="{ grantorUri: collection.uri}"
+          variant="outline">{{
           t('Grants') }}</button>
         <button hlmBtn [disabled]="!hasPermission(collection.permissions, PrivilegeMask.WriteAcl)"
-          [routerLink]="['/collection', 'permissions', username()]" [queryParams]="{ uri: collection.uri}" variant="outline">{{
+          [routerLink]="['/collection', 'permissions', username()]" [queryParams]="{ uri: collection.uri}"
+          variant="outline">{{
           t('Permissions') }}</button>
         <button hlmBtn [disabled]="!hasPermission(collection.permissions, PrivilegeMask.Unbind)"
           (click)="deleteCollection(collection)" variant="destructive">{{ t('Delete') }}</button>

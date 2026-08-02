@@ -19,6 +19,7 @@ import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { matCalendarTodayFillOutline, matContactsFillOutline, matFolderFillOutline, matLibraryBooksFillOutline } from '@ng-icons/material-symbols/outline';
 import { A9LabelValueListImports } from '../a9uitemplate/label-value-list';
+import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 
 @Component({
   selector: 'cal-view-collections',
@@ -27,6 +28,7 @@ import { A9LabelValueListImports } from '../a9uitemplate/label-value-list';
     RouterLink,
     HlmButtonImports,
     HlmButtonGroupImports,
+    HlmBadgeImports,
     HlmCardImports,
     A9LabelValueListImports,
     NgIcon,

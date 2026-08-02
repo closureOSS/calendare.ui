@@ -1,5 +1,5 @@
 import { ApplicationConfig, inject, isDevMode, provideAppInitializer, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter, TitleStrategy, withComponentInputBinding, withDebugTracing, withRouterConfig, withViewTransitions } from '@angular/router';
+import { provideRouter, TitleStrategy, withComponentInputBinding, withRouterConfig, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -35,7 +35,7 @@ export function appConfig(config: RuntimeConfig): ApplicationConfig {
         // withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
         withComponentInputBinding(),
         withViewTransitions(),
-        withDebugTracing()
+        // withDebugTracing()
       ),
       provideAuth({
         config: {
@@ -54,9 +54,6 @@ export function appConfig(config: RuntimeConfig): ApplicationConfig {
           // historyCleanupOff: true,
           // ignoreNonceAfterRefresh: true,
           ngswBypass: true,
-          // postLoginRoute: '/starting',
-          // forbiddenRoute: '/goodbye',
-          // unauthorizedRoute: '/goodbye',
         },
       }),
       provideSpartanHlm(),
@@ -80,9 +77,6 @@ export function appConfig(config: RuntimeConfig): ApplicationConfig {
         },
         loader: TranslocoHttpLoader
       }),
-      // provideAppInitializer(() => {
-      //   const _svgIcons = inject(SvgIcons);
-      // }),
       provideAppInitializer(() => {
         const authState = inject(AppAuthState);
         authState.start();
@@ -91,9 +85,6 @@ export function appConfig(config: RuntimeConfig): ApplicationConfig {
         const userSettings = inject(UserSettingProvider);
         userSettings.initialize();
       }),
-      // provideSignalFormsConfig({
-      //   classes: NG_STATUS_CLASSES
-      // }),
     ]
   };
 };
