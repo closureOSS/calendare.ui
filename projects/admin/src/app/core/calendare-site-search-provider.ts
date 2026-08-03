@@ -4,6 +4,7 @@ import { SiteMenuProvider } from "../a9uitemplate/site-menu/site-menu-provider";
 import { CalendareService } from "../../api";
 import { firstValueFrom } from "rxjs";
 import { principalTypeIcon } from "../widgets/icon-principal-type/icon-principal-type";
+import { PrincipalTypes } from "../widgets/label-principal-type/label-principal-type";
 
 @Service()
 export class CalendareSiteSearchProvider extends SiteSearchProvider {
@@ -36,7 +37,7 @@ export class CalendareSiteSearchProvider extends SiteSearchProvider {
   private async searchPrincipals(query: string): Promise<SiteSearchResult[]> {
     const results: SiteSearchResult[] = [];
     try {
-      const hits = await firstValueFrom(this.calendareService.getUserList(['INDIVIDUAL', 'ROOM', 'RESOURCE', 'GROUP'], query, true, false));
+      const hits = await firstValueFrom(this.calendareService.getUserList(PrincipalTypes, query, true, false));
       // console.log('Principal (%s) -> %o', query, hits);
       if (hits && hits.length !== 0) {
         for (const principal of hits) {
@@ -51,7 +52,7 @@ export class CalendareSiteSearchProvider extends SiteSearchProvider {
       }
     }
     catch {
-// TODO
+      // TODO
     }
     return results;
   }

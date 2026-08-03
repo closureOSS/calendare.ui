@@ -25,3 +25,5 @@ export function principalTypeLabel(type: string | null | undefined) {
       return 'Unknown principal type';
   }
 }
+
+export const PrincipalTypes = ['INDIVIDUAL', 'GROUP', 'ROOM', 'RESOURCE'];

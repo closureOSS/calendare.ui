@@ -7,6 +7,8 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { matGroupFillOutline, matIdCardFillOutline, matMeetingRoomFillOutline, matPerson2FillOutline, matPersonAddOutline, matSpeakerFillOutline } from '@ng-icons/material-symbols/outline';
+import { LabelPrincipalType, PrincipalTypes } from '../widgets/label-principal-type/label-principal-type';
+import { IconPrincipalType, principalTypeIcon } from '../widgets/icon-principal-type/icon-principal-type';
 
 @Component({
   selector: 'cal-create-principal-button',
@@ -14,6 +16,8 @@ import { matGroupFillOutline, matIdCardFillOutline, matMeetingRoomFillOutline, m
     NgIcon,
     HlmDropdownMenuImports,
     HlmButtonImports,
+    LabelPrincipalType,
+    IconPrincipalType,
     RouterLink,
     TranslocoDirective,
   ],
@@ -27,6 +31,7 @@ import { matGroupFillOutline, matIdCardFillOutline, matMeetingRoomFillOutline, m
   templateUrl: './create-principal-button.html',
 })
 export class CreatePrincipalButton {
+  protected PrincipalTypes = PrincipalTypes;
   public permissions = input.required<PermissionResponse | undefined>();
   public canCreatePrincipal(permissions: PermissionResponse | undefined) {
     if (!permissions || !permissions.administration) return false;

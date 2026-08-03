@@ -1,27 +1,18 @@
 <ng-container *transloco="let t">
-  <button hlmBtn variant="secondary" [hlmDropdownMenuTrigger]="menuPrincipals" [disabled]="!canCreatePrincipal(permissions())">
+  <button hlmBtn variant="secondary" [hlmDropdownMenuTrigger]="menuPrincipals"
+    [disabled]="!canCreatePrincipal(permissions())">
     <ng-icon name="matPersonAddOutline" data-icon="inline-start" />
     {{ t('Principal') }}
   </button>
 
   <ng-template #menuPrincipals>
     <hlm-dropdown-menu>
-      <button hlmDropdownMenuItem routerLink="/principal/new/INDIVIDUAL">
-        <ng-icon name="matPerson2FillOutline"></ng-icon>
-        <span>{{ t('Person') }}</span>
+      @for(ptype of PrincipalTypes; track $index) {
+      <button hlmDropdownMenuItem [routerLink]="['/','principal','new',ptype]">
+        <cal-icon-principal-type [type]="ptype" />
+        <cal-label-principal-type [type]="ptype" />
       </button>
-      <button hlmDropdownMenuItem routerLink="/principal/new/GROUP">
-        <ng-icon name="matGroupFillOutline"></ng-icon>
-        <span>{{ t('Group') }}</span>
-      </button>
-      <button hlmDropdownMenuItem routerLink="/principal/new/ROOM">
-        <ng-icon name="matMeetingRoomFillOutline"></ng-icon>
-        <span>{{ t('Room') }}</span>
-      </button>
-      <button hlmDropdownMenuItem routerLink="/principal/new/RESOURCE">
-        <ng-icon name="matSpeakerFillOutline"></ng-icon>
-        <span>{{ t('Resource') }}</span>
-      </button>
+      }
     </hlm-dropdown-menu>
   </ng-template>
 </ng-container>
