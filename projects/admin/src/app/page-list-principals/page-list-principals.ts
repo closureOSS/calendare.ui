@@ -13,7 +13,7 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmInputImports } from '@spartan-ng/helm/input';
-import { matFilterAltFillOutline, matFilterAltOffFillOutline, matFilterListOutline, matGroupFillOutline, matMeetingRoomFillOutline, matPerson2FillOutline, matSearchOutline, matSpeakerFillOutline } from '@ng-icons/material-symbols/outline';
+import { matFilterAltFillOutline, matFilterAltOffFillOutline, matSearchOutline } from '@ng-icons/material-symbols/outline';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
 import { HlmItemImports } from '@spartan-ng/helm/item';
@@ -48,9 +48,7 @@ export interface PrincipalSearchForm {
   ],
   providers: [
     provideIcons({
-      matPerson2FillOutline, matMeetingRoomFillOutline,
-      matSpeakerFillOutline, matGroupFillOutline,
-      matSearchOutline, matFilterListOutline,
+      matSearchOutline,
       matFilterAltFillOutline, matFilterAltOffFillOutline,
     }),
   ],

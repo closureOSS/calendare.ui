@@ -12,24 +12,25 @@
     <hlm-toggle-group type="multiple" variant="emphasis" spacing="0.5" [formField]="searchForm.filterByType"
       class="ms-2">
       <button hlmToggleGroupItem value="INDIVIDUAL">
-        <ng-icon name="matPerson2FillOutline" />
+        <cal-icon-principal-type type="INDIVIDUAL" />
         {{ t('Person') }}
       </button>
       <button hlmToggleGroupItem value="ROOM">
-        <ng-icon name="matMeetingRoomFillOutline" />
+        <cal-icon-principal-type type="ROOM" />
         {{ t('Room') }}
       </button>
       <button hlmToggleGroupItem value="RESOURCE">
-        <ng-icon name="matSpeakerFillOutline" />
+        <cal-icon-principal-type type="RESOURCE" />
         {{ t('Resource') }}
       </button>
       <button hlmToggleGroupItem value="GROUP">
-        <ng-icon name="matGroupFillOutline" />
+        <cal-icon-principal-type type="GROUP" />
         {{ t('Group') }}
       </button>
     </hlm-toggle-group>
     <hlm-button-group-separator class="ms-2" />
-    <button hlmBtn [variant]="searchForm().dirty() ? 'destructive' : 'ghost'" size="icon" class="ms-2" (click)="refresh()">
+    <button hlmBtn [variant]="searchForm().dirty() ? 'destructive' : 'ghost'" size="icon" class="ms-2"
+      (click)="refresh()">
       <ng-icon [name]="searchForm().dirty() ? 'matFilterAltOffFillOutline' : 'matFilterAltFillOutline'" />
     </button>
   </hlm-button-group>
@@ -58,7 +59,7 @@
 
             <tr hlmTableRow>
               <td hlmTableCell>
-                <a hlmBtn variant="link" [routerLink]="['/principal', 'show', principal.username]" class="text-primary">
+                <a hlmBtn variant="link" [routerLink]="['/principal', 'show', principal.username]" class="text-primary p-0">
                   {{ principal.username }}
                 </a>
               </td>
