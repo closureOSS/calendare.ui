@@ -19,6 +19,7 @@ import { HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
 import { HlmItemImports } from '@spartan-ng/helm/item';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import { debounce, form, FormField } from '@angular/forms/signals';
+import { LabelPrincipalType } from '../widgets/label-principal-type/label-principal-type';
 
 export interface PrincipalSearchForm {
   searchterm: string;
@@ -32,6 +33,7 @@ export interface PrincipalSearchForm {
     HttpResourceViewer,
     CreatePrincipalButton,
     IconPrincipalType,
+    LabelPrincipalType,
     FloatingActionBar,
     HintBox,
     TranslocoDirective,
@@ -71,10 +73,10 @@ export class PageListPrincipals {
     this.searchForm().reset(this.emptySearchForm());
   }
 
-  private emptySearchForm() {
+  protected emptySearchForm() {
     return {
       searchterm: '',
-      filterByType: ['INDIVIDUAL', 'ROOM', 'RESOURCE', 'GROUP']
+      filterByType: ['INDIVIDUAL', 'ROOM', 'RESOURCE', 'GROUP'],
     }
   }
 }

@@ -3,7 +3,7 @@ import { SiteSearchProvider, SiteSearchResult } from "../a9uitemplate/site-searc
 import { SiteMenuProvider } from "../a9uitemplate/site-menu/site-menu-provider";
 import { CalendareService } from "../../api";
 import { firstValueFrom } from "rxjs";
-import { principalIcon } from "../widgets/icon-principal-type/icon-principal-type";
+import { principalTypeIcon } from "../widgets/icon-principal-type/icon-principal-type";
 
 @Service()
 export class CalendareSiteSearchProvider extends SiteSearchProvider {
@@ -44,7 +44,7 @@ export class CalendareSiteSearchProvider extends SiteSearchProvider {
             label: principal.displayName ?? '',
             desc: principal.uri,
             path: ['/', 'principal', 'show', principal.username ?? ''],
-            icon: principalIcon(principal.principalType?.label),
+            icon: principalTypeIcon(principal.principalType?.label),
           });
         }
 

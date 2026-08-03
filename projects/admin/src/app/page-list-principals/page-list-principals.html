@@ -11,22 +11,12 @@
     </hlm-field>
     <hlm-toggle-group type="multiple" variant="emphasis" spacing="0.5" [formField]="searchForm.filterByType"
       class="ms-2">
-      <button hlmToggleGroupItem value="INDIVIDUAL">
-        <cal-icon-principal-type type="INDIVIDUAL" />
-        {{ t('Person') }}
+      @for(ptype of emptySearchForm().filterByType; track $index) {
+      <button hlmToggleGroupItem [value]="ptype">
+        <cal-icon-principal-type [type]="ptype" />
+        <cal-label-principal-type [type]="ptype" />
       </button>
-      <button hlmToggleGroupItem value="ROOM">
-        <cal-icon-principal-type type="ROOM" />
-        {{ t('Room') }}
-      </button>
-      <button hlmToggleGroupItem value="RESOURCE">
-        <cal-icon-principal-type type="RESOURCE" />
-        {{ t('Resource') }}
-      </button>
-      <button hlmToggleGroupItem value="GROUP">
-        <cal-icon-principal-type type="GROUP" />
-        {{ t('Group') }}
-      </button>
+      }
     </hlm-toggle-group>
     <hlm-button-group-separator class="ms-2" />
     <button hlmBtn [variant]="searchForm().dirty() ? 'destructive' : 'ghost'" size="icon" class="ms-2"
@@ -59,7 +49,8 @@
 
             <tr hlmTableRow>
               <td hlmTableCell>
-                <a hlmBtn variant="link" [routerLink]="['/principal', 'show', principal.username]" class="text-primary p-0">
+                <a hlmBtn variant="link" [routerLink]="['/principal', 'show', principal.username]"
+                  class="text-primary p-0">
                   {{ principal.username }}
                 </a>
               </td>

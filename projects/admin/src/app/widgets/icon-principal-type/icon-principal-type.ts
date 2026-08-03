@@ -12,10 +12,10 @@ import { matGroupFillOutline, matMeetingRoomFillOutline, matPerson2FillOutline, 
 export class IconPrincipalType {
   readonly type = input.required<string | null | undefined>();
   size = input<string>('1.25rem');
-  readonly iconSvg = computed(() => principalIcon(this.type()));
+  readonly iconSvg = computed(() => principalTypeIcon(this.type()));
 }
 
-export function principalIcon(type: string | null | undefined) {
+export function principalTypeIcon(type: string | null | undefined) {
   switch (type) {
     case 'INDIVIDUAL': return matPerson2FillOutline;
     case 'ROOM': return matMeetingRoomFillOutline;
