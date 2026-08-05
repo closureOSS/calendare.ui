@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './label-value-item.html',
   host: {
-    'class': 'items-baseline grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4',
+    'class': 'items-baseline grid grid-cols-1 @sm:grid-cols-[clamp(6rem,33.333%,12rem)_1fr] gap-1 @sm:gap-4',
   },
 })
 export class LabelValueItem { }
