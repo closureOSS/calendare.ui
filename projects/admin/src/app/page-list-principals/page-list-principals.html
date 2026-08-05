@@ -1,31 +1,28 @@
-<article *transloco="let t" class="relative @container">
-  <div class="border-sidebar bg-sidebar-accent w-[100cqw] -mt-2 p-2 overflow-x-auto sticky top-2 z-2 shadow-sm">
-    <hlm-button-group>
-      <!-- <h1>{{ t('Principals') }}</h1> -->
-      <hlm-field orientation="horizontal">
-        <hlm-input-group title="">
-          <input type="search" hlmInputGroupInput [formField]="searchForm.searchterm" />
-          <div hlmInputGroupAddon align="inline-start">
-            <ng-icon name="matSearchOutline" />
-          </div>
-        </hlm-input-group>
-      </hlm-field>
-      <hlm-toggle-group type="multiple" variant="emphasis" spacing="0.5" [formField]="searchForm.filterByType"
-        class="ms-2">
-        @for(ptype of emptySearchForm().filterByType; track $index) {
-        <button hlmToggleGroupItem [value]="ptype">
-          <cal-icon-principal-type [type]="ptype" />
-          <cal-label-principal-type [type]="ptype" class="hidden @lg:inline" />
-        </button>
-        }
-      </hlm-toggle-group>
-      <hlm-button-group-separator class="ms-2" />
-      <button hlmBtn [variant]="searchForm().dirty() ? 'destructive' : 'ghost'" size="icon" class="ms-2"
-        (click)="refresh()">
-        <ng-icon [name]="searchForm().dirty() ? 'matFilterAltOffFillOutline' : 'matFilterAltFillOutline'" />
+<article *transloco="let t" class="@container">
+  <a9-floating-filter-bar>
+    <hlm-field orientation="horizontal">
+      <hlm-input-group title="">
+        <input type="search" hlmInputGroupInput [formField]="searchForm.searchterm" />
+        <div hlmInputGroupAddon align="inline-start">
+          <ng-icon name="matSearchOutline" />
+        </div>
+      </hlm-input-group>
+    </hlm-field>
+    <hlm-toggle-group type="multiple" variant="emphasis" spacing="0.5" [formField]="searchForm.filterByType"
+      class="ms-2">
+      @for(ptype of emptySearchForm().filterByType; track $index) {
+      <button hlmToggleGroupItem [value]="ptype">
+        <cal-icon-principal-type [type]="ptype" />
+        <cal-label-principal-type [type]="ptype" class="hidden @xl:inline" />
       </button>
-    </hlm-button-group>
-  </div>
+      }
+    </hlm-toggle-group>
+    <hlm-button-group-separator class="ms-2" />
+    <button hlmBtn [variant]="searchForm().dirty() ? 'destructive' : 'ghost'" size="icon" class="ms-2"
+      (click)="refresh()">
+      <ng-icon [name]="searchForm().dirty() ? 'matFilterAltOffFillOutline' : 'matFilterAltFillOutline'" />
+    </button>
+  </a9-floating-filter-bar>
 
   <section>
     <a9-http-resource-viewer [resource]="principals">

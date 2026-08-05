@@ -20,6 +20,7 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import { debounce, form, FormField } from '@angular/forms/signals';
 import { LabelPrincipalType, PrincipalTypes } from '../widgets/label-principal-type/label-principal-type';
+import { FloatingFilterBar } from '../a9uitemplate/floating-filter-bar/floating-filter-bar';
 
 export interface PrincipalSearchForm {
   searchterm: string;
@@ -35,6 +36,7 @@ export interface PrincipalSearchForm {
     IconPrincipalType,
     LabelPrincipalType,
     FloatingActionBar,
+    FloatingFilterBar,
     HintBox,
     TranslocoDirective,
     FormField,
