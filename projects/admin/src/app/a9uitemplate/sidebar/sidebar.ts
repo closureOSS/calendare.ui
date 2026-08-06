@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
+import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 import { SiteMenuProvider } from '../site-menu/site-menu-provider';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CurrentUserInfo } from '../current-user-info';
@@ -41,7 +41,15 @@ export class Sidebar {
   private readonly router = inject(Router);
 
   public async logout() {
+    this.hideMobile();
     await this.currentUser.logout();
     await this.router.navigate(['/goodbye']);
+  }
+
+  private sidebarService = inject(HlmSidebarService);
+  hideMobile() {
+    if (this.sidebarService.isMobile()) {
+      this.sidebarService.setOpenMobile(false);
+    }
   }
 }

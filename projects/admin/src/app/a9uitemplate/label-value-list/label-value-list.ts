@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './label-value-list.html',
   host: {
-    'class': 'w-full flex flex-col gap-4 xs:gap-2 @container',
+    'class': 'w-full block @container',
   },
 })
 export class LabelValueList { }

@@ -1,6 +1,7 @@
-<div class="text-muted-foreground text-sm">
-  <ng-content select="label" />
-</div>
-<div class="text-base">
+<dt class="text-muted-foreground text-xs font-bold">
+  <ng-content select="label,a9-label" />
+</dt>
+<dd class="text-base">
+  <ng-content select="a9-value" />
   <ng-content />
-</div>
+</dd>
