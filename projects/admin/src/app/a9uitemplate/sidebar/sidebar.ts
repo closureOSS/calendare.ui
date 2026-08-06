@@ -7,7 +7,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CurrentUserInfo } from '../current-user-info';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { matAccountBoxOutline, matAccountCircleOutline, matLanguageOutline, matLogoutOutline, matMoreVertFillOutline, matMoreVertOutline } from '@ng-icons/material-symbols/outline';
+import { matAccountBoxOutline, matAccountCircleOutline, matLanguageOutline, matLogoutOutline } from '@ng-icons/material-symbols/outline';
 import { LanguageMenu } from '../language-menu/language-menu';
 import { lucideEllipsisVertical } from '@ng-icons/lucide';
 

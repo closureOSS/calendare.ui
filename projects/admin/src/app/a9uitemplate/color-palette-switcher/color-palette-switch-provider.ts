@@ -15,7 +15,7 @@ export class ColorPaletteSwitchProvider {
   constructor() {
     afterRenderEffect({
       write: () => {
-        let mode = this.#colorPalette();
+        const mode = this.#colorPalette();
         if (this.currentPalette !== ColorPalette.Default) {
           this.#renderer.removeClass(this.#document.documentElement, ColorPalette[this.currentPalette].toLowerCase());
         }

@@ -9,12 +9,8 @@ Local = 5
 @switch(status()) {
 @case ('error') {
 }
+@case ('reloading')
 @case ('loading') {
-<hlm-progress class="min-w-full bg-accent h-2 border rounded-none">
-  <hlm-progress-indicator class="bg-primary" />
-</hlm-progress>
-}
-@case ('reloading') {
 <hlm-progress class="min-w-full bg-accent h-2 border rounded-none">
   <hlm-progress-indicator class="bg-primary" />
 </hlm-progress>

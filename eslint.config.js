@@ -1,9 +1,13 @@
 // @ts-check
 const eslint = require('@eslint/js');
+const { defineConfig } = require('eslint/config');
 const tseslint = require('typescript-eslint');
 const angular = require('angular-eslint');
 
-module.exports = tseslint.config(
+module.exports = defineConfig([
+  {
+    ignores: ['projects/admin/ui/**', 'projects/admin/src/api/**'],
+  },
   {
     files: ['**/*.ts'],
     extends: [
@@ -33,8 +37,7 @@ module.exports = tseslint.config(
   },
   {
     files: ['**/*.html'],
-    extends: [angular.configs.templateRecommended, angular.configs.templateAccessibility,
-    ],
+    extends: [angular.configs.templateRecommended, angular.configs.templateAccessibility],
     rules: {},
-  }
-);
+  },
+]);

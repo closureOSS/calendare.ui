@@ -48,7 +48,7 @@ export class SiteMenuProvider {
         menuItems.push(item);
       }
       if (route.children) {
-        let subroutePath = route.path && route.path !== '' ? [...basePath, route.path!] : [...basePath];
+        const subroutePath = route.path && route.path !== '' ? [...basePath, route.path!] : [...basePath];
         menuItems.push(...this.mapRoutes(route.children, subroutePath, translate));
       }
     }

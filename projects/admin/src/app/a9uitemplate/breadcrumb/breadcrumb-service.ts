@@ -32,7 +32,7 @@ export class BreadcrumbService {
    */
   private buildBreadcrumbs(
     route: ActivatedRoute | null,
-    url: string = '',
+    url  = '',
     breadcrumbs: Breadcrumb[] = []
   ): Breadcrumb[] {
     if (!route) {

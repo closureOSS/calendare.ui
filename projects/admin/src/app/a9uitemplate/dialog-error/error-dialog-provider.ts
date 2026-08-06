@@ -27,7 +27,7 @@ export class ErrorDialogProvider {
       role: 'alertdialog',
     });
     this.isActive = true;
-    const result = await firstValueFrom(dialogRef.closed$);
+    const _result = await firstValueFrom(dialogRef.closed$);
     this.isActive = false;
     // console.log('Closed with %o', result);
 

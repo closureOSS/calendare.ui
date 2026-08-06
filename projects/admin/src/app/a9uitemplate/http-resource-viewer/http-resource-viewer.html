@@ -1,6 +1,9 @@
 <ng-container *transloco="let t">
   <a9-http-resource-status [status]="resource().status()"></a9-http-resource-status>
-  <!-- <pre>STATUSCODE={{ resource().statusCode() }}<br/>{{ resource().error() | json }}</pre> -->
+  <!-- <pre class="col-span-full">
+    isLoading={{ resource().isLoading() }}, error={{ resource().error() }}, hasValue={{ resource().hasValue() }}, status={{ resource().status() }}
+  </pre> -->
+  <ng-content></ng-content>
   @if(resource().error()) {
   @switch(resource().statusCode()) {
   @case (404) {
@@ -20,11 +23,6 @@
     </a9-hint-box>
   </ng-content>
   }
-  }
-  }
-  @else {
-  @if(resource().hasValue()) {
-  <ng-content></ng-content>
   }
   }
 </ng-container>
