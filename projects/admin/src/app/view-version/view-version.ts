@@ -10,6 +10,7 @@ import { matCheckOutline } from '@ng-icons/material-symbols/outline';
 import { A9LabelValueListImports } from '../a9uitemplate/label-value-list';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
+import { BASE_PATH_CALENDAREAPI } from "../../api/tokens";
 
 @Component({
   selector: 'cal-view-version',
@@ -35,6 +36,7 @@ export class ViewVersion {
   public readonly appVersion = version;
 
   public readonly version = this.calendareResource.getVersion();
+  public serverUri: string = inject(BASE_PATH_CALENDAREAPI);
 
   public readonly calendarClients = computed(() => {
     if (this.version.hasValue()) {

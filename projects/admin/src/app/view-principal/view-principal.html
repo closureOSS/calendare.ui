@@ -15,19 +15,19 @@
   <div hlmCardContent>
     <a9-label-value-list>
       <a9-label-value-item>
-        <label>{{ t('Username') }}</label>
+        <a9-label>{{ t('Username') }}</a9-label>
         {{ principal.username }}
       </a9-label-value-item>
       <a9-label-value-item>
-        <label>{{ t('Type') }}</label>
+        <a9-label>{{ t('Type') }}</a9-label>
         {{ principal.principalType?.name }}
       </a9-label-value-item>
       <a9-label-value-item>
-        <label>{{ t('Full name') }}</label>
+        <a9-label>{{ t('Full name') }}</a9-label>
         {{ principal.displayName }}
       </a9-label-value-item>
       <a9-label-value-item>
-        <label>{{ t('Email') }}</label>
+        <a9-label>{{ t('Email') }}</a9-label>
         {{ principal.email }}
         @if (principal.isEmailVerified) {
         <span hlmBadge variant="default" class="ms-2">{{ t('Verified') }}</span>
@@ -37,48 +37,48 @@
       </a9-label-value-item>
       @if (principal.description) {
       <a9-label-value-item>
-        <label>{{ t('Description') }}</label>
+        <a9-label>{{ t('Description') }}</a9-label>
         {{ principal.description }}
       </a9-label-value-item>
       }
       <a9-label-value-item>
-        <label>{{ t('Timezone') }}</label>
+        <a9-label>{{ t('Timezone') }}</a9-label>
         {{ principal.timezone }}
       </a9-label-value-item>
       <a9-label-value-item>
-        <label>{{ t('Locale') }}</label>
+        <a9-label>{{ t('Locale') }}</a9-label>
         {{ principal.locale }}
       </a9-label-value-item>
       <a9-label-value-item>
-        <label>{{ t('Date format style') }}</label>
+        <a9-label>{{ t('Date format style') }}</a9-label>
         {{ principal.dateFormatType }}
       </a9-label-value-item>
       @if (principal.color) {
       <a9-label-value-item>
-        <label>{{ t('Color') }}</label>
+        <a9-label>{{ t('Color') }}</a9-label>
         <cal-color-swatch [color]="principal.color"></cal-color-swatch>
       </a9-label-value-item>
       }
       @if (!principal.isRoot && hasPermission(principal.permissions, PrivilegeMask.ReadAcl)) {
       <a9-label-value-item>
-        <label>{{ t('Global allow') }}</label>
+        <a9-label>{{ t('Global allow') }}</a9-label>
         <cal-list-permissions [permissions]="principal.globalPermitSelf"></cal-list-permissions>
       </a9-label-value-item>
       <a9-label-value-item>
-        <label>{{ t('Authorized user prohibited') }}</label>
+        <a9-label>{{ t('Authorized user prohibited') }}</a9-label>
         <cal-list-permissions [permissions]="principal.authorizedProhibit" [prohibit]="true"></cal-list-permissions>
       </a9-label-value-item>
       <a9-label-value-item>
-        <label>{{ t('Owner prohibited') }}</label>
+        <a9-label>{{ t('Owner prohibited') }}</a9-label>
         <cal-list-permissions [permissions]="principal.ownerProhibit" [prohibit]="true"></cal-list-permissions>
       </a9-label-value-item>
       }
       <a9-label-value-item class="admin">
-        <label>{{ t('Created') }}</label>
+        <a9-label>{{ t('Created') }}</a9-label>
         <span class="text-sm">{{ principal.created | date }}</span>
       </a9-label-value-item>
       <a9-label-value-item class="admin">
-        <label>{{ t('Last modified') }}</label>
+        <a9-label>{{ t('Last modified') }}</a9-label>
         <span class="text-sm">{{ principal.modified | date }}</span>
       </a9-label-value-item>
     </a9-label-value-list>

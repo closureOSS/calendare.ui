@@ -1,6 +1,6 @@
 <a9-http-resource-viewer [resource]="collections" *transloco="let t"
   class="grid grid-cols-[minmax(0,min(64rem,100%))] gap-6">
-  <a9-hint-box ngProjectAs="status-forbidden" mode="warning">{{ t('No permission to see collections.') }}</a9-hint-box>
+  <a9-hint-box ngProjectAs="status-forbidden" mode="warning" compact>{{ t('No permission to see collections.') }}</a9-hint-box>
   <div ngProjectAs="status-notfound"></div>
   @for (collection of filteredCollections(); track collection.id) {
   <hlm-card [class]="{'default': collection.isDefault}" class="[--card-spacing:--spacing(4)]">
@@ -17,7 +17,7 @@
     <div hlmCardContent>
       <a9-label-value-list>
         <a9-label-value-item>
-          <label>{{ t('Type') }}</label>
+          <a9-label>{{ t('Type') }}</a9-label>
           {{ t(collection.collectionType ?? '') }}
           <span class="ml-4 inline-flex gap-1">
             @if(collection.isDefault) { <hlm-badge variant="outline" class="px-4">{{ t('Default collection')
@@ -28,13 +28,13 @@
         </a9-label-value-item>
         @if(collection.description) {
         <a9-label-value-item>
-          <label>{{ t('Description') }}</label>
+          <a9-label>{{ t('Description') }}</a9-label>
           {{collection.description}}
         </a9-label-value-item>
         }
         @if(collection.scheduleTransparency) {
         <a9-label-value-item>
-          <label>{{ t('Scheduling') }}</label>
+          <a9-label>{{ t('Scheduling') }}</a9-label>
           @switch(collection.scheduleTransparency) {
           @case('opaque') { {{ t('Included in Free/Busy')}} }
           @case('transparent') { {{ t('Excluded from Free/Busy') }} }
@@ -44,41 +44,41 @@
         }
         @if(collection.timezone) {
         <a9-label-value-item>
-          <label>{{ t('Timezone') }}</label>
+          <a9-label>{{ t('Timezone') }}</a9-label>
           {{collection.timezone}}
         </a9-label-value-item>
         }
         @if(collection.color) {
         <a9-label-value-item>
-          <label>{{ t('Color') }}</label>
+          <a9-label>{{ t('Color') }}</a9-label>
           <cal-color-swatch [color]="collection.color"></cal-color-swatch>
         </a9-label-value-item>
         }
         @if(hasPermission(collection.permissions, PrivilegeMask.ReadAcl)) {
         <a9-label-value-item>
-          <label>{{ t('Global allow') }}</label>
+          <a9-label>{{ t('Global allow') }}</a9-label>
           <cal-list-permissions [permissions]="collection.globalPermitSelf"
             [filter]="collectionFilterMask"></cal-list-permissions>
         </a9-label-value-item>
         <a9-label-value-item>
-          <label>{{ t('Authorized user prohibited') }}</label>
+          <a9-label>{{ t('Authorized user prohibited') }}</a9-label>
           <cal-list-permissions [permissions]="collection.authorizedProhibit" [filter]="collectionFilterMask"
             [prohibit]="true"></cal-list-permissions>
         </a9-label-value-item>
         <a9-label-value-item>
-          <label>{{ t('Owner prohibited') }}</label>
+          <a9-label>{{ t('Owner prohibited') }}</a9-label>
           <cal-list-permissions [permissions]="collection.ownerProhibit" [filter]="collectionFilterMask"
             [prohibit]="true"></cal-list-permissions>
         </a9-label-value-item>
         }
         @if(hasPermission(collection.permissions, PrivilegeMask.ReadCurrentUserPrivilegeSet)) {
         <a9-label-value-item>
-          <label>{{ t('Permissions') }}</label>
+          <a9-label>{{ t('Permissions') }}</a9-label>
           <cal-list-permissions [permissions]="collection.permissions" [filter]="userFilterMask"></cal-list-permissions>
         </a9-label-value-item>
         }
         <a9-label-value-item>
-          <label>{{ t('Created') }}</label>
+          <a9-label>{{ t('Created') }}</a9-label>
           <span class="text-sm">{{collection.created | date}}</span>
         </a9-label-value-item>
       </a9-label-value-list>
@@ -104,7 +104,7 @@
   </hlm-card>
   }
   @empty {
-  <a9-hint-box mode="warning">{{ t('No calendar or addressbook was found.') }}</a9-hint-box>
+  <a9-hint-box mode="warning" compact>{{ t('No calendar or addressbook was found.') }}</a9-hint-box>
   }
 </a9-http-resource-viewer>
 
