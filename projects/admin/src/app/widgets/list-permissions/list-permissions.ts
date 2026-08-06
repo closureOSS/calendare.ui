@@ -3,7 +3,6 @@ import { PrivilegeMaskConstant } from '../../core/privilege-mask';
 import { PrivilegeMask } from '../../../api/models';
 import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideArrowUpRight, lucideLoaderPinwheel } from '@ng-icons/lucide';
 import { matAllInclusiveOutline, matKeyFillOutline, matKeyOffFillOutline, matKeyOffOutline, matKeyOutline } from '@ng-icons/material-symbols/outline';
 
 @Component({
