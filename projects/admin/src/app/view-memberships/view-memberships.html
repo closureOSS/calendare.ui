@@ -4,6 +4,7 @@
   </hlm-card-header>
   <div hlmCardContent>
     <a9-http-resource-viewer [resource]="memberships" class="flex flex-wrap gap-2 divide-accent divide-x-4">
+      @if(memberships.hasValue()) {
       @let ms = memberships.value();
       @for(m of ms?.memberships; track m.uri) {
       <hlm-item variant="outline" size="xs" class="max-w-fit cursor-pointer"
@@ -19,6 +20,7 @@
       </hlm-item>
       } @empty {
       <a9-hint-box mode="warning" class="w-full">{{ t('No memberships exist.') }}</a9-hint-box>
+      }
       }
     </a9-http-resource-viewer>
   </div>

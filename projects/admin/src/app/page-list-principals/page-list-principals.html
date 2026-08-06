@@ -26,6 +26,7 @@
 
   <section>
     <a9-http-resource-viewer [resource]="principals">
+      @if(principals.hasValue()) {
       @let principalsList = principals.value()!;
       @if (principalsList?.length === 0) {
       <a9-hint-box mode="info">{{ t('Clear filters to show all principals.') }}</a9-hint-box>
@@ -90,6 +91,7 @@
         </hlm-item>
         }
       </div>
+      }
       }
       }
     </a9-http-resource-viewer>

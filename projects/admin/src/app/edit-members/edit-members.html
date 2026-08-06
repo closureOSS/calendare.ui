@@ -7,7 +7,9 @@
   </hlm-card-header>
 
   <div hlmCardContent>
-    <a9-http-resource-viewer [resource]="memberships" defaultErrorHandler="true" class="flex flex-col gap-2 divide-y divide-primary/50">
+    <a9-http-resource-viewer [resource]="memberships" defaultErrorHandler="true"
+      class="flex flex-col gap-2 divide-y divide-primary/50">
+      @if(memberships.hasValue()) {
       @let ms = memberships.value()!;
       @for(grp of ms.groups; track grp.group.uri) {
       <div class="mb-4">
@@ -35,6 +37,7 @@
           }
         </div>
       </div>
+      }
       }
     </a9-http-resource-viewer>
     @if(formMessage()) {

@@ -9,6 +9,7 @@
   <div hlmCardContent>
     <a9-http-resource-viewer [resource]="privileges" defaultErrorHandler="true"
       class="flex flex-col gap-2 divide-y divide-primary/50">
+      @if(privileges.hasValue()) {
       @for(pvg of privileges.value()?.privilegeGroups; track pvg.code) {
       <div class="mb-4" [class]="{'custom': pvg.code === 'C'}">
         <div class="py-2" [class]="hlmGroup">
@@ -40,6 +41,7 @@
           }
         </div>
       </div>
+      }
       }
     </a9-http-resource-viewer>
     @if(formMessage()) {

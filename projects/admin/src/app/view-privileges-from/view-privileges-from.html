@@ -4,8 +4,10 @@
   </hlm-card-header>
   <div hlmCardContent>
     <a9-http-resource-viewer [resource]="privileges">
+      @if(privileges.hasValue()) {
       <cal-list-privileges [privilegeGroups]="privileges.value()?.privilegeGroups??[]" [direction]="false"
         (doRevoke)="refuse($event)" revoke="Refuse" [editable]="editable()"></cal-list-privileges>
+      }
     </a9-http-resource-viewer>
   </div>
 </hlm-card>

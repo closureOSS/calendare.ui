@@ -4,6 +4,7 @@
   </hlm-card-header>
   <div hlmCardContent>
     <a9-http-resource-viewer [resource]="members" class="flex flex-col gap-4 mb-4">
+      @if(members.hasValue()) {
       @let ms = members.value();
       @for(grp of ms?.groups; track grp.group) {
       @if(grp.members && grp.members.length > 0 && grp.group && grp.group.membershipType) {
@@ -25,6 +26,7 @@
           }
         </div>
       </div>
+      }
       }
       }
     </a9-http-resource-viewer>
