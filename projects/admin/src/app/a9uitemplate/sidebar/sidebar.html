@@ -5,7 +5,7 @@
     <hlm-sidebar-header>
       <ul hlmSidebarMenu>
         <li hlmSidebarMenuItem class="bg-sidebar-primary-foreground">
-          <a hlmSidebarMenuButton size="lg" routerLink="/">
+          <a hlmSidebarMenuButton size="lg" (click)="hideMobile()" routerLink="/">
             <div
               class="flex aspect-square size-8 items-center justify-center">
               <img src="icon.svg" alt="Logo" class="object-contain object-center">
@@ -28,7 +28,7 @@
           <ul hlmSidebarMenu>
             @for(route of section.menuItems; track $index) {
             <li hlmSidebarMenuItem>
-              <a hlmSidebarMenuButton [routerLink]="route.path" routerLinkActive #rla="routerLinkActive"
+              <a hlmSidebarMenuButton (click)="hideMobile()" [routerLink]="route.path" routerLinkActive #rla="routerLinkActive"
                 [isActive]="rla.isActive" ariaCurrentWhenActive="page">
                 <!-- @if(route.icon){ -->
                 <ng-icon class="text-primary" size="1.25rem" [svg]="route.icon" />

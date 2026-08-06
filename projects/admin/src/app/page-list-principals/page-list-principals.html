@@ -29,7 +29,7 @@
       @if(principals.hasValue()) {
       @let principalsList = principals.value()!;
       @if (principalsList?.length === 0) {
-      <a9-hint-box mode="info">{{ t('Clear filters to show all principals.') }}</a9-hint-box>
+      <a9-hint-box mode="info" compact>{{ t('Clear filters to show all principals.') }}</a9-hint-box>
       } @else {
       @if (!responsiveness.isMobileView()) {
       <div hlmTableContainer class="py-4">

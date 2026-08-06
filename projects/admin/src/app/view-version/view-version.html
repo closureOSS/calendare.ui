@@ -3,29 +3,33 @@
   @if(version.value(); as env) {
   <a9-label-value-list class="max-w-2xl">
     <a9-label-value-item>
-      <label>{{ t('Admin UI version') }}</label>
+      <a9-label>{{ t('Admin UI version') }}</a9-label>
       {{appVersion}}
     </a9-label-value-item>
     <a9-label-value-item>
-      <label>{{ t('Server version') }}</label>
+      <a9-label>{{ t('Server URI') }}</a9-label>
+      {{serverUri}}
+    </a9-label-value-item>
+    <a9-label-value-item>
+      <a9-label>{{ t('Path base') }}</a9-label>
+      {{env.pathBase}}
+    </a9-label-value-item>
+    <a9-label-value-item>
+      <a9-label>{{ t('Server version') }}</a9-label>
       {{env.version}}
     </a9-label-value-item>
     @if(env.dbmsSchema?.length !== 0) {
     <a9-label-value-item>
-      <label>{{ t('DBMS schema') }}</label>
+      <a9-label>{{ t('DBMS schema') }}</a9-label>
       {{env.dbmsSchema | json}}
     </a9-label-value-item>
     }
     @if(env.dbmsDataMigrations?.length !== 0) {
     <a9-label-value-item>
-      <label>{{ t('DBMS data') }}</label>
+      <a9-label>{{ t('DBMS data') }}</a9-label>
       {{env.dbmsDataMigrations | json}}
     </a9-label-value-item>
     }
-    <a9-label-value-item>
-      <label>{{ t('Path base') }}</label>
-      {{env.pathBase}}
-    </a9-label-value-item>
   </a9-label-value-list>
 
   <div hlmTableContainer class="mt-16">

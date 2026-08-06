@@ -1,8 +1,9 @@
 <hlm-alert [class]="boxClass()">
-  <ng-icon [name]="svgIcon()" size="2rem" />
+  <ng-icon [name]="svgIcon()" data-size="1.5rem" />
   <div hlmAlertTitle class="text-balance">
     <ng-content></ng-content>
   </div>
+  @if(!compact()) {
   <div hlmAlertDescription [class]="bodyClass()">
     <ng-content select=".body" />
     @if(spinner()){
@@ -11,4 +12,5 @@
     </hlm-progress>
     }
   </div>
+  }
 </hlm-alert>
