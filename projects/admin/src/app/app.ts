@@ -1,7 +1,6 @@
 import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { SiteMenuProvider } from './a9uitemplate/site-menu/site-menu-provider';
-import { ThemeSwitchProvider } from './a9uitemplate/theme-switcher/theme-switch-provider';
 import { TranslocoService } from '@jsverse/transloco';
 
 @Component({
@@ -10,9 +9,6 @@ import { TranslocoService } from '@jsverse/transloco';
     RouterOutlet,
   ],
   encapsulation: ViewEncapsulation.None,
-  providers: [
-    ThemeSwitchProvider,
-  ],
   templateUrl: './app.html',
 })
 export class App {

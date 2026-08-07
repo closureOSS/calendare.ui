@@ -8,17 +8,17 @@ import { provideAuth, LogLevel, authInterceptor } from 'angular-auth-oidc-client
 import { provideCalendareApiClient } from '../api';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 import { provideTransloco } from '@jsverse/transloco';
-import { TranslocoHttpLoader } from './a9uitemplate/transloco-loader';
 import { APP_SITE_TITLE, PageTitleStrategy } from './a9uitemplate/page-title-strategy';
 import { CurrentUserInfoJwt } from './core/current-user-info';
 import { CurrentUserInfo } from './a9uitemplate/current-user-info';
 import { marker as _ } from "@jsverse/transloco-keys-manager/marker";
 import { AppAuthState } from './core/app-auth-state';
-import { UserSettingProvider } from './a9uitemplate/user-setting';
 import { provideSpartanHlm } from '@spartan-ng/helm/utils';
 import { provideNgIconsConfig } from '@ng-icons/core';
 import { CalendareSiteSearchProvider } from './core/calendare-site-search-provider';
 import { SiteSearchProvider } from './a9uitemplate/site-search/site-search-provider';
+import { SiteInternationalizationProvider } from './a9uitemplate/language-menu/site-internationalization-provider';
+import { TranslocoHttpLoader } from './a9uitemplate/language-menu/transloco-loader';
 
 export function appConfig(config: RuntimeConfig): ApplicationConfig {
   console.log('Bootstrapping with %o', config);
@@ -67,7 +67,10 @@ export function appConfig(config: RuntimeConfig): ApplicationConfig {
       provideCalendareApiClient({ basePath: config.apiBaseUrl }),
       provideTransloco({
         config: {
-          availableLangs: ['en', 'de'],
+          availableLangs: [
+            { id: 'en', label: 'English' },
+            { id: 'de', label: 'Deutsch' },
+          ],
           defaultLang: 'en',
           reRenderOnLangChange: true,
           prodMode: !isDevMode(),
@@ -82,8 +85,7 @@ export function appConfig(config: RuntimeConfig): ApplicationConfig {
         authState.start();
       }),
       provideAppInitializer(() => {
-        const userSettings = inject(UserSettingProvider);
-        userSettings.initialize();
+        const _i18n = inject(SiteInternationalizationProvider);
       }),
     ]
   };

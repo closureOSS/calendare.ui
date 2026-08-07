@@ -1,13 +1,15 @@
-@let currLanguage = transloco.getActiveLang();
-@for(language of transloco.getAvailableLangs(); track $index) {
-<button hlmDropdownMenuCheckbox [checked]="currLanguage===language" (triggered)="setLanguage(language)" keepOpen="true">
-  @switch(language) {
-  @case('en') { English }
-  @case('de') { Deutsch }
-  @case('fr') { Français }
-  @case('it') { Italiano }
-  @default { 'Unknown' }
+<hlm-dropdown-menu-group>
+  @let activeLanguage = transloco.getActiveLang();
+  @for(language of availableLanguages; track language.id) {
+  <button hlmDropdownMenuRadio [checked]="configLanguage() === language.id" (triggered)="setLanguage(language.id)"
+    keepOpen="true" [class]="activeLanguage === language.id ? 'text-secondary-foreground bg-secondary' : ''">
+    {{ language.label }}
+    <hlm-dropdown-menu-radio-indicator />
+  </button>
   }
-  <hlm-dropdown-menu-checkbox-indicator />
-</button>
-}
+  <hlm-dropdown-menu-separator />
+  <button hlmDropdownMenuRadio [checked]="configLanguage() === '*'" (triggered)="setLanguage('*')" keepOpen="true">
+    {{ 'Auto' }}
+    <hlm-dropdown-menu-radio-indicator />
+  </button>
+</hlm-dropdown-menu-group>

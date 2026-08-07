@@ -1,7 +1,6 @@
-import { Component, inject, linkedSignal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
-import { ColorPalette } from './color-palette-switch-provider';
-import { UserSettingProvider } from '../user-setting';
+import { ColorPalette, SiteThemeProvider } from '../site-theme/site-theme-provider';
 
 @Component({
   selector: 'a9-color-palette-switcher',
@@ -11,15 +10,11 @@ import { UserSettingProvider } from '../user-setting';
   templateUrl: './color-palette-switcher.html',
 })
 export class ColorPaletteSwitcher {
-  value = linkedSignal({
-    source: () => this.settings.getColorPalette,
-    computation: (item) => item() ?? ColorPalette.Default,
-  });
-
-  private readonly settings = inject(UserSettingProvider);
+  private readonly config = inject(SiteThemeProvider);
+  value = this.config.palette;
   selectColor(palette: ColorPalette | null | undefined) {
     if (palette) {
-      this.settings.setColorPalette(palette);
+      this.config.setColorPalette(palette);
     }
   }
 }

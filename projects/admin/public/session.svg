@@ -1,115 +1,179 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1520 2160" width="100%" height="100%">
   <defs>
-    <!-- Background Gradient -->
+    <!-- Background Gradient (Primary oklch(0.34 0.12 240) base -> deep blue tone) -->
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f172a" />
-      <stop offset="100%" stop-color="#1e1b4b" />
+      <stop offset="0%" stop-color="#0b3152" />
+      <stop offset="40%" stop-color="#072037" />
+      <stop offset="100%" stop-color="#030d17" />
     </linearGradient>
 
-    <!-- Theme Colors based on oklch(0.34 0.12 240) -->
-    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.85" />
-      <stop offset="100%" stop-color="#172554" stop-opacity="0.95" />
+    <!-- Vibrant Gradient Accents -->
+    <linearGradient id="cyanGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe" />
+      <stop offset="100%" stop-color="#4facfe" />
     </linearGradient>
 
-    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.8" />
-      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.9" />
+    <linearGradient id="purpleGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#6366f1" />
     </linearGradient>
 
-    <!-- Soft Glassmorphism Effects -->
-    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.3" />
-      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.05" />
+    <linearGradient id="emeraldGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#10b981" />
     </linearGradient>
+
+    <linearGradient id="amberGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+
+    <!-- Card Base Gradient -->
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f3d64" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#051727" stop-opacity="0.95" />
+    </linearGradient>
+
+    <!-- Soft Glow Filters -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="30" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Minimal Dot Grid Pattern -->
+    <pattern id="dotGrid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <circle cx="30" cy="30" r="1.5" fill="#1d4a75" fill-opacity="0.3" />
+    </pattern>
   </defs>
 
-  <!-- Background -->
-  <rect width="800" height="450" fill="url(#bgGrad)" />
+  <!-- Base Background -->
+  <rect width="1520" height="2160" fill="url(#bgGrad)" />
 
-  <!-- ABSTRACT BACKGROUND GEOMETRIES (For abstract cropping padding) -->
-  <g opacity="0.6">
-    <circle cx="200" cy="240" r="160" fill="#1e3a8a" opacity="0.3" />
-    <rect x="120" y="80" width="180" height="180" rx="32" fill="url(#glassGrad)" transform="rotate(-10 210 170)" />
-    <circle cx="580" cy="120" r="80" fill="#3b82f6" opacity="0.15" />
-    <circle cx="620" cy="280" r="130" fill="#1d4ed8" opacity="0.15" />
+  <!-- Overlay Dot Grid -->
+  <rect width="1520" height="2160" fill="url(#dotGrid)" />
+
+  <!-- Ambient Light Orbs -->
+  <circle cx="760" cy="1080" r="550" fill="#00f2fe" opacity="0.04" filter="url(#softGlow)" />
+  <circle cx="360" cy="720" r="350" fill="#a855f7" opacity="0.05" filter="url(#softGlow)" />
+  <circle cx="1160" cy="1440" r="350" fill="#34d399" opacity="0.05" filter="url(#softGlow)" />
+
+  <!-- CONNECTING TIMELINE / FLOW LINES -->
+  <g stroke-linecap="round" opacity="0.5">
+    <!-- Smooth curved flow connecting nodes to center -->
+    <path d="M 360 720 C 560 720, 560 1080, 760 1080" stroke="url(#cyanGlow)" stroke-width="3" fill="none" stroke-dasharray="8 8" />
+    <path d="M 1160 720 C 960 720, 960 1080, 760 1080" stroke="url(#amberGlow)" stroke-width="3" fill="none" stroke-dasharray="8 8" />
+    <path d="M 360 1440 C 560 1440, 560 1080, 760 1080" stroke="url(#purpleGlow)" stroke-width="3" fill="none" />
+    <path d="M 1160 1440 C 960 1440, 960 1080, 760 1080" stroke="url(#emeraldGlow)" stroke-width="3" fill="none" />
   </g>
 
-  <!-- MAIN CALENDAR CARD -->
-  <g transform="translate(220, 70)">
-    <!-- Calendar Body -->
-    <rect width="380" height="280" rx="24" fill="url(#primaryGrad)" stroke="#2563eb" stroke-width="1.5" stroke-opacity="0.3" />
+  <!-- CENTRAL HUB: CALENDAR / MAIN SCHEDULE -->
+  <g transform="translate(760, 1080)">
+    <!-- Outer Planning Ring -->
+    <circle cx="0" cy="0" r="280" fill="none" stroke="#1d4a75" stroke-width="2" opacity="0.8" />
+    <circle cx="0" cy="0" r="240" fill="none" stroke="url(#cyanGlow)" stroke-width="2" stroke-dasharray="30 15 10 15" opacity="0.6" />
     
-    <!-- Calendar Header Bar -->
-    <path d="M 0,24 A 24,24 0 0,1 24,0 L 356,0 A 24,24 0 0,1 380,24 L 380,55 L 0,55 Z" fill="#0f172a" opacity="0.4" />
+    <!-- Central Calendar Board Card -->
+    <rect x="-140" y="-160" width="280" height="320" rx="24" fill="url(#cardGrad)" stroke="url(#cyanGlow)" stroke-width="3.5" filter="url(#glow)" />
     
-    <!-- Calendar Rings/Binders -->
-    <rect x="60" y="-15" width="12" height="30" rx="6" fill="#60a5fa" opacity="0.7" />
-    <rect x="308" y="-15" width="12" height="30" rx="6" fill="#60a5fa" opacity="0.7" />
+    <!-- Calendar Header Hooks -->
+    <rect x="-80" y="-180" width="24" height="40" rx="12" fill="url(#cyanGlow)" />
+    <rect x="56" y="-180" width="24" height="40" rx="12" fill="url(#cyanGlow)" />
+    
+    <!-- Calendar Grid Blocks (Minimalist representation) -->
+    <g fill="#00f2fe" opacity="0.8" transform="translate(-90, -80)">
+      <!-- Row 1 -->
+      <rect x="0" y="0" width="36" height="28" rx="6" opacity="0.3" />
+      <rect x="52" y="0" width="36" height="28" rx="6" />
+      <rect x="104" y="0" width="36" height="28" rx="6" opacity="0.3" />
+      <rect x="156" y="0" width="36" height="28" rx="6" />
 
-    <!-- Grid Layout (Abstracted Calendar Days) -->
-    <!-- Row 1 -->
-    <rect x="30" y="85" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.25" />
-    <rect x="87" y="85" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.25" />
-    <rect x="144" y="85" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.4" />
-    <rect x="201" y="85" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.25" />
-    <rect x="258" y="85" width="42" height="38" rx="8" fill="url(#accentGrad)" />
-    <rect x="315" y="85" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.15" />
+      <!-- Row 2 -->
+      <rect x="0" y="44" width="36" height="28" rx="6" opacity="0.3" />
+      <rect x="52" y="44" width="36" height="28" rx="6" fill="#34d399" />
+      <rect x="104" y="44" width="36" height="28" rx="6" opacity="0.3" />
+      <rect x="156" y="44" width="36" height="28" rx="6" opacity="0.3" />
 
-    <!-- Row 2 -->
-    <rect x="30" y="138" width="42" height="38" rx="8" fill="url(#accentGrad)" opacity="0.4" />
-    <rect x="87" y="138" width="42" height="38" rx="8" fill="#2563eb" opacity="0.6" />
-    <!-- Checkmark on Row 2, Day 2 -->
-    <path d="M 102,157 L 107,162 L 116,151" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-    
-    <!-- Current Day Highlight Ring -->
-    <rect x="142" y="136" width="46" height="42" rx="10" fill="none" stroke="#60a5fa" stroke-width="2" />
-    <rect x="144" y="138" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.3" />
-    
-    <rect x="201" y="138" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.25" />
-    <rect x="258" y="138" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.25" />
-    <rect x="315" y="138" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.15" />
+      <!-- Row 3 -->
+      <rect x="0" y="88" width="36" height="28" rx="6" opacity="0.3" />
+      <rect x="52" y="88" width="36" height="28" rx="6" opacity="0.3" />
+      <rect x="104" y="88" width="36" height="28" rx="6" fill="#a855f7" />
+      <rect x="156" y="88" width="36" height="28" rx="6" opacity="0.3" />
 
-    <!-- Row 3 -->
-    <rect x="30" y="191" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.15" />
-    <rect x="87" y="191" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.25" />
-    <rect x="144" y="191" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.3" />
-    <rect x="201" y="191" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.1" />
-    <rect x="258" y="191" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.2" />
-    <rect x="315" y="191" width="42" height="38" rx="8" fill="#3b82f6" opacity="0.1" />
+      <!-- Timeline Bar Accent -->
+      <rect x="0" y="140" width="192" height="12" rx="6" fill="url(#cyanGlow)" opacity="0.9" />
+      <rect x="0" y="164" width="120" height="12" rx="6" fill="#1d4a75" opacity="0.6" />
+    </g>
   </g>
 
-  <!-- FOREGROUND TASK / CHECKLIST CARD (Overlapping Right) -->
-  <g transform="translate(500, 210)">
-    <rect width="170" height="170" rx="20" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5" stroke-opacity="0.4" />
-    
-    <!-- Checklist Item 1 -->
-    <circle cx="35" cy="45" r="14" fill="#2563eb" opacity="0.4" />
-    <path d="M 29,45 L 33,49 L 41,40" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-    <rect x="60" y="36" width="80" height="8" rx="4" fill="#93c5fd" opacity="0.5" />
-    <rect x="60" y="50" width="50" height="6" rx="3" fill="#93c5fd" opacity="0.3" />
+  <!-- TOP-LEFT NODE: TASKS & CHECKLISTS -->
+  <g transform="translate(360, 720)">
+    <circle cx="0" cy="0" r="100" fill="#072037" stroke="url(#cyanGlow)" stroke-width="3" filter="url(#glow)" />
+    <!-- Task Checkmark & List Icon -->
+    <g transform="translate(-28, -28)" fill="none" stroke="#00f2fe" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Checked Box Item 1 -->
+      <rect x="0" y="0" width="20" height="20" rx="5" fill="#0b3152" />
+      <path d="M 5 10 L 9 14 L 16 6" stroke="#34d399" stroke-width="3" />
+      <line x1="32" y1="10" x2="60" y2="10" />
 
-    <!-- Checklist Item 2 -->
-    <circle cx="35" cy="95" r="14" fill="#2563eb" opacity="0.4" />
-    <path d="M 29,95 L 33,99 L 41,90" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-    <rect x="60" y="86" width="85" height="8" rx="4" fill="#93c5fd" opacity="0.5" />
-    <rect x="60" y="100" width="65" height="6" rx="3" fill="#93c5fd" opacity="0.3" />
+      <!-- Checked Box Item 2 -->
+      <rect x="0" y="32" width="20" height="20" rx="5" fill="#0b3152" />
+      <path d="M 5 42 L 9 46 L 16 38" stroke="#34d399" stroke-width="3" />
+      <line x1="32" y1="42" x2="52" y2="42" />
 
-    <!-- Checklist Item 3 (Unchecked/Empty state) -->
-    <circle cx="35" cy="140" r="12" fill="none" stroke="#93c5fd" stroke-width="2" opacity="0.4" />
-    <rect x="60" y="136" width="70" height="8" rx="4" fill="#93c5fd" opacity="0.2" />
+      <!-- Empty Box Item 3 -->
+      <rect x="0" y="64" width="20" height="20" rx="5" />
+      <line x1="32" y1="74" x2="44" y2="74" stroke-opacity="0.5" />
+    </g>
   </g>
 
-  <!-- ABSTRACT SCHEDULING ELEMENTS / TRACKS (Top Right background context) -->
-  <g transform="translate(560, 80)" opacity="0.75">
-    <!-- Schedule Row 1 -->
-    <rect x="0" y="0" width="36" height="28" rx="8" fill="url(#accentGrad)" opacity="0.8" />
-    <rect x="46" y="4" width="90" height="8" rx="4" fill="#60a5fa" />
-    <rect x="46" y="18" width="50" height="6" rx="3" fill="#60a5fa" opacity="0.6" />
+  <!-- TOP-RIGHT NODE: EVENTS & APPOINTMENTS (Clock / Time Pin) -->
+  <g transform="translate(1160, 720)">
+    <circle cx="0" cy="0" r="100" fill="#072037" stroke="url(#amberGlow)" stroke-width="3" filter="url(#glow)" />
+    <!-- Clock & Event Pin Graphic -->
+    <g transform="translate(0, -5)" fill="none" stroke="#f59e0b" stroke-width="3.5" stroke-linecap="round">
+      <circle cx="0" cy="0" r="32" stroke-width="3.5" />
+      <polyline points="0,-18 0,0 12,8" stroke-width="3.5" />
+      <!-- Small Event Indicator Star/Dot -->
+      <circle cx="22" cy="-22" r="6" fill="#fbbf24" stroke="none" />
+    </g>
+  </g>
 
-    <!-- Schedule Row 2 -->
-    <rect x="40" y="45" width="36" height="28" rx="8" fill="url(#accentGrad)" opacity="0.6" />
-    <rect x="86" y="49" width="90" height="8" rx="4" fill="#60a5fa" />
-    <rect x="86" y="63" width="60" height="6" rx="3" fill="#60a5fa" opacity="0.6" />
+  <!-- BOTTOM-LEFT NODE: ADDRESSES & CONTACTS -->
+  <g transform="translate(360, 1440)">
+    <circle cx="0" cy="0" r="90" fill="#072037" stroke="url(#purpleGlow)" stroke-width="3" filter="url(#glow)" />
+    <!-- Address Book / Contact User Badge Icon -->
+    <g transform="translate(-24, -26)" fill="none" stroke="#a855f7" stroke-width="3.5" stroke-linecap="round">
+      <!-- Address Book Spine & Cover -->
+      <rect x="8" y="0" width="40" height="52" rx="6" />
+      <line x1="0" y1="12" x2="8" y2="12" stroke-width="4" />
+      <line x1="0" y1="26" x2="8" y2="26" stroke-width="4" />
+      <line x1="0" y1="40" x2="8" y2="40" stroke-width="4" />
+      <!-- User Profile Symbol inside book -->
+      <circle cx="28" cy="20" r="7" />
+      <path d="M 18 38 C 18 31, 38 31, 38 38" />
+    </g>
+  </g>
+
+  <!-- BOTTOM-RIGHT NODE: LOCATION / MAP PIN PLANNING -->
+  <g transform="translate(1160, 1440)">
+    <circle cx="0" cy="0" r="90" fill="#072037" stroke="url(#emeraldGlow)" stroke-width="3" filter="url(#glow)" />
+    <!-- Map Pin & Route Pointer Graphic -->
+    <g transform="translate(0, -8)" fill="none" stroke="#10b981" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M 0 -28 C -16 -28, -24 -12, 0 20 C 24 -12, 16 -28, 0 -28 Z" />
+      <circle cx="0" cy="-14" r="6" fill="#34d399" stroke="none" />
+    </g>
+  </g>
+
+  <!-- FLOATING DECORATIVE PLANNING PARTICLES -->
+  <g fill="#00f2fe" opacity="0.6">
+    <circle cx="560" cy="880" r="4" filter="url(#glow)" />
+    <circle cx="960" cy="880" r="4" filter="url(#glow)" />
+    <circle cx="520" cy="1280" r="3" />
+    <circle cx="1000" cy="1280" r="3" />
   </g>
 </svg>
