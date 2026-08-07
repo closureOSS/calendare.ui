@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { TranslocoService, LangDefinition } from '@jsverse/transloco';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { UserSettingProvider } from '../user-setting';
+import { SiteInternationalizationProvider } from './site-internationalization-provider';
 
 @Component({
   selector: 'a9-language-menu',
@@ -11,10 +11,12 @@ import { UserSettingProvider } from '../user-setting';
   templateUrl: './language-menu.html',
 })
 export class LanguageMenu {
-  private readonly settings = inject(UserSettingProvider);
+  private readonly config = inject(SiteInternationalizationProvider);
   protected readonly transloco = inject(TranslocoService);
+  protected availableLanguages = this.transloco.getAvailableLangs().map(v => v as LangDefinition);
+  protected configLanguage = this.config.language;
 
-  setLanguage(language: string | LangDefinition) {
-    this.settings.setLanguage(language as string);
+  setLanguage(language: string) {
+    this.config.setLanguage(language);
   }
 }

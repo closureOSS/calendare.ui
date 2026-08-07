@@ -1,5 +1,5 @@
-<button hlmBtn size="sm" variant="ghost" (click)="selectTheme(nextThemeMode())"
-  [title]="tooltip(value())"  *transloco="let t">
-  <ng-icon [name]="svgIconName(value())" />
+<button hlmBtn size="sm" variant="ghost" (click)="nextTheme()"
+  [title]="tooltip()"  *transloco="let t">
+  <ng-icon [name]="svgIconName()" />
   <span class="sr-only">{{ t('Toogle theme')}}</span>
 </button>
