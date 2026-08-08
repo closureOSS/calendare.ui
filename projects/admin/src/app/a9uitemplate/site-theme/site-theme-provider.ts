@@ -1,4 +1,4 @@
-import { afterRenderEffect, computed, DOCUMENT, inject, RendererFactory2, Service, signal } from '@angular/core';
+import { afterRenderEffect, computed, DOCUMENT, inject, RendererFactory2, Service } from '@angular/core';
 import { localStorageSignal } from '../local-storage-signal';
 
 export enum ThemeMode { Auto = 'Auto', Dark = 'Dark', Light = 'Light', };

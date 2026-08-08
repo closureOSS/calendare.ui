@@ -24,7 +24,7 @@ import { lucideEllipsisVertical } from '@ng-icons/lucide';
     LanguageMenu,
   ],
   templateUrl: './sidebar.html',
-  providers: [
+  viewProviders: [
     provideIcons({
       lucideEllipsisVertical,
       matLogoutOutline,

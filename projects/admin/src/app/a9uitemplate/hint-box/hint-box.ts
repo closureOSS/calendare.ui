@@ -2,7 +2,7 @@ import { booleanAttribute, Component, computed, input } from '@angular/core';
 import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 import { HlmAlertImports } from '@spartan-ng/helm/alert';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { matDangerousFillOutline, matDangerousOutline, matEmergencyFillOutline, matEmergencyHomeFillOutline, matEmergencyHomeOutline, matInfoFillOutline, matInfoOutline, matLightbulbFillOutline, matLightbulbOutline } from '@ng-icons/material-symbols/outline';
+import { matDangerousFillOutline, matDangerousOutline, matEmergencyHomeFillOutline, matEmergencyHomeOutline, matInfoFillOutline, matInfoOutline, matLightbulbFillOutline, matLightbulbOutline } from '@ng-icons/material-symbols/outline';
 import { lucideLoaderPinwheel } from '@ng-icons/lucide';
 import { HlmProgressImports } from '@spartan-ng/helm/progress';
 

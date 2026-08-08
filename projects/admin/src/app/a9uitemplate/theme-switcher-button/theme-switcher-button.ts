@@ -1,4 +1,4 @@
-import { Component, computed, inject, linkedSignal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { matDarkModeFillOutline, matLightModeFillOutline, matRoutineFillOutline } from '@ng-icons/material-symbols/outline';
 import { ThemeMode, SiteThemeProvider } from '../site-theme/site-theme-provider';
