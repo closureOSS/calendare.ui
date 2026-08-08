@@ -21,7 +21,7 @@ import { IconPrincipalType } from '../widgets/icon-principal-type/icon-principal
     RouterLink,
     TranslocoDirective,
   ],
-  providers: [
+  viewProviders: [
     provideIcons({
       matPerson2FillOutline, matMeetingRoomFillOutline,
       matSpeakerFillOutline, matGroupFillOutline,

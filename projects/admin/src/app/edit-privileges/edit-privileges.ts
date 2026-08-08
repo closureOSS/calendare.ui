@@ -41,7 +41,7 @@ import { IconPrincipalType } from '../widgets/icon-principal-type/icon-principal
     HttpErrorOnSave,
     TranslocoDirective,
   ],
-  providers: [
+  viewProviders: [
     provideIcons({
       matRestartAltOutline,
       matCancelFillOutline,

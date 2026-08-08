@@ -27,7 +27,7 @@ import { HlmCardImports } from '@spartan-ng/helm/card';
     NgIcon,
     TranslocoDirective,
   ],
-  providers: [
+  viewProviders: [
     provideIcons({
       matRestartAltOutline,
     }),

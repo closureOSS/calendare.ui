@@ -23,7 +23,7 @@ import { BASE_PATH_CALENDAREAPI } from "../../api/tokens";
     HttpResourceViewer,
     TranslocoDirective,
   ],
-   providers: [
+  viewProviders: [
     provideIcons({
       matCheckOutline,
     }),

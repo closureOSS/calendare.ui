@@ -43,7 +43,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
     CreateCredentialButton,
     TranslocoDirective,
   ],
-  providers: [
+  viewProviders: [
     provideIcons({
       matAddBoxFillOutline,
     }),

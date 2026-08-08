@@ -24,7 +24,7 @@ import { SiteTitle } from "../a9uitemplate/site-title/site-title";
     SiteTitle,
     TranslocoDirective,
   ],
-  providers: [
+  viewProviders: [
     provideIcons({
       matCalendarAddOnOutline,
     })

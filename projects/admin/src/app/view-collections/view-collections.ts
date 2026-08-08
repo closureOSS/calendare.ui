@@ -38,7 +38,7 @@ import { HlmBadgeImports } from '@spartan-ng/helm/badge';
     TranslocoDirective,
     ColorSwatch
   ],
-  providers: [
+  viewProviders: [
     provideIcons({
       matCalendarTodayFillOutline,
       matContactsFillOutline,

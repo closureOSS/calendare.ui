@@ -15,7 +15,7 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
     RouterLink,
     TranslocoDirective,
   ],
-  providers: [
+  viewProviders: [
     provideIcons({
       matAddCardOutline, matIdCard2Outline, matIdCardFillOutline,
     }),

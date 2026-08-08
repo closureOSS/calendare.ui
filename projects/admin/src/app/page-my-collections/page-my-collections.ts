@@ -24,7 +24,7 @@ import { SiteTitle } from "../a9uitemplate/site-title/site-title";
     TranslocoDirective,
     SiteTitle
 ],
-  providers: [
+  viewProviders: [
     provideIcons({
        matCreateNewFolderOutline,
     })

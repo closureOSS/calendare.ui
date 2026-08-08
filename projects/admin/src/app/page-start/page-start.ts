@@ -15,7 +15,7 @@ import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
     HlmSpinnerImports,
     TranslocoDirective,
   ],
-  providers: [
+  viewProviders: [
     provideIcons({
       lucideLoaderPinwheel,
     }),
@@ -29,8 +29,4 @@ export class PageStart {
   hlmH4 = hlmH4;
   hlmP = hlmP;
   hlmCite = hlmMuted;
-
-  constructor() {
-    console.log('OIDC flow callback ...');
-  }
 }

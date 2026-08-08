@@ -39,7 +39,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
     FieldError,
     TranslocoDirective,
   ],
-  providers: [
+  viewProviders: [
     provideIcons({
       matRestartAltOutline,
     }),
