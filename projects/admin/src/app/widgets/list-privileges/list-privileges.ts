@@ -22,7 +22,7 @@ import { matDeleteFillOutline, matDeleteOutline } from '@ng-icons/material-symbo
     ListGrantDetails,
     TranslocoDirective,
   ],
-  providers: [
+  viewProviders: [
     provideIcons({
       matDeleteOutline, matDeleteFillOutline,
     }),

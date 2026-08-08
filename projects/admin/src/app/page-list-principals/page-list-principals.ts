@@ -50,7 +50,7 @@ export interface PrincipalSearchForm {
     HlmTableImports,
     NgIcon,
   ],
-  providers: [
+  viewProviders: [
     provideIcons({
       matSearchOutline,
       matFilterAltFillOutline, matFilterAltOffFillOutline,

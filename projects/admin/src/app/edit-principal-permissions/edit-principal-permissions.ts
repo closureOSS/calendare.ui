@@ -29,7 +29,7 @@ import { matRestartAltOutline } from '@ng-icons/material-symbols/outline';
     EditPermissions,
     TranslocoDirective,
   ],
-  providers: [
+  viewProviders: [
     provideIcons({
       matRestartAltOutline,
     }),

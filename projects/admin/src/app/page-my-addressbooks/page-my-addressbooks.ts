@@ -24,7 +24,7 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
     TranslocoDirective,
     SiteTitle
   ],
-  providers: [
+  viewProviders: [
     provideIcons({
       matContactsFillOutline,
     })

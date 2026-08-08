@@ -28,7 +28,7 @@ import { matRestartAltOutline } from '@ng-icons/material-symbols/outline';
     FieldError,
     TranslocoDirective,
   ],
-  providers: [
+  viewProviders: [
     provideIcons({ matRestartAltOutline, }),
   ],
   templateUrl: './login-username-password.html',

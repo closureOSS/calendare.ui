@@ -7,6 +7,9 @@ import { ColorPalette, SiteThemeProvider } from '../site-theme/site-theme-provid
   imports: [
     HlmSelectImports,
   ],
+  host: {
+    class: 'inline-block',
+  },
   templateUrl: './color-palette-switcher.html',
 })
 export class ColorPaletteSwitcher {

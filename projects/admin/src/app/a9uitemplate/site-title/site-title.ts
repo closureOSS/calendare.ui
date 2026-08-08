@@ -3,7 +3,9 @@ import { hlmH2 } from '@spartan-ng/helm/typography';
 
 @Component({
   selector: 'a9-site-title',
-  imports: [],
+  host: {
+    class: 'block',
+  },
   templateUrl: './site-title.html',
 })
 export class SiteTitle {

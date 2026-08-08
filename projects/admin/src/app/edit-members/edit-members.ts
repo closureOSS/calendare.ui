@@ -41,7 +41,7 @@ import { hlmH4 } from '@spartan-ng/helm/typography';
     HttpErrorOnSave,
     TranslocoDirective,
   ],
-  providers: [
+  viewProviders: [
     provideIcons({
       matRestartAltOutline,
       matCancelFillOutline,

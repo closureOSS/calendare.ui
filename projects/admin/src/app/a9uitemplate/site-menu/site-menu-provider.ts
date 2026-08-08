@@ -29,7 +29,7 @@ export class SiteMenuProvider {
   public load(routes: Routes, translate: TranslocoService) {
     const menuItems = this.mapRoutes(routes, ['/'], translate);
     this.#menuConfig.set(menuItems);
-    this.#menuSections.set(this.mapSection(menuItems, translate));
+    this.#menuSections.set(this.mapSection(menuItems));
     // console.log(this.#menuConfig(), this.#menuSections());
   }
 
@@ -55,7 +55,7 @@ export class SiteMenuProvider {
     return menuItems;
   }
 
-  private mapSection(menuItems: MenuConfig[], translate: TranslocoService): MenuSection[] {
+  private mapSection(menuItems: MenuConfig[]): MenuSection[] {
     const sections: MenuSection[] = [];
     let current: MenuSection | null = null;
     for (const menu of menuItems) {

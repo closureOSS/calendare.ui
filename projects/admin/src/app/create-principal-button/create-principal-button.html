@@ -6,7 +6,7 @@
   </button>
 
   <ng-template #menuPrincipals>
-    <hlm-dropdown-menu>
+    <hlm-dropdown-menu class="min-w-40">
       @for(ptype of PrincipalTypes; track $index) {
       <button hlmDropdownMenuItem [routerLink]="['/','principal','new',ptype]">
         <cal-icon-principal-type [type]="ptype" />

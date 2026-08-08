@@ -11,7 +11,7 @@ import { matAllInclusiveOutline, matKeyFillOutline, matKeyOffFillOutline, matKey
     HlmBadgeImports,
     NgIcon,
   ],
-  providers: [
+  viewProviders: [
     provideIcons({
       matKeyFillOutline,
       matKeyOffFillOutline,

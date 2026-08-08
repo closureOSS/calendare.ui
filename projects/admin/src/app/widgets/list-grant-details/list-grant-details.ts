@@ -14,7 +14,7 @@ import { matCollapseAllFillOutline, matExpandAllFillOutline } from '@ng-icons/ma
     HlmCollapsibleImports,
     NgIcon,
   ],
-  providers: [
+  viewProviders: [
     provideIcons({
       matExpandAllFillOutline,
       matCollapseAllFillOutline,
