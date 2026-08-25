@@ -6,7 +6,7 @@ import { PrivilegeMask } from '../core/privilege-mask';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { matGroupFillOutline, matMeetingRoomFillOutline, matPerson2FillOutline, matPersonAddOutline, matSpeakerFillOutline } from '@ng-icons/material-symbols/outline';
+import { matPersonAddOutline } from '@ng-icons/material-symbols/outline';
 import { LabelPrincipalType, PrincipalTypes } from '../widgets/label-principal-type/label-principal-type';
 import { IconPrincipalType } from '../widgets/icon-principal-type/icon-principal-type';
 
@@ -23,8 +23,6 @@ import { IconPrincipalType } from '../widgets/icon-principal-type/icon-principal
   ],
   viewProviders: [
     provideIcons({
-      matPerson2FillOutline, matMeetingRoomFillOutline,
-      matSpeakerFillOutline, matGroupFillOutline,
       matPersonAddOutline,
     }),
   ],
