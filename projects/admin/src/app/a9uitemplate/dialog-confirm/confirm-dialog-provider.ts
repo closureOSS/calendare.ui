@@ -22,7 +22,7 @@ export class ConfirmDialogProvider {
           confirmOnly: content?.confirmOnly ?? false,
         }
       },
-      contentClass: 'sm:!max-w-[80%]',
+      contentClass: 'min-w-xs',
       showCloseButton: false,
       disableClose: true,
     });

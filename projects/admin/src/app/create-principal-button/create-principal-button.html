@@ -1,18 +1,16 @@
-<ng-container *transloco="let t">
-  <button hlmBtn variant="secondary" [hlmDropdownMenuTrigger]="menuPrincipals"
-    [disabled]="!canCreatePrincipal(permissions())">
-    <ng-icon name="matPersonAddOutline" data-icon="inline-start" />
-    {{ t('Principal') }}
-  </button>
+<button hlmBtn variant="secondary" [hlmDropdownMenuTrigger]="menuPrincipals" *transloco="let t"
+  [disabled]="!canCreatePrincipal(permissions())">
+  <ng-icon name="matPersonAddOutline" data-icon="inline-start" />
+  {{ t('Principal') }}
+</button>
 
-  <ng-template #menuPrincipals>
-    <hlm-dropdown-menu class="min-w-40">
-      @for(ptype of PrincipalTypes; track $index) {
-      <button hlmDropdownMenuItem [routerLink]="['/','principal','new',ptype]">
-        <cal-icon-principal-type [type]="ptype" />
-        <cal-label-principal-type [type]="ptype" />
-      </button>
-      }
-    </hlm-dropdown-menu>
-  </ng-template>
-</ng-container>
+<ng-template #menuPrincipals>
+  <hlm-dropdown-menu class="min-w-40">
+    @for(ptype of PrincipalTypes; track $index) {
+    <button hlmDropdownMenuItem [routerLink]="['/','principal','new',ptype]">
+      <cal-icon-principal-type [type]="ptype" />
+      <cal-label-principal-type [type]="ptype" />
+    </button>
+    }
+  </hlm-dropdown-menu>
+</ng-template>
