@@ -1,0 +1,39 @@
+<div class="flex flex-wrap gap-1 px-4 py-3" *transloco="let t">
+  @for(tag of tagCloud(); track tag.key) {
+  <button [variant]="tag.isFiltering ? 'secondary': 'outline'" [disabled]="tag.filterCnt === 0 || disabled()" size="xs"
+    hlmBtn [hlmDropdownMenuTrigger]="menu">
+    <span class="grow text-left">{{ tag.key }}</span>
+  </button>
+  <ng-template #menu>
+    <hlm-dropdown-menu class="min-w-40">
+      <hlm-dropdown-menu-group>
+        @for(v of tag.values.sort((l,r) => l.value.localeCompare(r.value)); track $index) {
+        <button hlmDropdownMenuCheckbox [checked]="v.selected" [disabled]="v.filterCnt === 0"
+          (triggered)="tagFilter(tag.key, v.value)">
+          <span class="grow text-left">{{ v.value }}</span>
+          @if(v.filterCnt > 0) {
+          <span
+            class="text-shadow-xs text-xs bg-accent-foreground text-accent inline-block min-w-4 border border-secondary-foreground rounded-full px-1">
+            {{ v.filterCnt }}
+          </span>
+          }
+          <hlm-dropdown-menu-checkbox-indicator />
+        </button>
+        }
+        <hlm-dropdown-menu-separator />
+        <button hlmDropdownMenuCheckbox [checked]="tag.includeNull" [disabled]="tag.isFiltering && tag.nullCnt === 0"
+          (triggered)="tagFilter(tag.key, '***')">
+          <span class="grow text-left">{{ t('(Null)') }}</span>
+          @if(tag.nullCnt > 0) {
+          <span
+            class="text-shadow-xs text-xs bg-accent-foreground text-accent inline-block min-w-4 border border-secondary-foreground rounded-full px-1">
+            {{ tag.nullCnt }}
+          </span>
+          }
+          <hlm-dropdown-menu-checkbox-indicator />
+        </button>
+      </hlm-dropdown-menu-group>
+    </hlm-dropdown-menu>
+  </ng-template>
+  }
+</div>

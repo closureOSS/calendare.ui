@@ -1,5 +1,6 @@
-  <div class="border-sidebar bg-sidebar">
-    <hlm-button-group class="px-4 py-3 w-full shadow-sm">
-      <ng-content />
-    </hlm-button-group>
-  </div>
+<div class="border-sidebar bg-sidebar shadow-sm">
+  <hlm-button-group class="px-4 py-3 w-full">
+    <ng-content />
+  </hlm-button-group>
+  <ng-content select="extended" />
+</div>
