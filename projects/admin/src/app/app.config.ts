@@ -14,7 +14,6 @@ import { CurrentUserInfo } from './a9uitemplate/current-user-info';
 import { marker as _ } from "@jsverse/transloco-keys-manager/marker";
 import { AppAuthState } from './core/app-auth-state';
 import { provideSpartanHlm } from '@spartan-ng/helm/utils';
-import { provideNgIconsConfig } from '@ng-icons/core';
 import { CalendareSiteSearchProvider } from './core/calendare-site-search-provider';
 import { SiteSearchProvider } from './a9uitemplate/site-search/site-search-provider';
 import { SiteInternationalizationProvider } from './a9uitemplate/language-menu/site-internationalization-provider';
@@ -57,7 +56,6 @@ export function appConfig(config: RuntimeConfig): ApplicationConfig {
         },
       }),
       provideSpartanHlm(),
-      provideNgIconsConfig({ size: '1.5rem', }),
       provideHttpClient(
         withInterceptors([
           authInterceptor(),
