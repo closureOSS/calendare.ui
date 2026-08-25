@@ -27,12 +27,12 @@ export const buttonVariants = cva(
         xs: "h-7 gap-1 rounded-[min(var(--radius-md),8px)] px-3.5 text-xs in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(3)]",
         sm: 'h-9 gap-1 rounded-[min(var(--radius-md),10px)] px-4.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5',
         lg: 'h-12 gap-1.5 px-6 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2',
-        icon: 'size-10',
+        icon: "size-10 [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(5)]",
         'icon-xs':
           "size-7 rounded-[min(var(--radius-md),8px)] in-data-[slot=button-group]:rounded-md [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(3)]",
         'icon-sm':
           'size-9 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-md',
-        'icon-lg': 'size-12',
+        'icon-lg': "size-12  [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(7)]",
       },
     },
     defaultVariants: {
