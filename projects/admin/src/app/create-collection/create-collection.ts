@@ -19,8 +19,9 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmInputImports } from '@spartan-ng/helm/input';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { matRestartAltOutline } from '@ng-icons/material-symbols/outline';
+import { matRestartAltOutline, matShuffleFillOutline, matShuffleOutline } from '@ng-icons/material-symbols/outline';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
+import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 
 @Component({
   selector: 'cal-create-collection',
@@ -31,6 +32,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
     HlmButtonGroupImports,
     HlmButtonImports,
     HlmInputImports,
+    HlmInputGroupImports,
     HlmFieldImports,
     HlmSelectImports,
     NgIcon,
@@ -42,6 +44,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
   viewProviders: [
     provideIcons({
       matRestartAltOutline,
+      matShuffleOutline, matShuffleFillOutline,
     }),
   ],
   templateUrl: './create-collection.html',
@@ -67,16 +70,6 @@ export class CreateCollection {
       when: ({ valueOf }) => this.collectionTypeLabel() !== undefined || !!valueOf,
       message: this.transloco.translate('Type of collection is required'),
     });
-    // validate(schemaPath.collectionType, ({ value }) => {
-    //   console.log('validate:', value(), this.collectionTypeLabel());
-    //   if (this.collectionTypeLabel()) {
-    //     return null;
-    //   }
-    //   if (value() === null) {
-    //     return { kind: 'required', message: this.transloco.translate('Type of collection is required'), }
-    //   }
-    //   return null;
-    // });
     hidden(schemaPath.collectionType, { when: () => this.collectionTypeLabel() !== undefined });
   },
     {
@@ -126,9 +119,6 @@ export class CreateCollection {
   }
 
   public refresh() {
-    this.formModel.set({
-      uri: uuidv4(),
-      collectionType: this.collectionTypeLabel() ?? null
-    });
+    this.editForm.uri().value.set(uuidv4());
   }
 }

@@ -29,10 +29,17 @@
 
         <hlm-field>
           <label hlmFieldLabel for="uri">{{ t('Path name of collection') }}</label>
-          <input hlmInput id="uri" [formField]="editForm.uri" type="text" [placeholder]="t('Uri / Path')">
+          <hlm-input-group>
+            <input hlmInput id="uri" [formField]="editForm.uri" type="text" [placeholder]="t('Uri / Path')">
+            <hlm-input-group-addon align="inline-end">
+              <button hlmInputGroupButton size="icon-sm" (click)="refresh()" [title]="t('Generate random path name')">
+                <ng-icon name="matShuffleFillOutline" />
+              </button>
+            </hlm-input-group-addon>
+          </hlm-input-group>
           <a9-field-error [field]="editForm.uri()">
             {{ t('Last part of the path name, i.e. /username/something. Can\'t be changed after creation!',
-              {username: username()}) }}
+            {username: username()}) }}
           </a9-field-error>
         </hlm-field>
 
@@ -42,9 +49,6 @@
     <hlm-card-footer>
       <div hlmButtonGroup>
         <button hlmBtn variant="default" tabindex="0" type="submit">{{ t('Create') }}</button>
-        <button hlmBtn variant="outline" type="reset" (click)="refresh()" [title]="t('Reset')">
-          <ng-icon name="matRestartAltOutline" />
-        </button>
       </div>
     </hlm-card-footer>
   </hlm-card>
