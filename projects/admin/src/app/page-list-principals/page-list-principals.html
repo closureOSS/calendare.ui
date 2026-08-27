@@ -58,8 +58,8 @@
               <td hlmTableCell class="hidden lg:table-cell">{{ principal.email }}</td>
               <td hlmTableCell>
                 <div class="flex items-center-safe gap-1">
-                  <cal-icon-principal-type
-                    [type]="$safeNavigationMigration(principal.principalType?.label)"></cal-icon-principal-type>
+                  <cal-icon-principal-type [type]="principal.principalType?.label">
+                  </cal-icon-principal-type>
                   <span class="show-xl">{{ principal.principalType?.name }}</span>
                 </div>
               </td>
@@ -71,12 +71,12 @@
         </table>
       </div>
       } @else {
-      <div class="flex flex-col w-full gap-2 max-w-xl">
+      <div class="flex flex-col w-full gap-1 max-w-xl">
         @for (principal of principalsList; track principal.username) {
         <hlm-item variant="outline" [routerLink]="['/principal', 'show', principal.username]">
           <hlm-item-media variant="icon">
-            <cal-icon-principal-type
-              [type]="$safeNavigationMigration(principal.principalType?.label)"></cal-icon-principal-type>
+            <cal-icon-principal-type [type]="principal.principalType?.label">
+            </cal-icon-principal-type>
           </hlm-item-media>
           <hlm-item-content>
             <hlm-item-title>{{ principal.username }}</hlm-item-title>
