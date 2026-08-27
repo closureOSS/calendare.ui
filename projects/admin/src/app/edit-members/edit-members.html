@@ -27,10 +27,10 @@
               </hlm-item-title>
             </hlm-item-content>
             <hlm-item-actions>
-              <button hlmBtn [variant]="m.membershipType !== 'Unassigned'? 'destructive' : 'ghost'" size="icon"
+              <button hlmBtn [variant]="m.membershipType !== 'Unassigned'? 'destructive' : 'ghost'" class="rounded-full" size="icon-sm"
                 (click)="remove(m, grp)">
                 <ng-icon
-                  [name]="m.membershipType !== 'Unassigned' ? 'matCancelFillOutline' : 'matRestoreFromTrashFillOutline'" />
+                  [name]="m.membershipType !== 'Unassigned' ? 'matDeleteOutline' : 'matRestoreFromTrashFillOutline'" />
               </button>
             </hlm-item-actions>
           </hlm-item>
@@ -50,7 +50,7 @@
   <hlm-card-footer>
     <hlm-button-group>
       <button hlmBtn variant="default" [disabled]="!dirty()" (click)="submit()" type="button">{{ t('Save') }}</button>
-      <button hlmBtn variant="outline" size="icon" type="reset" (click)="refresh()" [title]="t('Reset')">
+      <button hlmBtn variant="ghost" size="icon" type="reset" (click)="refresh()" [title]="t('Reset')">
         <ng-icon name="matRestartAltOutline" />
       </button>
     </hlm-button-group>

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideSearch } from '@ng-icons/lucide';
+import { matSearchOutline } from '@ng-icons/material-symbols/outline';
+
 import { BrnCommandInput } from '@spartan-ng/brain/command';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { classes } from '@spartan-ng/helm/utils';
@@ -8,7 +9,7 @@ import { classes } from '@spartan-ng/helm/utils';
 @Component({
   selector: 'hlm-command-input',
   imports: [HlmInputGroupImports, NgIcon, BrnCommandInput],
-  providers: [provideIcons({ lucideSearch })],
+  providers: [provideIcons({ matSearchOutline })],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     'data-slot': 'command-input-wrapper',
@@ -26,7 +27,7 @@ import { classes } from '@spartan-ng/helm/utils';
       />
 
       <hlm-input-group-addon>
-        <ng-icon name="lucideSearch" class="shrink-0 text-[length:--spacing(4)] opacity-50" />
+        <ng-icon name="matSearchOutline" class="shrink-0 text-[length:--spacing(4)] opacity-50" />
       </hlm-input-group-addon>
     </hlm-input-group>
   `,

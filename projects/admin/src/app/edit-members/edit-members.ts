@@ -21,7 +21,7 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmItemImports } from '@spartan-ng/helm/item';
-import { matRestartAltOutline, matCancelFillOutline, matRestoreFromTrashFillOutline } from '@ng-icons/material-symbols/outline';
+import { matRestartAltOutline, matCancelFillOutline, matRestoreFromTrashFillOutline, matDeleteOutline } from '@ng-icons/material-symbols/outline';
 import { IconPrincipalType } from '../widgets/icon-principal-type/icon-principal-type';
 import { hlmH4 } from '@spartan-ng/helm/typography';
 
@@ -44,7 +44,7 @@ import { hlmH4 } from '@spartan-ng/helm/typography';
   viewProviders: [
     provideIcons({
       matRestartAltOutline,
-      matCancelFillOutline,
+      matCancelFillOutline, matDeleteOutline,
       matRestoreFromTrashFillOutline,
     }),
   ],

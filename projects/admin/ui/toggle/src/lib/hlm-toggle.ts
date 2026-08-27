@@ -13,9 +13,9 @@ export const toggleVariants = cva(
         emphasis: 'border data-[state=on]:bg-secondary data-[state=on]:text-secondary-foreground',
       },
       size: {
-        default: 'h-9 min-w-9 px-2.5',
-        sm: 'h-8 min-w-8 px-2.5',
-        lg: 'h-10 min-w-10 px-2.5',
+        default: "h-11 min-w-11 px-2.5 [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(7)]",
+        sm: 'h-9 min-w-9 px-2.5',
+        lg: "h-13 min-w-13 px-2.5 [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(10)]",
       },
     },
     defaultVariants: {

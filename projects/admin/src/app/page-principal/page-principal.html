@@ -51,7 +51,7 @@
   @if(hasPermission(principal.permissions, PrivilegeMask.ReadAcl)) {
   <section class="mbs-4">
     <header>
-      <h4 [class]="hlmSectionTitle" class="py-4 mbs-8">{{ t('Credentials') }}</h4>
+      <h4 [class]="hlmSectionTitle" class="py-4 mbs-8 px-4 sm:px-0">{{ t('Credentials') }}</h4>
     </header>
     <cal-view-credentials [username]="username()"></cal-view-credentials>
     <a9-floating-action-bar>
@@ -63,7 +63,7 @@
   @if(!principal.isRoot) {
   <section class="mbs-4">
     <header>
-      <h4 [class]="hlmSectionTitle" class="py-4 mbs-8">{{ t('Collections') }}</h4>
+      <h4 [class]="hlmSectionTitle" class="py-4 mbs-8 px-4 sm:px-0">{{ t('Collections') }}</h4>
     </header>
     <cal-view-collections [username]="username()" [principalType]="principal.principalType"></cal-view-collections>
     <a9-floating-action-bar>

@@ -20,7 +20,6 @@ import { EditEmailConfirm } from '../edit-email-confirm/edit-email-confirm';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { matAddBoxFillOutline } from '@ng-icons/material-symbols/outline';
-import { hlmH4 } from '@spartan-ng/helm/typography';
 import { HlmLabelImports } from '@spartan-ng/helm/label';
 
 @Component({
@@ -51,7 +50,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
   templateUrl: './page-principal.html',
 })
 export class PagePrincipal {
-  public hlmSectionTitle = hlmH4;
+  public hlmSectionTitle = 'scroll-m-20 text-base sm:text-xl font-semibold tracking-tight'
   public username = input.required<string>();
   private readonly calendareResource = inject(CalendareResource);
   readonly PrivilegeMask = PrivilegeMaskConstant;
