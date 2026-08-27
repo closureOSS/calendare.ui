@@ -3,9 +3,9 @@
     <hlm-field orientation="horizontal">
       <hlm-input-group title="">
         <input type="search" hlmInputGroupInput [formField]="searchForm.searchterm" />
-        <div hlmInputGroupAddon align="inline-start">
+        <hlm-input-group-addon align="inline-start">
           <ng-icon name="matSearchOutline" />
-        </div>
+        </hlm-input-group-addon>
       </hlm-input-group>
     </hlm-field>
     <hlm-toggle-group type="multiple" variant="emphasis" spacing="0.5" [formField]="searchForm.filterByType"

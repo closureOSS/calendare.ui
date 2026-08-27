@@ -2,6 +2,7 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideSearch, lucideX } from '@ng-icons/lucide';
+import { matSearchOutline } from '@ng-icons/material-symbols/outline';
 import {
   BrnAutocompleteAnchor,
   BrnAutocompleteClear,
@@ -13,7 +14,7 @@ import { classes } from '@spartan-ng/helm/utils';
 @Component({
   selector: 'hlm-autocomplete-input',
   imports: [HlmInputGroupImports, NgIcon, BrnAutocompleteClear, BrnAutocompleteInput],
-  providers: [provideIcons({ lucideSearch, lucideX })],
+  providers: [provideIcons({ matSearchOutline, lucideSearch, lucideX })],
   changeDetection: ChangeDetectionStrategy.OnPush,
   hostDirectives: [BrnAutocompleteAnchor, HlmInputGroup],
   template: `
@@ -29,7 +30,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
     @if (showSearch()) {
       <hlm-input-group-addon>
-        <ng-icon name="lucideSearch" [class.opacity-50]="autocompleteInput.disabled()" />
+        <ng-icon name="matSearchOutline" [class.opacity-50]="autocompleteInput.disabled()" />
       </hlm-input-group-addon>
     }
 
