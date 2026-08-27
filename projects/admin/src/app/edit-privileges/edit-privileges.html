@@ -54,7 +54,7 @@
   <hlm-card-footer>
     <hlm-button-group>
       <button hlmBtn variant="default" [disabled]="!dirty()" (click)="submit()" type="button">{{ t('Save') }}</button>
-      <button hlmBtn variant="outline" size="icon" type="reset" (click)="refresh()" [title]="t('Reset')">
+      <button hlmBtn variant="ghost" size="icon" type="reset" (click)="refresh()" [title]="t('Reset')">
         <ng-icon name="matRestartAltOutline" />
       </button>
     </hlm-button-group>
