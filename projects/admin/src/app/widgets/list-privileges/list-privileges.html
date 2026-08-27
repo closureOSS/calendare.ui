@@ -8,7 +8,7 @@
     @if(privilege.principalType) {
     <a hlmBtn [variant]="privilege.isIndirect? 'ghost' : 'outline'" [class.text-muted-foreground]="privilege.isIndirect"
       [routerLink]="['/principal', 'show', privilege.username]">
-      <cal-principal-ref [type]="privilege.principalType" [name]="privilege.displayname"></cal-principal-ref>
+      <cal-principal-ref class="-ml-6" [type]="privilege.principalType" [name]="privilege.displayname"></cal-principal-ref>
     </a>
     } @else {
     <a hlmBtn [variant]="privilege.isIndirect? 'ghost' : 'outline'" [class.text-muted-foreground]="privilege.isIndirect"
@@ -20,16 +20,16 @@
     @if(!privilege.isIndirect) {
     <button hlmBtn variant="outline" (click)="emitRevoke(privGroup, privilege)">
       @if(privilege.principalType) {
-      <cal-principal-ref [type]="privilege.principalType" [name]="privilege.displayname"></cal-principal-ref>
+      <cal-principal-ref class="-ml-6" [type]="privilege.principalType" [name]="privilege.displayname"></cal-principal-ref>
       } @else {
       {{privilege.uri}} &mdash; {{privilege.displayname}}
       }
-      <ng-icon name="matDeleteFillOutline" class="text-destructive" data-icon="inline-end" />
+      <ng-icon name="matDeleteOutline" class="text-destructive ml-4 text-[1.5em]" data-icon="inline-end" />
     </button>
     } @else {
     <button hlmBtn variant="ghost" class="text-muted-foreground">
       @if(privilege.principalType) {
-      <cal-principal-ref [type]="privilege.principalType" [name]="privilege.displayname"></cal-principal-ref>
+      <cal-principal-ref class="-ml-6" [type]="privilege.principalType" [name]="privilege.displayname"></cal-principal-ref>
       } @else {
       {{privilege.uri}} &mdash; {{privilege.displayname}}
       }
@@ -50,7 +50,7 @@
     @if(privilege.principalType) {
     <a hlmBtn [variant]="privilege.isIndirect? 'ghost' : 'outline'" [class.text-muted-foreground]="privilege.isIndirect"
       [routerLink]="['/principal', 'show', privilege.username]">
-      <cal-principal-ref [type]="privilege.principalType" [name]="privilege.displayname"></cal-principal-ref>
+      <cal-principal-ref class="-ml-6" [type]="privilege.principalType" [name]="privilege.displayname"></cal-principal-ref>
     </a>
     } @else {
     <a hlmBtn [variant]="privilege.isIndirect? 'ghost' : 'outline'" [class.text-muted-foreground]="privilege.isIndirect"
