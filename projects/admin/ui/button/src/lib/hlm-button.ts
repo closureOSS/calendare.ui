@@ -23,10 +23,10 @@ export const buttonVariants = cva(
       },
       size: {
         default:
-          'h-10 gap-1.5 px-5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2',
+          "h-11 gap-1.5 px-8 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(5)]",
         xs: "h-7 gap-1 rounded-[min(var(--radius-md),8px)] px-3.5 text-xs in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(3)]",
-        sm: 'h-8 gap-1 rounded-[min(var(--radius-md),10px)] px-4.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5',
-        lg: 'h-12 gap-1.5 px-6 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2',
+        sm: 'h-9 gap-1 rounded-[min(var(--radius-md),10px)] px-4.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5',
+        lg: 'h-13 gap-1.5 px-6 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2',
         icon: "size-11 [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(7)]",
         'icon-xs':
           "size-7 rounded-[min(var(--radius-md),8px)] in-data-[slot=button-group]:rounded-md [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(5)] any-pointer-coarse:size-9",
