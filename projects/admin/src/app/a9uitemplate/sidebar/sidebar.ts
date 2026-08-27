@@ -10,6 +10,7 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { matAccountBoxOutline, matAccountCircleOutline, matLanguageOutline, matLogoutOutline } from '@ng-icons/material-symbols/outline';
 import { LanguageMenu } from '../language-menu/language-menu';
 import { lucideEllipsisVertical } from '@ng-icons/lucide';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'a9-sidebar',
@@ -17,6 +18,7 @@ import { lucideEllipsisVertical } from '@ng-icons/lucide';
     HlmSidebarImports,
     HlmAvatarImports,
     HlmDropdownMenuImports,
+    HlmButtonImports,
     NgIcon,
     RouterLink,
     RouterLinkActive,

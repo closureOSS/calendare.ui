@@ -6,8 +6,7 @@
       <ul hlmSidebarMenu>
         <li hlmSidebarMenuItem class="bg-sidebar-primary-foreground">
           <a hlmSidebarMenuButton size="lg" (click)="hideMobile()" routerLink="/">
-            <div
-              class="flex aspect-square size-8 items-center justify-center">
+            <div class="flex aspect-square size-8 items-center justify-center">
               <img src="icon.svg" alt="Logo" class="object-contain object-center">
             </div>
             <div class="grid flex-1 text-left leading-tight text-primary">
@@ -28,8 +27,8 @@
           <ul hlmSidebarMenu>
             @for(route of section.menuItems; track $index) {
             <li hlmSidebarMenuItem>
-              <a hlmSidebarMenuButton (click)="hideMobile()" [routerLink]="route.path" routerLinkActive #rla="routerLinkActive"
-                [isActive]="rla.isActive" ariaCurrentWhenActive="page">
+              <a hlmSidebarMenuButton (click)="hideMobile()" [routerLink]="route.path" routerLinkActive
+                #rla="routerLinkActive" [isActive]="rla.isActive" ariaCurrentWhenActive="page">
                 <!-- @if(route.icon){ -->
                 <ng-icon class="text-primary" size="1.25em" [svg]="route.icon" />
                 <!-- } -->
@@ -42,10 +41,10 @@
       </div>
       }
     </div>
-    <div hlmSidebarFooter>
+    <div hlmSidebarFooter class="bg-sidebar-accent">
       <ul hlmSidebarMenu>
         <li hlmSidebarMenuItem>
-          <a hlmSidebarMenuButton size="lg" [hlmDropdownMenuTrigger]="menuUser">
+          <a hlmSidebarMenuButton size="lg" [hlmDropdownMenuTrigger]="menuUser" align="end">
             @if(currentUser.displayname() || currentUser.email()) {
             <hlm-avatar>
               @if(currentUser.picture(); as pict) {
@@ -61,11 +60,10 @@
             } @else{
             <ng-icon name="matAccountCircleOutline"></ng-icon>
             }
-            <button hlmSidebarMenuAction [hlmDropdownMenuTrigger]="menuUser">
-              <ng-icon name="lucideEllipsisVertical" />
+            <button type="button" hlmSidebarMenuAction>
+              <ng-icon name="lucideEllipsisVertical" size="1.5em" />
               <span class="sr-only">More</span>
             </button>
-
             <ng-template #menuUser>
               <hlm-dropdown-menu>
                 <!-- ng-content for custom user menus ... -->

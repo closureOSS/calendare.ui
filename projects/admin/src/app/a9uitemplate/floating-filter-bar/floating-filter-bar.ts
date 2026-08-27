@@ -15,7 +15,7 @@ import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
     HlmButtonGroupImports,
   ],
   host: {
-    '[class]': "inline() ? 'relative block overflow-x-auto sticky top-0 z-2 @container' : 'relative block overflow-x-auto sticky top-0 z-2 @container -m-4 pb-8'",
+    '[class]': "inline() ? 'relative block overflow-x-auto sticky top-0 z-2 @container' : 'relative block overflow-x-auto sticky top-0 z-2 @container pb-5 -mt-4 sm:-m-4'",
   },
   templateUrl: './floating-filter-bar.html',
 })

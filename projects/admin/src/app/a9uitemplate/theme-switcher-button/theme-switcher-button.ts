@@ -3,11 +3,13 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { matDarkModeFillOutline, matLightModeFillOutline, matRoutineFillOutline } from '@ng-icons/material-symbols/outline';
 import { ThemeMode, SiteThemeProvider } from '../site-theme/site-theme-provider';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'a9-theme-switcher-button',
   imports: [
     NgIcon,
+    HlmButtonImports,
     TranslocoDirective,
   ],
   providers: [
