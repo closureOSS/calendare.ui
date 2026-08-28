@@ -1,7 +1,7 @@
-<a9-http-resource-viewer [resource]="version" *transloco="let t">
+<a9-http-resource-viewer [resource]="version" *transloco="let t" >
   @if(version.hasValue()) {
   @if(version.value(); as env) {
-  <a9-label-value-list class="max-w-2xl">
+  <a9-label-value-list class="max-w-2xl p-4 sm:p-0">
     <a9-label-value-item>
       <a9-label>{{ t('Admin UI version') }}</a9-label>
       {{appVersion}}
@@ -21,18 +21,26 @@
     @if(env.dbmsSchema?.length !== 0) {
     <a9-label-value-item>
       <a9-label>{{ t('DBMS schema') }}</a9-label>
-      {{env.dbmsSchema | json}}
+      <ol class="text-xs flex flex-col gap-1">
+        @for(schema of env.dbmsSchema; track $index) {
+        <li>{{ schema }}</li>
+        }
+      </ol>
     </a9-label-value-item>
     }
     @if(env.dbmsDataMigrations?.length !== 0) {
     <a9-label-value-item>
       <a9-label>{{ t('DBMS data') }}</a9-label>
-      {{env.dbmsDataMigrations | json}}
+      <ol class="text-xs flex flex-col gap-1">
+        @for(migration of env.dbmsDataMigrations; track $index) {
+        <li>{{ migration }}</li>
+        }
+      </ol>
     </a9-label-value-item>
     }
   </a9-label-value-list>
 
-  <div hlmTableContainer class="mt-16">
+  <div hlmTableContainer class="mt-16 p-1 pb-8 sm:p-0">
     <table hlmTable class="w-fit">
       <caption hlmTableCaption class="caption-bottom font-semibold">{{ t('Features by calendar client') }}</caption>
       <thead hlmTableHeader>

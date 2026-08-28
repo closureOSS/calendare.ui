@@ -1,8 +1,8 @@
-<header class="w-full border-b text-sidebar-accent-foreground bg-sidebar-accent" *transloco="let t">
+<header class="w-full border-b border-sidebar-border text-sidebar-foreground bg-sidebar" *transloco="let t">
   <!-- flex h-16 w-full items-center justify-between border-b bg-background px-6 z-50 -->
   <div class="flex items-center w-full gap-2 px-2 h-(--header-height)">
     <button hlmSidebarTrigger></button>
-    <hlm-separator orientation="vertical" class="mr-2" />
+    <hlm-separator orientation="vertical" class="mr-2 bg-sidebar-border" />
     <nav hlmBreadcrumb class="hidden sm:block ">
       <ol hlmBreadcrumbList class="flex-nowrap overflow-hidden whitespace-nowrap">
         @for (crumb of breadcrumbs(); track crumb.url; let last = $last; let first = $first) {
@@ -24,7 +24,7 @@
 
     <a9-site-search class="w-full sm:ml-auto sm:w-auto lg:min-w-xs bg-background" [placeholder]="t('Type a command or search...')" ></a9-site-search>
 
-    <hlm-separator orientation="vertical" />
+    <hlm-separator orientation="vertical" class="bg-sidebar-border"  />
     <a9-theme-switcher-button class="px-2"></a9-theme-switcher-button>
   </div>
 </header>

@@ -58,7 +58,11 @@
       "@spartan-ng/helm/autocomplete": ["./projects/admin/ui/autocomplete/src/index.ts"],
       "@spartan-ng/helm/table": ["./projects/admin/ui/table/src/index.ts"],
       "@spartan-ng/helm/accordion": ["./projects/admin/ui/accordion/src/index.ts"],
-      "@spartan-ng/helm/collapsible": ["./projects/admin/ui/collapsible/src/index.ts"]
+      "@spartan-ng/helm/collapsible": ["./projects/admin/ui/collapsible/src/index.ts"],
+      "@spartan-ng/helm/slider": ["./projects/admin/ui/slider/src/index.ts"],
+      "@spartan-ng/helm/hover-card": ["./projects/admin/ui/hover-card/src/index.ts"],
+      "@spartan-ng/helm/combobox": ["./projects/admin/ui/combobox/src/index.ts"],
+      "@spartan-ng/helm/aspect-ratio": ["./projects/admin/ui/aspect-ratio/src/index.ts"]
     }
   },
   "angularCompilerOptions": {
