@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck } from '@ng-icons/lucide';
-import { BrnAutocompleteItem } from '@spartan-ng/brain/autocomplete';
+import { BrnComboboxItem } from '@spartan-ng/brain/combobox';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
-  selector: 'hlm-autocomplete-item',
+  selector: 'hlm-combobox-item',
   imports: [NgIcon],
   providers: [provideIcons({ lucideCheck })],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  hostDirectives: [{ directive: BrnAutocompleteItem, inputs: ['id', 'disabled', 'value'] }],
-  host: { 'data-slot': 'autocomplete-item' },
+  hostDirectives: [{ directive: BrnComboboxItem, inputs: ['id', 'disabled', 'value'] }],
+  host: { 'data-slot': 'combobox-item' },
   template: `
     <ng-content />
     @if (_active()) {
@@ -22,10 +22,10 @@ import { classes } from '@spartan-ng/helm/utils';
     }
   `,
 })
-export class HlmAutocompleteItem {
-  private readonly _brnAutocompleteItem = inject(BrnAutocompleteItem);
+export class HlmComboboxItem {
+  private readonly _brnComboboxItem = inject(BrnComboboxItem);
 
-  protected readonly _active = this._brnAutocompleteItem.active;
+  protected readonly _active = this._brnComboboxItem.active;
 
   constructor() {
     classes(

@@ -1,17 +1,16 @@
 <div hlmSidebarWrapper *transloco="let t">
   <!-- h-[calc(100svh-var(--header-height))] -->
-  <hlm-sidebar class="border-r"
-    sidebarContainerClass="top-[calc(var(--header-height))] h-[calc(100svh-var(--header-height))] shrink-0">
-    <hlm-sidebar-header>
+  <hlm-sidebar sidebarContainerClass="top-[calc(var(--header-height))] h-[calc(100svh-var(--header-height))] shrink-0">
+    <hlm-sidebar-header class="bg-sidebar">
       <ul hlmSidebarMenu>
-        <li hlmSidebarMenuItem class="bg-sidebar-primary-foreground">
+        <li hlmSidebarMenuItem>
           <a hlmSidebarMenuButton size="lg" (click)="hideMobile()" routerLink="/">
             <div class="flex aspect-square size-8 items-center justify-center">
               <img src="icon.svg" alt="Logo" class="object-contain object-center">
             </div>
-            <div class="grid flex-1 text-left leading-tight text-primary">
-              <span class="truncate font-medium text-base tracking-wider">{{ t('closure.ch') }}</span>
-              <span class="truncate text-xs tracking-tighter -mt-1">{{ t('Open Source Software') }}</span>
+            <div class="grid flex-1 text-left leading-tight">
+              <span class="truncate font-medium text-base tracking-widest">{{ t('closure.ch') }}</span>
+              <span class="truncate text-xs tracking-wide -mt-1">{{ t('Open Source Software') }}</span>
             </div>
           </a>
         </li>
@@ -30,7 +29,7 @@
               <a hlmSidebarMenuButton (click)="hideMobile()" [routerLink]="route.path" routerLinkActive
                 #rla="routerLinkActive" [isActive]="rla.isActive" ariaCurrentWhenActive="page">
                 <!-- @if(route.icon){ -->
-                <ng-icon class="text-primary" size="1.25em" [svg]="route.icon" />
+                <ng-icon [svg]="route.icon" />
                 <!-- } -->
                 <span>{{ route.label }}</span>
               </a>
@@ -100,7 +99,7 @@
       </ul>
     </div>
   </hlm-sidebar>
-  <div class="flex-1 overflow-y-auto bg-muted/30 pbe-[calc(var(--header-height))]">
+  <div class="flex-1 overflow-y-auto bg-muted/30 dark:bg-muted/40 pbe-[calc(var(--header-height))]">
     <ng-content />
   </div>
 </div>

@@ -1,6 +1,6 @@
 <div class="flex flex-wrap gap-1 px-4 py-3" *transloco="let t">
   @for(tag of tagCloud(); track tag.key) {
-  <button [variant]="tag.isFiltering ? 'secondary': 'outline'" [disabled]="tag.filterCnt === 0 || disabled()" size="xs"
+  <button [variant]="tag.isFiltering ? 'secondary': 'outline'" [disabled]="tag.filterCnt === 0 || disabled()" size="sm"
     hlmBtn [hlmDropdownMenuTrigger]="menu">
     <span class="grow text-left">{{ tag.key }}</span>
   </button>
@@ -13,7 +13,7 @@
           <span class="grow text-left">{{ v.value }}</span>
           @if(v.filterCnt > 0) {
           <span
-            class="text-shadow-xs text-xs bg-accent-foreground text-accent inline-block min-w-4 border border-secondary-foreground rounded-full px-1">
+            class="text-shadow-xs text-xs bg-accent-foreground text-accent inline-block min-w-4 border border-accent-foreground/50 rounded-full px-1">
             {{ v.filterCnt }}
           </span>
           }
@@ -26,7 +26,7 @@
           <span class="grow text-left">{{ t('(Null)') }}</span>
           @if(tag.nullCnt > 0) {
           <span
-            class="text-shadow-xs text-xs bg-accent-foreground text-accent inline-block min-w-4 border border-secondary-foreground rounded-full px-1">
+            class="text-shadow-xs text-xs bg-accent-foreground text-accent inline-block min-w-4 border border-accent-foreground/50 rounded-full px-1">
             {{ tag.nullCnt }}
           </span>
           }
