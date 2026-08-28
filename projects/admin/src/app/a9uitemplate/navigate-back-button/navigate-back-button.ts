@@ -13,7 +13,7 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
     TranslocoDirective,
   ],
   host: {
-    'class': 'block -mt-4 py-2'
+    'class': 'block sm:-mt-4 py-2'
   },
   providers: [
     provideIcons({

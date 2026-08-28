@@ -1,5 +1,4 @@
 import { Component, computed, inject } from '@angular/core';
-import { JsonPipe } from '@angular/common';
 import { version } from '../../../../../package.json';
 import { CalendareFeatures, FeatureByClient } from '../../api';
 import { CalendareResource } from '../../api/resources';
@@ -15,7 +14,6 @@ import { BASE_PATH_CALENDAREAPI } from "../../api/tokens";
 @Component({
   selector: 'cal-view-version',
   imports: [
-    JsonPipe,
     NgIcon,
     A9LabelValueListImports,
     HlmTableImports,
