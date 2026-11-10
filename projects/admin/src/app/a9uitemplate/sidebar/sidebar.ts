@@ -26,6 +26,9 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
     LanguageMenu,
   ],
   templateUrl: './sidebar.html',
+  host:{
+    'class': 'grow h-full flex'
+  },
   viewProviders: [
     provideIcons({
       lucideEllipsisVertical,

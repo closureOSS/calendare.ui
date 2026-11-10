@@ -8,6 +8,7 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 
 @Component({
   selector: 'hlm-sidebar',
+  exportAs: 'hlmSidebar',
   imports: [NgTemplateOutlet, HlmSheetImports],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
@@ -38,6 +39,10 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
           class="bg-sidebar text-sidebar-foreground h-svh w-(--sidebar-width) p-0 [&>button]:hidden"
           [style.--sidebar-width]="sidebarWidthMobile()"
         >
+          <hlm-sheet-header class="sr-only">
+            <h2 hlmSheetTitle>{{ srOnlySheetTitle() }}</h2>
+            <p hlmSheetDescription>{{ srOnlySheetDescription() }}</p>
+          </hlm-sheet-header>
           <div class="flex h-full w-full flex-col">
             <ng-container *ngTemplateOutlet="contentContainer" />
           </div>
@@ -54,7 +59,7 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
         <div
           data-sidebar="sidebar"
           data-slot="sidebar-inner"
-          class="bg-sidebar group-data-[variant=floating]:ring-sidebar-border group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:shadow-sm group-data-[variant=floating]:ring-1 flex size-full flex-col"
+          class="bg-sidebar group-data-[variant=floating]:ring-sidebar-border flex size-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:shadow-sm group-data-[variant=floating]:ring-1"
         >
           <ng-container *ngTemplateOutlet="contentContainer" />
         </div>
@@ -70,6 +75,9 @@ export class HlmSidebar {
   public readonly side = input<'left' | 'right'>('left');
   public readonly variant = input<SidebarVariant>(this._sidebarService.variant());
   public readonly collapsible = input<'offcanvas' | 'icon' | 'none'>('offcanvas');
+
+  public readonly srOnlySheetTitle = input<string>('Sidebar');
+  public readonly srOnlySheetDescription = input<string>('Displays the mobile sidebar.');
 
   protected readonly _sidebarGapComputedClass = computed(() =>
     hlm(

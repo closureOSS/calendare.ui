@@ -3,7 +3,6 @@ import { RouterOutlet } from '@angular/router';
 import { Sidebar } from '../a9uitemplate/sidebar/sidebar';
 import { SiteStickyHeader } from '../a9uitemplate/site-sticky-header/site-sticky-header';
 import { translateSignal } from '@jsverse/transloco';
-import { version } from '../../../../../package.json';
 
 @Component({
   selector: 'a9-site-layout',
@@ -20,5 +19,4 @@ import { version } from '../../../../../package.json';
 })
 export class SiteLayout {
   protected readonly title = translateSignal('#TitleAppname');
-  public version: string = version;
 }

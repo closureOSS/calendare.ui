@@ -84,7 +84,7 @@
     </a9-label-value-list>
   </div>
   <hlm-card-footer>
-    <div hlmButtonGroup>
+    <hlm-button-group class="flex-wrap">
       <button hlmBtn [disabled]="
             !principal.username ||
             !hasPermission(principal.permissions, PrivilegeMask.WriteProperties)
@@ -101,7 +101,7 @@
           " (click)="delete()" variant="destructive">
         {{ t('Delete') }}
       </button>
-    </div>
+    </hlm-button-group>
   </hlm-card-footer>
   }
 </hlm-card>

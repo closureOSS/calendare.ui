@@ -9,6 +9,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
   selector: '[hlmSelectMultiple],hlm-select-multiple',
+  exportAs: 'hlmSelectMultiple',
   providers: [
     provideBrnPopoverConfig({
       align: 'start',
@@ -24,7 +25,14 @@ import { classes } from '@spartan-ng/helm/utils';
     },
     {
       directive: BrnPopover,
-      inputs: ['align', 'closeOnOutsidePointerEvents', 'sideOffset', 'state', 'offsetX'],
+      inputs: [
+        'align',
+        'closeOnOutsidePointerEvents',
+        'sideOffset',
+        'state',
+        'offsetX',
+        'scrollStrategy',
+      ],
       outputs: ['stateChanged', 'closed'],
     },
   ],

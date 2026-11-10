@@ -1,9 +1,9 @@
-import { booleanAttribute, Component, input, output } from '@angular/core';
+import { booleanAttribute, Component, input } from '@angular/core';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { matAddCardOutline, matIdCard2Outline, matIdCardFillOutline } from '@ng-icons/material-symbols/outline';
+import { matIdCardFillOutline } from '@ng-icons/material-symbols/outline';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
@@ -17,7 +17,7 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
   ],
   viewProviders: [
     provideIcons({
-      matAddCardOutline, matIdCard2Outline, matIdCardFillOutline,
+      matIdCardFillOutline,
     }),
   ],
   templateUrl: './create-credential-button.html',

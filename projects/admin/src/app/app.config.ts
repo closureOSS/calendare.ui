@@ -74,6 +74,9 @@ export function appConfig(config: RuntimeConfig): ApplicationConfig {
           prodMode: !isDevMode(),
           flatten: {
             aot: !isDevMode()
+          },
+          missingHandler: {
+            logMissingKey: isDevMode(),
           }
         },
         loader: TranslocoHttpLoader

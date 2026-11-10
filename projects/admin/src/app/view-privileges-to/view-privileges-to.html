@@ -11,7 +11,7 @@
     </a9-http-resource-viewer>
   </div>
   <hlm-card-footer>
-    <hlm-button-group>
+    <hlm-button-group class="flex-wrap">
       <button hlmBtn variant="outline" [routerLink]="['/principal', 'privileges', username()]">{{ t('Edit') }}</button>
       <button hlmBtn variant="outline" (click)="refresh()">{{ t('Refresh') }}</button>
       <button hlmBtn variant="outline" (click)="recalc()">{{ t('Recalc') }}</button>

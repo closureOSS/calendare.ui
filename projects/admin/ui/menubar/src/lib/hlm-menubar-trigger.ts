@@ -14,12 +14,14 @@ import {
   MENU_SIDE,
   type MenuAlign,
   type MenuSide,
+  updateMenuPosition,
 } from '@spartan-ng/brain/core';
 import { classes } from '@spartan-ng/helm/utils';
 import { injectHlmMenubarConfig } from './hlm-menubar-token';
 
 @Directive({
   selector: 'button[hlmMenubarTrigger]',
+  exportAs: 'hlmMenubarTrigger',
   providers: [{ provide: MENU_SIDE, useExisting: forwardRef(() => HlmMenubarTrigger) }],
   hostDirectives: [
     {
@@ -58,7 +60,7 @@ export class HlmMenubarTrigger {
       '[data-slot="dropdown-menu"]';
 
     effect(() => {
-      this._cdkTrigger.menuPosition = this._menuPosition();
+      updateMenuPosition(this._cdkTrigger, this._menuPosition());
     });
 
     classes(

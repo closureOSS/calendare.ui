@@ -20,6 +20,7 @@ import { injectHlmContextMenuConfig } from './hlm-context-menu-token';
 
 @Directive({
   selector: '[hlmContextMenuTrigger]',
+  exportAs: 'hlmContextMenuTrigger',
   providers: [{ provide: MENU_SIDE, useExisting: forwardRef(() => HlmContextMenuTrigger) }],
   hostDirectives: [
     {

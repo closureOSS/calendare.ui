@@ -1,7 +1,7 @@
 <div class="@lg:w-lg p-6" *transloco="let t">
   <p [class]="hlmH2">{{ t('#ShortAppname')}}</p>
   <p [class]="hlmP">{{ t('Welcome to the #FullAppname.') }}</p>
-  <div hlmButtonGroup class="my-4" orientation="horizontal">
+  <hlm-button-group class="my-4" orientation="horizontal">
     <a hlmBtn variant="default" (click)="loginOidc()">{{t('Login')}}</a>
-  </div>
+  </hlm-button-group>
 </div>

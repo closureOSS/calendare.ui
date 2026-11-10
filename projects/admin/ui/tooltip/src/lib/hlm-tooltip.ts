@@ -27,6 +27,7 @@ export const tooltipPositionVariants = cva('absolute', {
 
 @Directive({
   selector: '[hlmTooltip]',
+  exportAs: 'hlmTooltip',
   providers: [
     provideBrnTooltipDefaultOptions({
       svgClasses: DEFAULT_TOOLTIP_SVG_CLASS,
@@ -37,7 +38,14 @@ export const tooltipPositionVariants = cva('absolute', {
   hostDirectives: [
     {
       directive: BrnTooltip,
-      inputs: ['brnTooltip: hlmTooltip', 'position', 'hideDelay', 'showDelay', 'tooltipDisabled'],
+      inputs: [
+        'brnTooltip: hlmTooltip',
+        'position',
+        'hideDelay',
+        'showDelay',
+        'sideOffset',
+        'tooltipDisabled',
+      ],
     },
   ],
 })

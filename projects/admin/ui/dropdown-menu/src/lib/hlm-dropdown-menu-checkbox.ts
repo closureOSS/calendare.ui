@@ -7,6 +7,7 @@ import { HlmDropdownMenuFocusOnHover } from './hlm-dropdown-menu-focus-on-hover'
 /** @internal. Use HlmDropdownMenuCheckbox instead. */
 @Directive({
   selector: '[hlmDropdownMenuCheckboxCdk]',
+  exportAs: 'hlmDropdownMenuCheckboxCdk',
   providers: [
     { provide: CdkMenuItemCheckbox, useExisting: HlmDropdownMenuCheckboxCdk },
     { provide: CdkMenuItemSelectable, useExisting: HlmDropdownMenuCheckboxCdk },
@@ -23,6 +24,7 @@ export class HlmDropdownMenuCheckboxCdk extends CdkMenuItemCheckbox {
 
 @Directive({
   selector: '[hlmDropdownMenuCheckbox],[hlmDropdownMenuCheckboxItem]',
+  exportAs: 'hlmDropdownMenuCheckbox',
   hostDirectives: [
     {
       directive: HlmDropdownMenuCheckboxCdk,
@@ -48,7 +50,7 @@ export class HlmDropdownMenuCheckbox {
   constructor() {
     classes(
       () =>
-        "hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground gap-2 rounded-sm py-3 ps-2 pe-10 text-base data-inset:ps-8 [&_ng-icon:not([class*='text-'])]:text-[--spacing(5)] group/dropdown-menu-checkbox relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0",
+        "hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground gap-2 rounded-sm py-3 ps-2 pe-10 text-base data-inset:ps-8 [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(5)] group/dropdown-menu-checkbox relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0",
     );
   }
 }
