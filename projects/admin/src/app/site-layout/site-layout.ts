@@ -14,7 +14,7 @@ import { version } from '../../../../../package.json';
   ],
   encapsulation: ViewEncapsulation.None,
   host: {
-    class: '[--header-height:--spacing(14)] flex h-screen w-screen flex-col overflow-hidden',
+    class: '[--header-height:--spacing(14)] flex h-screen w-screen flex-col overflow-auto',
   },
   templateUrl: './site-layout.html',
 })

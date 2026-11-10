@@ -1,6 +1,8 @@
- <hlm-dialog-header>
-  <h3 hlmDialogTitle class="text-2xl">{{data.title}}</h3>
-  <p hlmDialogDescription class="text-primary text-base py-1">{{data.intro}}</p>
+<hlm-dialog-header>
+  <h3 hlmDialogTitle class="text-2xl">{{ data.title }}</h3>
+  <p hlmDialogDescription class="text-primary text-base py-1 wrap-anywhere">
+    {{ data.intro }}
+  </p>
 </hlm-dialog-header>
 
 @if(data.body){
@@ -10,11 +12,11 @@
 
 <hlm-dialog-footer *transloco="let t">
   <!-- <div hlmButtonGroup class=""> -->
-    @if(data.confirmOnly){
-    <button hlmBtn variant="default">{{ t('Close') }}</button>
-    } @else {
-    <button hlmBtn variant="default" type="submit" (click)="_dialogRef.close(false)">{{ t('No') }}</button>
-    <button hlmBtn variant="default" (click)="_dialogRef.close(true)">{{ t('Yes') }}</button>
-    }
+  @if(data.confirmOnly){
+  <button hlmBtn variant="default" hlmDialogClose>{{ t('Close') }}</button>
+  } @else {
+  <button hlmBtn variant="default" type="submit" (click)="_dialogRef.close(false)">{{ t('No') }}</button>
+  <button hlmBtn variant="default" (click)="_dialogRef.close(true)">{{ t('Yes') }}</button>
+  }
   <!-- </div> -->
 </hlm-dialog-footer>

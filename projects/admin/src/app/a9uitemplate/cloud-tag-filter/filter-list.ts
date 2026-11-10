@@ -65,7 +65,7 @@ export class FilterList<FilterRecord> {
 
   private updateTagCount(tagCloud: FilterTag[], key: string, records: FilterRecord[], selected?: string[] | undefined) {
     const tag = tagCloud.find(tc => tc.key === key);
-    if (!tag) return;
+    if (!tag) return undefined;
     tag.nullCnt = 0;
     for (const val of tag.values) {
       val.filterCnt = 0;
