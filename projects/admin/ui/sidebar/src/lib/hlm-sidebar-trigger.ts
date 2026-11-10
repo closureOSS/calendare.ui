@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
+import { matLeftPanelCloseOutline } from '@ng-icons/material-symbols/outline';
 import { HlmButton, provideBrnButtonConfig } from '@spartan-ng/helm/button';
 import { HlmSidebarService } from './hlm-sidebar.service';
-import { matLeftPanelCloseOutline } from '@ng-icons/material-symbols/outline';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'button[hlmSidebarTrigger]',
+  exportAs: 'hlmSidebarTrigger',
   imports: [NgIcon],
   providers: [
     provideIcons({ matLeftPanelCloseOutline }),

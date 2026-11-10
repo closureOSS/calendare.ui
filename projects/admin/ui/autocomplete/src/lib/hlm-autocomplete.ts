@@ -9,6 +9,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
   selector: '[hlmAutocomplete],hlm-autocomplete',
+  exportAs: 'hlmAutocomplete',
   providers: [
     provideBrnPopoverConfig({
       align: 'start',
@@ -31,7 +32,14 @@ import { classes } from '@spartan-ng/helm/utils';
     },
     {
       directive: BrnPopover,
-      inputs: ['align', 'closeOnOutsidePointerEvents', 'sideOffset', 'state', 'offsetX'],
+      inputs: [
+        'align',
+        'closeOnOutsidePointerEvents',
+        'sideOffset',
+        'state',
+        'offsetX',
+        'scrollStrategy',
+      ],
       outputs: ['stateChanged', 'closed'],
     },
   ],

@@ -33,6 +33,7 @@ export const buttonVariants = cva(
         'icon-sm':
           "size-9 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-md [&_ng-icon:not([class*='text-'])]:text-[--spacing(7)] any-pointer-coarse:size-10",
         'icon-lg': "size-13 [&_ng-icon:not([class*='text-'])]:text-[--spacing(10)]",
+        'icon-xl': "size-16 [&_ng-icon:not([class*='text-'])]:text-[--spacing(13)]",
       },
     },
     defaultVariants: {

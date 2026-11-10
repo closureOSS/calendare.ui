@@ -5,11 +5,13 @@ import {
   MENU_SIDE,
   type MenuAlign,
   type MenuSide,
+  updateMenuPosition,
 } from '@spartan-ng/brain/core';
 import { injectHlmDropdownMenuConfig } from './hlm-dropdown-menu-token';
 
 @Directive({
   selector: '[hlmDropdownMenuTrigger]',
+  exportAs: 'hlmDropdownMenuTrigger',
   providers: [{ provide: MENU_SIDE, useExisting: forwardRef(() => HlmDropdownMenuTrigger) }],
   hostDirectives: [
     {
@@ -40,7 +42,7 @@ export class HlmDropdownMenuTrigger {
       '[data-slot="dropdown-menu"]';
 
     effect(() => {
-      this._cdkTrigger.menuPosition = this._menuPosition();
+      updateMenuPosition(this._cdkTrigger, this._menuPosition());
     });
   }
 }

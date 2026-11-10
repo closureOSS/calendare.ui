@@ -13,6 +13,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
   selector: 'hlm-autocomplete-input',
+  exportAs: 'hlmAutocompleteInput',
   imports: [HlmInputGroupImports, NgIcon, BrnAutocompleteClear, BrnAutocompleteInput],
   providers: [provideIcons({ matSearchOutline, lucideX })],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,7 +25,8 @@ import { classes } from '@spartan-ng/helm/utils';
       hlmInputGroupInput
       [id]="inputId()"
       [placeholder]="placeholder()"
-      [aria-invalid]="ariaInvalidOverride()"
+      [autocomplete]="autocomplete()"
+      [aria-invalid]="ariaInvalidInput()"
       [forceInvalid]="forceInvalid()"
     />
 
@@ -58,6 +60,8 @@ export class HlmAutocompleteInput {
 
   public readonly placeholder = input<string>('');
 
+  public readonly autocomplete = input<string>('off');
+
   public readonly showSearch = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
   public readonly showClear = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
@@ -67,7 +71,7 @@ export class HlmAutocompleteInput {
   });
 
   /** Manual override for aria-invalid. When not set, auto-detects from the parent autocomplete error state. */
-  public readonly ariaInvalidOverride = input<boolean | undefined, BooleanInput>(undefined, {
+  public readonly ariaInvalidInput = input<boolean | undefined, BooleanInput>(undefined, {
     transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
     alias: 'aria-invalid',
   });

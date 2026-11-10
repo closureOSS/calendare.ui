@@ -4,7 +4,10 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
   selector: '[hlmAutocompleteList]',
-  hostDirectives: [{ directive: BrnAutocompleteList, inputs: ['id'] }],
+  exportAs: 'hlmAutocompleteList',
+  hostDirectives: [
+    { directive: BrnAutocompleteList, inputs: ['id', 'aria-label', 'aria-labelledby'] },
+  ],
   host: { 'data-slot': 'autocomplete-list' },
 })
 export class HlmAutocompleteList {

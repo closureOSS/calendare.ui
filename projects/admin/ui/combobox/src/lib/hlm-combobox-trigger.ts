@@ -20,6 +20,7 @@ import type { ClassValue } from 'clsx';
 
 @Component({
   selector: 'hlm-combobox-trigger',
+  exportAs: 'hlmComboboxTrigger',
   imports: [
     NgIcon,
     HlmButton,
@@ -44,7 +45,7 @@ import type { ClassValue } from 'clsx';
       [forceInvalid]="forceInvalid()"
     >
       <ng-content />
-      <ng-icon name="lucideChevronDown" class="text-muted-foreground text-[--spacing(5)]" />
+      <ng-icon name="lucideChevronDown" class="text-muted-foreground text-[length:--spacing(4)]" />
     </button>
   `,
 })

@@ -6,6 +6,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
   selector: 'hlm-autocomplete-item',
+  exportAs: 'hlmAutocompleteItem',
   imports: [NgIcon],
   providers: [provideIcons({ lucideCheck })],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,7 +17,7 @@ import { classes } from '@spartan-ng/helm/utils';
     @if (_active()) {
       <ng-icon
         name="lucideCheck"
-        class="absolute inset-e-2 flex items-center justify-center text-[--spacing(4)]"
+        class="absolute end-2 flex items-center justify-center text-[length:--spacing(4)]"
         aria-hidden="true"
       />
     }
