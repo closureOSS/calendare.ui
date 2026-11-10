@@ -21,7 +21,7 @@ export class AppAuthState {
 
   private oidcEvents = this.eventService.registerForEvents().pipe(
     share(),
-    tap(ev => console.log('OIDC Event %s -> %o', EventTypes[ev.type], ev.value)),
+    // tap(ev => console.log('OIDC Event %s -> %o', EventTypes[ev.type], ev.value)),
     takeUntilDestroyed()
   );
 
@@ -71,12 +71,12 @@ export class AppAuthState {
   public start() {
     this.oidcEvents.subscribe();
     this.oidcAuthCheck.subscribe();
-    this.userDataChanged$.subscribe(userdata => console.log('User information changed to %o', userdata));
+    this.userDataChanged$.subscribe(/*userdata => console.log('User information changed to %o', userdata)*/);
   }
 
   private redirectOnSuccess() {
     const restoredUrl = localStorage.getItem('calendare_redirect_uri');
-    console.log('Redirecting to %s (localStorage=%o)', restoredUrl ?? '/start', restoredUrl);
+    // console.log('Redirecting to %s (localStorage=%o)', restoredUrl ?? '/start', restoredUrl);
     if (restoredUrl) {
       localStorage.removeItem('calendare_redirect_uri');
       return this.router.navigateByUrl(restoredUrl);

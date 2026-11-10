@@ -1,6 +1,7 @@
 <a9-http-resource-viewer [resource]="collections" *transloco="let t"
   class="grid grid-cols-[minmax(0,min(64rem,100%))] gap-6">
-  <a9-hint-box ngProjectAs="status-forbidden" mode="warning" compact>{{ t('No permission to see collections.') }}</a9-hint-box>
+  <a9-hint-box ngProjectAs="status-forbidden" mode="warning" compact>{{ t('No permission to see collections.')
+    }}</a9-hint-box>
   <div ngProjectAs="status-notfound"></div>
   @for (collection of filteredCollections(); track collection.id) {
   <hlm-card [class]="{'default': collection.isDefault}" class="[--card-spacing:--spacing(4)]">
@@ -84,7 +85,7 @@
       </a9-label-value-list>
     </div>
     <hlm-card-footer>
-      <div hlmButtonGroup>
+      <hlm-button-group class="flex-wrap">
         <button hlmBtn [disabled]="!hasPermission(collection.permissions, PrivilegeMask.WriteProperties)"
           [routerLink]="['/collection', 'edit', username()]" [queryParams]="{ uri: collection.uri}" variant="outline">{{
           t('Edit')
@@ -99,7 +100,7 @@
           t('Permissions') }}</button>
         <button hlmBtn [disabled]="!hasPermission(collection.permissions, PrivilegeMask.Unbind)"
           (click)="deleteCollection(collection)" variant="destructive">{{ t('Delete') }}</button>
-      </div>
+      </hlm-button-group>
     </hlm-card-footer>
   </hlm-card>
   }
