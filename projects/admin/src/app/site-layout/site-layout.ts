@@ -5,7 +5,7 @@ import { SiteStickyHeader } from '../a9uitemplate/site-sticky-header/site-sticky
 import { translateSignal } from '@jsverse/transloco';
 
 @Component({
-  selector: 'a9-site-layout',
+  selector: 'cal-site-layout',
   imports: [
     RouterOutlet,
     Sidebar,
