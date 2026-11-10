@@ -10,7 +10,6 @@
     "i18n:extract": "transloco-keys-manager extract --project admin --output projects/admin/public/i18n",
     "i18n:find": "transloco-keys-manager find --project admin --output projects/admin/public/i18n",
     "i18n:optimize": "transloco-optimize dist/admin/browser/i18n",
-    "icon:admin": "MaterialSymbolPacker.exe generate --config ./projects/admin/icon.config.json",
     "watch": "ng build --watch",
     "test": "ng test",
     "lint": "ng lint"
